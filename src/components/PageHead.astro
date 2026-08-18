@@ -1,0 +1,32 @@
+---
+import { Picture } from "astro:assets";
+interface Props {
+  eyebrow: string;
+  title: string;
+  lede?: string;
+  plate?: ImageMetadata;
+  alt?: string;
+  focus?: string;
+}
+const { eyebrow, title, lede, plate, alt = "", focus = "50% 50%" } = Astro.props;
+---
+<header class="relative overflow-hidden bg-void px-5 pb-16 pt-32 sm:px-8 md:pb-24 md:pt-44">
+  {plate && (
+    <div class="absolute inset-0 opacity-40">
+      <Picture src={plate} alt={alt} widths={[900, 1600]} sizes="100vw" formats={["avif","webp"]}
+        style={`object-position:${focus}`}
+        class="h-full w-full object-cover [filter:brightness(0.5)_saturate(0.72)]"
+        loading="eager" decoding="async" />
+      <div class="absolute inset-0 bg-gradient-to-t from-void via-void/70 to-void/40"></div>
+    </div>
+  )}
+  <div class="relative mx-auto max-w-6xl">
+    <p class="label mb-6" data-reveal>{eyebrow}</p>
+    <h1 class="font-display max-w-[18ch] text-chalk tracking-[-0.02em]
+               text-[clamp(2.2rem,7vw,5.2rem)] leading-[0.98]" data-reveal>{title}</h1>
+    {lede && (
+      <p class="mt-8 max-w-[52ch] text-[0.98rem] leading-relaxed text-mist md:text-lg"
+         data-reveal style="--reveal-delay:100ms">{lede}</p>
+    )}
+  </div>
+</header>

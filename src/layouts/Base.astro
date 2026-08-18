@@ -1,18 +1,95 @@
 ---
 import "../styles/global.css";
-const { title = "Andrei Sirbu", description = "" } = Astro.props;
+import SEO from "../components/SEO.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  business?: boolean;
+}
+const { title, description, image, business } = Astro.props;
+
+// Inline SVG grain, base64'd into a CSS var — no extra request for a
+// texture that sits over every pixel of the site.
+const grain = `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="180" height="180" filter="url(#n)" opacity="0.55"/></svg>`;
+const grainUrl = `url("data:image/svg+xml;base64,${Buffer.from(grain).toString("base64")}")`;
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" style={`--grain-src:${grainUrl}`}>
   <head>
     <meta charset="utf-8" />
-    <!-- zoom deliberately left enabled: the current site disables it (WCAG 1.4.4) -->
+    <!-- Zoom deliberately enabled. The previous site disabled it (WCAG 1.4.4). -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <meta name="theme-color" content="#050605" />
     <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <SEO title={title} description={description} image={image} business={business} />
+    <script is:inline>
+      // Set before paint so reveal styles only apply when JS can undo them.
+      document.documentElement.classList.add("js");
+    </script>
   </head>
-  <body class="font-body">
-    <slot />
+
+  <body class="grain">
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      import { initMotion, destroyMotion, gsap, prefersReducedMotion } from "../lib/motion";
+
+      const veilNav = () => {
+        const nav = document.querySelector<HTMLElement>("[data-nav]");
+        const bar = document.querySelector<HTMLElement>("[data-mobilebar]");
+        if (!nav) return;
+        const io = new IntersectionObserver(
+          ([e]) => {
+            const past = !(e?.isIntersecting ?? true);
+            nav.dataset.veiled = String(past);
+            if (bar) bar.dataset.shown = String(past);
+          },
+          { rootMargin: "-72px 0px 0px 0px" },
+        );
+        const sentinel = document.createElement("div");
+        sentinel.setAttribute("aria-hidden", "true");
+        sentinel.style.cssText = "position:absolute;top:0;height:1px;width:1px";
+        document.body.prepend(sentinel);
+        io.observe(sentinel);
+      };
+
+      // Magnetic CTA — pointer only, and never for touch or reduced motion.
+      const magnetise = () => {
+        if (prefersReducedMotion()) return;
+        if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+        document.querySelectorAll<HTMLElement>("[data-magnetic]").forEach((el) => {
+          const move = (e: PointerEvent) => {
+            const r = el.getBoundingClientRect();
+            gsap.to(el, {
+              x: (e.clientX - (r.left + r.width / 2)) * 0.28,
+              y: (e.clientY - (r.top + r.height / 2)) * 0.34,
+              duration: 0.7,
+              ease: "power3.out",
+            });
+          };
+          const reset = () => gsap.to(el, { x: 0, y: 0, duration: 0.9, ease: "elastic.out(1,0.5)" });
+          el.addEventListener("pointermove", move);
+          el.addEventListener("pointerleave", reset);
+        });
+      };
+
+      const boot = () => {
+        initMotion();
+        veilNav();
+        magnetise();
+      };
+
+      boot();
+      document.addEventListener("astro:after-swap", boot);
+      document.addEventListener("astro:before-swap", destroyMotion);
+    </script>
   </body>
 </html>

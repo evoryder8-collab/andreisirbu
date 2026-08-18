@@ -1,0 +1,73 @@
+---
+import { href } from "../lib/url";
+const path = Astro.url.pathname.replace(/\/$/, "");
+const links = [
+  { label: "Method", to: "/la-terapia-method" },
+  { label: "Sessions", to: "/sessions" },
+  { label: "Studio", to: "/studio" },
+  { label: "Evidence", to: "/evidence" },
+  { label: "Andrei", to: "/about" },
+];
+const isCurrent = (to: string) => path === href(to).replace(/\/$/, "");
+---
+<a class="sr-only focus:not-sr-only focus:fixed focus:z-[80] focus:top-4 focus:left-4
+          focus:bg-bone focus:text-void focus:px-4 focus:py-2 focus:text-sm"
+   href="#main">Skip to content</a>
+
+<header
+  data-nav
+  class="fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter] duration-500
+         data-[veiled=true]:bg-void/70 data-[veiled=true]:backdrop-blur-xl"
+>
+  <nav aria-label="Primary" class="flex items-center justify-between gap-6 px-5 py-4 sm:px-8 sm:py-5">
+    <a href={href("/")} class="group flex items-baseline gap-2.5 shrink-0">
+      <span class="font-display text-lg leading-none tracking-tight text-chalk sm:text-xl">
+        Andrei Sirbu
+      </span>
+      <span class="label hidden sm:inline">Zürich</span>
+    </a>
+
+    <ul class="hidden items-center gap-7 md:flex">
+      {links.map((l) => (
+        <li>
+          <a
+            href={href(l.to)}
+            aria-current={isCurrent(l.to) ? "page" : undefined}
+            class="label !text-[0.66rem] transition-colors duration-300 hover:!text-chalk
+                   aria-[current=page]:!text-bronze"
+          >{l.label}</a>
+        </li>
+      ))}
+    </ul>
+
+    <a
+      href={href("/apply")}
+      data-magnetic
+      class="sheen bevel group relative shrink-0 rounded-full bg-stone/60 px-5 py-2.5
+             text-[0.66rem] font-medium uppercase tracking-[0.2em] text-chalk
+             transition-colors duration-500 hover:bg-ash/80 sm:px-6"
+    >Reserve</a>
+  </nav>
+</header>
+
+<!-- Mobile chapter navigation lives at the thumb, not behind a hamburger. -->
+<nav
+  aria-label="Sections"
+  data-mobilebar
+  class="fixed inset-x-0 bottom-0 z-50 md:hidden translate-y-full transition-transform
+         duration-500 data-[shown=true]:translate-y-0"
+>
+  <div class="mx-3 mb-3 flex items-center gap-1 overflow-x-auto rounded-full border
+              border-ash/80 bg-void/85 px-1.5 py-1.5 backdrop-blur-xl
+              [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    {links.map((l) => (
+      <a href={href(l.to)}
+         aria-current={isCurrent(l.to) ? "page" : undefined}
+         class="label shrink-0 whitespace-nowrap rounded-full px-3.5 py-2
+                aria-[current=page]:bg-ash/70 aria-[current=page]:!text-chalk">{l.label}</a>
+    ))}
+    <a href={href("/apply")}
+       class="ml-auto shrink-0 whitespace-nowrap rounded-full bg-bronze px-4 py-2
+              text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-void">Reserve</a>
+  </div>
+</nav>

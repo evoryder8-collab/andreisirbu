@@ -1,0 +1,88 @@
+---
+import { getImage } from "astro:assets";
+import { gorgeWide, gorgePortrait } from "../lib/media";
+import { href } from "../lib/url";
+
+// True art direction: desktop gets the wide gorge, mobile gets the portrait
+// frame. Not one composition cropped two ways.
+const wide = await getImage({
+  src: gorgeWide, widths: [1280, 1920, 2600], formats: ["avif"],
+  sizes: "100vw",
+});
+const wideFallback = await getImage({ src: gorgeWide, widths: [1280, 1920], formats: ["webp"], sizes: "100vw" });
+const tall = await getImage({
+  src: gorgePortrait, widths: [640, 900, 1200], formats: ["avif"],
+  sizes: "100vw",
+});
+const tallFallback = await getImage({ src: gorgePortrait, widths: [640, 900], formats: ["webp"], sizes: "100vw" });
+---
+<section data-hero class="relative h-[100svh] w-full overflow-hidden bg-void">
+  <!-- Plate. Clipped to a widening band on first scroll. -->
+  <div data-hero-clip class="absolute inset-0 will-change-[clip-path]">
+    <picture>
+      <source media="(min-width:768px)" type="image/avif" srcset={wide.srcSet.attribute} sizes="100vw" />
+      <source media="(min-width:768px)" type="image/webp" srcset={wideFallback.srcSet.attribute} sizes="100vw" />
+      <source type="image/avif" srcset={tall.srcSet.attribute} sizes="100vw" />
+      <source type="image/webp" srcset={tallFallback.srcSet.attribute} sizes="100vw" />
+      <img
+        data-hero-img
+        src={tallFallback.src}
+        alt="A figure seated at the edge of an alpine gorge, mist rising from the falls behind."
+        width="2600" height="1733" fetchpriority="high" decoding="async"
+        class="h-full w-full object-cover object-[52%_38%] md:object-[50%_45%]
+               [filter:contrast(1.06)_saturate(0.82)_brightness(0.78)] will-change-transform"
+      />
+    </picture>
+
+    <!-- Depth: two graded veils rather than a flat scrim, so the plate keeps
+         its shadow detail while type stays legible. -->
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-t
+                from-void via-void/45 to-void/25 md:via-void/30 md:to-transparent"></div>
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_78%,transparent_18%,rgba(5,6,5,0.82)_82%)]"></div>
+    <!-- Headline sits left over pale mist; this holds its contrast without
+         darkening the whole plate. -->
+    <div class="pointer-events-none absolute inset-0 hidden md:block
+                bg-[linear-gradient(100deg,rgba(5,6,5,0.78)_0%,rgba(5,6,5,0.35)_42%,transparent_68%)]"></div>
+  </div>
+
+  <!-- The light-line: a single bronze seam that opens as the plate collapses. -->
+  <div data-hero-seam
+       class="pointer-events-none absolute inset-x-0 top-1/2 z-10 h-px origin-center scale-x-0
+              bg-gradient-to-r from-transparent via-bronze to-transparent opacity-0"></div>
+
+  <div class="relative z-20 flex h-full flex-col justify-end px-5 pb-24 sm:px-8 md:pb-28">
+    <div data-hero-copy class="mx-auto w-full max-w-6xl">
+      <p class="label mb-5 md:mb-7">Private practice · Zürich · Since 2008</p>
+
+      <h1 class="font-display tracking-[-0.02em] text-chalk
+                 text-[clamp(2.6rem,11vw,8.5rem)] leading-[0.92] md:leading-[0.86]">
+        <span data-hero-line class="block">Emotional release</span>
+        <span data-hero-line class="block italic text-bone/85">&amp; nervous</span>
+        <span data-hero-line class="block">system reset</span>
+      </h1>
+
+      <div class="mt-8 flex flex-col gap-6 md:mt-12 md:flex-row md:items-end md:justify-between">
+        <p class="max-w-[38ch] text-[0.95rem] leading-relaxed text-mist md:text-base">
+          Eighteen years of practice. Each session guided in real time,
+          responding to your body rather than following a fixed routine.
+        </p>
+
+        <a
+          href={href("/apply")}
+          data-magnetic
+          class="sheen bevel group inline-flex w-fit items-center gap-3 rounded-full
+                 bg-stone/70 px-7 py-4 text-[0.68rem] font-medium uppercase
+                 tracking-[0.22em] text-chalk backdrop-blur-md transition-colors
+                 duration-500 hover:bg-ash"
+        >
+          Reserve a session
+          <span class="transition-transform duration-500 group-hover:translate-x-1">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="pointer-events-none absolute inset-x-0 bottom-6 z-20 flex justify-center">
+    <span class="label !text-[0.55rem] opacity-60">Scroll</span>
+  </div>
+</section>

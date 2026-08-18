@@ -1,0 +1,61 @@
+---
+import Base from "../layouts/Base.astro";
+import MethodScene from "../components/MethodScene.astro";
+import PageHead from "../components/PageHead.astro";
+import { getSession, bookingUrl, formatPrice } from "../data/catalogue";
+import { gorgePortrait } from "../lib/media";
+const s = getSession("la-terapia")!;
+const principles = [
+  { k: "Real time", t: "Nothing is pre-planned. The session is built from what the body is doing while it is happening." },
+  { k: "Structure", t: "Eighteen years of clinical technique underneath. The intuition has somewhere to stand." },
+  { k: "Depth", t: "Work aimed beneath the surface layer, where patterns are actually held." },
+  { k: "Restraint", t: "Less input, held longer. Force is the opposite of what this work does." },
+];
+---
+<Base title="La Terapia Method — Andrei Sirbu"
+      description="The proprietary method behind the practice: therapeutic structure held together with real-time intuitive guidance.">
+  <PageHead eyebrow="Proprietary method" title="La Terapia Method"
+    lede="A deeper form of work, designed for those ready to go beyond surface-level relaxation."
+    plate={gorgePortrait} alt="Figure seated at the edge of a gorge pool." focus="50% 35%" />
+
+  <MethodScene />
+
+  <section class="bg-basalt px-5 py-28 sm:px-8 md:py-40">
+    <div class="mx-auto max-w-6xl">
+      <ol class="grid gap-px bg-ash/40 md:grid-cols-2">
+        {principles.map((p, i) => (
+          <li class="bg-basalt p-8 md:p-12" data-reveal style={`--reveal-delay:${i * 80}ms`}>
+            <span class="label">{String(i + 1).padStart(2, "0")}</span>
+            <h2 class="font-display mt-5 text-3xl text-chalk md:text-4xl">{p.k}</h2>
+            <p class="mt-4 text-[0.95rem] leading-relaxed text-mist">{p.t}</p>
+          </li>
+        ))}
+      </ol>
+
+      <div class="mt-20 flex flex-wrap items-center justify-between gap-8 border-t border-ash/60 pt-12" data-reveal>
+        <div>
+          <p class="label mb-3">{s.duration} · {s.modality}</p>
+          <p class="font-display text-3xl text-chalk">{s.currency} {formatPrice(s.price)}</p>
+        </div>
+        <a href={bookingUrl(s.slug)} data-magnetic
+           class="sheen bevel inline-flex items-center gap-3 rounded-full bg-bronze px-8 py-4
+                  text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-void">
+          Reserve the method →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import { createRefraction } from "../lib/webgl/refraction";
+    const boot = () => {
+      const canvas = document.querySelector<HTMLCanvasElement>("[data-refraction]");
+      const poster = document.querySelector<HTMLImageElement>('[data-scene="method"] img');
+      if (!canvas || !poster) return;
+      const start = () => createRefraction(canvas, poster.currentSrc || poster.src);
+      poster.complete ? start() : poster.addEventListener("load", start, { once: true });
+    };
+    boot();
+    document.addEventListener("astro:after-swap", boot);
+  </script>
+</Base>

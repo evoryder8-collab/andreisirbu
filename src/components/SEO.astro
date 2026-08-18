@@ -1,0 +1,57 @@
+---
+import { SESSIONS, bookingUrl } from "../data/catalogue";
+
+interface Props {
+  title: string;
+  description: string;
+  /** Page-specific OG image path; falls back to the site plate. */
+  image?: string;
+  /** Emit LocalBusiness + offer catalogue. Home only. */
+  business?: boolean;
+}
+
+const { title, description, image, business = false } = Astro.props;
+
+const site = Astro.site ?? new URL("https://andreisirbu.com");
+const canonical = new URL(Astro.url.pathname, site).toString();
+const ogImage = new URL(image ?? `${import.meta.env.BASE_URL}og.jpg`, site).toString();
+
+const schema = business
+  ? {
+      "@context": "https://schema.org",
+      "@type": "HealthAndBeautyBusiness",
+      name: "Andrei Sirbu",
+      description,
+      url: canonical,
+      image: ogImage,
+      priceRange: "CHF 145–1250",
+      address: { "@type": "PostalAddress", addressLocality: "Zürich", addressCountry: "CH" },
+      makesOffer: SESSIONS.filter((s) => !s.aside).map((s) => ({
+        "@type": "Offer",
+        name: s.storeName,
+        price: s.price,
+        priceCurrency: s.currency,
+        url: bookingUrl(s.slug),
+        availability: "https://schema.org/InStock",
+      })),
+    }
+  : null;
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:site_name" content="Andrei Sirbu" />
+<meta property="og:locale" content="en_US" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+{schema && <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />}

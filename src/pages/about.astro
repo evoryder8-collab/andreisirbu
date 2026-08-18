@@ -1,0 +1,58 @@
+---
+import { Picture } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import { portrait } from "../lib/media";
+import { href } from "../lib/url";
+---
+<Base title="Andrei Sirbu — Practitioner, Zürich"
+      description="Eighteen years of somatic and therapeutic practice, held in a single private room in Zürich.">
+  <article class="bg-void">
+    <div class="mx-auto grid max-w-6xl gap-12 px-5 pb-24 pt-32 sm:px-8 md:grid-cols-12 md:gap-16 md:pb-36 md:pt-44">
+      <div class="md:col-span-5" data-reveal>
+        <div class="relative aspect-4/5 overflow-hidden rounded-[3px] bg-stone">
+          <Picture src={portrait} alt="Andrei Sirbu, portrait."
+            widths={[500, 900]} sizes="(min-width:768px) 40vw, 88vw" formats={["avif","webp"]}
+            class="h-full w-full object-cover object-[50%_28%]
+                   [filter:grayscale(0.35)_contrast(1.1)_brightness(0.82)]"
+            loading="eager" decoding="async" />
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-void/70 to-transparent"></div>
+        </div>
+      </div>
+
+      <div class="flex flex-col justify-center md:col-span-7">
+        <p class="label mb-6" data-reveal>The practitioner</p>
+        <h1 class="font-display text-chalk tracking-[-0.02em]
+                   text-[clamp(2.2rem,6vw,4.6rem)] leading-[1]" data-reveal>Andrei Sirbu</h1>
+
+        <div class="mt-8 space-y-6 text-[0.98rem] leading-relaxed text-mist md:text-base" data-reveal>
+          <p class="text-lg text-bone/85 md:text-xl">
+            Eighteen years of dedicated practice, combining therapeutic
+            structure with intuitive awareness.
+          </p>
+          <p>
+            The work is held in one private room in Zürich, one person at a
+            time. There is no team, no rotation of practitioners and no
+            standard protocol — each session is guided in real time, responding
+            to the body present rather than to a fixed routine.
+          </p>
+          <p>
+            Alongside private practice, the method is taught directly to
+            working practitioners through the Holistic Massage Masterclass.
+          </p>
+        </div>
+
+        <div class="mt-10 flex flex-wrap gap-4" data-reveal>
+          <a href={href("/apply")} data-magnetic
+             class="sheen bevel inline-flex items-center gap-3 rounded-full bg-stone/70 px-7 py-4
+                    text-[0.66rem] font-medium uppercase tracking-[0.22em] text-chalk">
+            Reserve a session →
+          </a>
+          <a href={href("/la-terapia-method")}
+             class="label self-center border-b border-ash pb-1 transition-colors duration-500 hover:!text-chalk">
+            The method
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+</Base>

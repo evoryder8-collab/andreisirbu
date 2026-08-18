@@ -1,0 +1,42 @@
+---
+import { Picture } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import PageHead from "../components/PageHead.astro";
+import { room, candle } from "../lib/media";
+import { href } from "../lib/url";
+---
+<Base title="The Studio — Zürich | Andrei Sirbu"
+      description="A private treatment room in Zürich. Unshared, prepared for one person at a time.">
+  <PageHead eyebrow="Zürich" title="One room, one person at a time."
+    lede="No reception, no queue, no adjoining treatment rooms. The space is prepared before you arrive and returned to stillness after you leave."
+    plate={room} alt="The treatment room in low light." focus="58% 45%" />
+
+  <section class="bg-void px-5 pb-28 sm:px-8 md:pb-40">
+    <div class="mx-auto grid max-w-6xl gap-10 md:grid-cols-12">
+      <div class="md:col-span-7" data-reveal>
+        <div class="relative aspect-4/3 overflow-hidden rounded-[3px]">
+          <Picture src={candle} alt="Candlelight across warmed oil and folded linen."
+            widths={[700, 1200]} sizes="(min-width:768px) 58vw, 90vw" formats={["avif","webp"]}
+            class="h-full w-full object-cover [filter:brightness(0.72)]" loading="lazy" decoding="async" />
+        </div>
+      </div>
+      <div class="flex flex-col justify-center gap-7 md:col-span-5" data-reveal>
+        <div>
+          <p class="label mb-3">Arrival</p>
+          <p class="text-[0.95rem] leading-relaxed text-mist">
+            Address and access details are sent on confirmation. Sessions begin
+            at the time booked — there is no waiting room, because there is no
+            one else in the space.
+          </p>
+        </div>
+        <div>
+          <p class="label mb-3">Hours</p>
+          <p class="text-[0.95rem] leading-relaxed text-mist">Open daily, by appointment only.</p>
+        </div>
+        <a href={href("/apply")}
+           class="label !text-bronze border-b border-bronze/40 pb-1 w-fit
+                  transition-colors duration-500 hover:!text-chalk">Reserve a session →</a>
+      </div>
+    </div>
+  </section>
+</Base>

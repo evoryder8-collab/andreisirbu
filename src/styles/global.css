@@ -1,39 +1,150 @@
 @import "tailwindcss";
 
-/* Brand tokens — candlelight on near-black, taken from the practice's own
-   photography rather than a generic dark theme. */
+@import "@fontsource-variable/bodoni-moda";
+@import "@fontsource-variable/archivo";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+
+/* ─────────────────────────────────────────────────────────────
+   Material palette. Drawn from the gorge photography that forms
+   the site's visual spine: wet basalt, mist, mineral water, and
+   the warm bronze of candlelight against skin.
+   ───────────────────────────────────────────────────────────── */
 @theme {
-  --color-ground: #0B0A08;
-  --color-surface: #131110;
-  --color-raise: #1A1715;
-  --color-ink: #EDE7DE;
-  --color-muted: #9A9186;
-  --color-faint: #6B635A;
-  --color-line: #262220;
-  --color-gleam: #C79055;
-  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+  --color-void:    #050605;
+  --color-basalt:  #0C0D0C;
+  --color-stone:   #161817;
+  --color-ash:     #232624;
+  --color-slate:   #363A38;
+  --color-mist:    #8E948F;
+  --color-bone:    #E7E3DA;
+  --color-chalk:   #F5F2EC;
+  --color-bronze:  #C08343;
+  --color-ember:   #8B4E24;
+  --color-water:   #6B7E79;
+
+  --font-display: "Bodoni Moda Variable", "Didot", "Bodoni MT", Georgia, serif;
+  --font-body: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --ease-material: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-veil: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-html { -webkit-font-smoothing: antialiased; }
-body { background: var(--color-ground); color: var(--color-ink); }
+@layer base {
+  html {
+    background: var(--color-void);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  /* Lenis drives scrolling; native smooth-scroll would fight it. */
+  html.lenis { scroll-behavior: auto !important; }
+  html.lenis body { min-height: 100%; }
 
-/* The panel gleam: a masked sheen that sweeps once on hover.
-   Reused by the service cards in phase 04. */
-.gleam { position: relative; overflow: hidden; }
-.gleam::after {
-  content: "";
-  position: absolute; inset: 0;
-  background: linear-gradient(115deg, transparent 35%,
-    color-mix(in srgb, var(--color-gleam) 22%, transparent) 50%, transparent 65%);
-  transform: translateX(-100%);
-  transition: transform 700ms cubic-bezier(.22,.61,.36,1);
-  pointer-events: none;
+  body {
+    background: var(--color-void);
+    color: var(--color-bone);
+    font-family: var(--font-body);
+    font-weight: 380;
+    overflow-x: clip;
+  }
+
+  ::selection { background: var(--color-bronze); color: var(--color-void); }
+
+  :focus-visible {
+    outline: 1px solid var(--color-bronze);
+    outline-offset: 3px;
+  }
+
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 500; text-wrap: balance; }
 }
-.gleam:hover::after { transform: translateX(100%); }
+
+@layer components {
+  /* Micro-label: the site's connective tissue. Used for chapter
+     numbers, durations, modality — never for reading text. */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-mist);
+  }
+
+  /* Film grain. One fixed layer over the whole document, so the
+     entire site shares a single emulsion rather than per-section noise. */
+  .grain::before {
+    content: "";
+    position: fixed;
+    inset: -50%;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.16;
+    background-image: var(--grain-src);
+    background-size: 180px 180px;
+    animation: grain-shift 6s steps(6) infinite;
+  }
+  @keyframes grain-shift {
+    0%   { transform: translate(0, 0); }
+    20%  { transform: translate(-2%, 3%); }
+    40%  { transform: translate(3%, -2%); }
+    60%  { transform: translate(-3%, -3%); }
+    80%  { transform: translate(2%, 2%); }
+    100% { transform: translate(0, 0); }
+  }
+
+  /* Sheen: one diagonal pass of reflected light. Cards, CTAs. */
+  .sheen { position: relative; overflow: hidden; isolation: isolate; }
+  .sheen::after {
+    content: "";
+    position: absolute; inset: -1px;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+      108deg,
+      transparent 38%,
+      color-mix(in srgb, var(--color-bronze) 26%, transparent) 49%,
+      color-mix(in srgb, var(--color-chalk) 14%, transparent) 52%,
+      transparent 63%
+    );
+    transform: translateX(-120%);
+    transition: transform 900ms var(--ease-material);
+  }
+  .sheen:hover::after,
+  .sheen:focus-visible::after { transform: translateX(120%); }
+
+  /* Hairline that catches light at the top edge, like a bevelled
+     panel rather than a flat border. */
+  .bevel {
+    border: 1px solid var(--color-ash);
+    background-image: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-bone) 8%, transparent) 0%,
+      transparent 22%
+    );
+  }
+}
+
+/* Motion primitives — the JS sets data-state; CSS owns the look, so
+   content is fully visible if JS never runs. */
+[data-reveal] { opacity: 1; }
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 1.6rem));
+  transition:
+    opacity 1100ms var(--ease-material),
+    transform 1100ms var(--ease-material);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+html.js [data-reveal][data-state="in"] { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .gleam::after { transition: none; }
-  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  html.js [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .grain::before { animation: none; }
+  .sheen::after { transition: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

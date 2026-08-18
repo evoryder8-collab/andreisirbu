@@ -1,0 +1,83 @@
+---
+import { Picture } from "astro:assets";
+import type { Session } from "../data/catalogue";
+import { bookingUrl, formatPrice } from "../data/catalogue";
+import { plateFor } from "../lib/media";
+import { href } from "../lib/url";
+
+interface Props { session: Session; index?: number; }
+const { session, index = 0 } = Astro.props;
+const plate = plateFor(session.slug);
+---
+<article
+  data-tilt
+  data-reveal
+  style={`--reveal-delay:${index * 70}ms`}
+  class="group relative"
+>
+  <a
+    href={href(`/sessions/${session.slug}`)}
+    class="sheen bevel relative block overflow-hidden rounded-[3px] bg-stone/70
+           transition-colors duration-700 hover:bg-ash/60"
+    aria-labelledby={`s-${session.slug}`}
+  >
+    <!-- 4:5 for every card, without exception. The old site's mismatched
+         crops were its loudest cheapness signal. -->
+    <div class="relative aspect-4/5 overflow-hidden bg-basalt">
+      <Picture
+        src={plate.src}
+        alt={plate.alt}
+        widths={[400, 640, 900]}
+        sizes="(min-width:1024px) 30vw, (min-width:640px) 45vw, 88vw"
+        formats={["avif", "webp"]}
+        style={`object-position:${plate.focus}`}
+        class="h-full w-full object-cover opacity-80 transition-[transform,opacity,filter]
+               duration-[1200ms] ease-[var(--ease-material)]
+               group-hover:scale-[1.06] group-hover:opacity-100
+               [filter:grayscale(0.25)_contrast(1.05)] group-hover:[filter:grayscale(0)_contrast(1.08)]"
+        loading={index < 3 ? "eager" : "lazy"}
+        decoding="async"
+      />
+      <div class="pointer-events-none absolute inset-0
+                  bg-gradient-to-t from-void via-void/25 to-transparent"></div>
+
+      {session.signature && (
+        <span class="label absolute left-4 top-4 rounded-full border border-bronze/45
+                     bg-void/60 px-3 py-1.5 !text-[0.55rem] !text-bronze backdrop-blur-md">
+          Signature
+        </span>
+      )}
+    </div>
+
+    <div class="flex flex-col gap-3 p-5 sm:p-6">
+      <div class="flex items-baseline justify-between gap-3">
+        <span class="label">{session.duration}</span>
+        <span class="label !tracking-[0.16em]">{session.modality}</span>
+      </div>
+
+      <h3 id={`s-${session.slug}`}
+          class="font-display text-2xl leading-[1.1] tracking-tight text-chalk sm:text-[1.65rem]">
+        {session.name}
+      </h3>
+
+      <p class="text-[0.9rem] leading-relaxed text-mist">{session.description}</p>
+
+      <div class="mt-2 flex items-center justify-between gap-4 border-t border-ash/70 pt-4">
+        <span class="font-mono text-sm tabular-nums text-bone/90">
+          {session.currency} {formatPrice(session.price)}
+        </span>
+        <span class="label !text-[0.6rem] !text-bronze transition-transform duration-500
+                     group-hover:translate-x-1">
+          Reserve →
+        </span>
+      </div>
+    </div>
+  </a>
+
+  <!-- Direct booking handoff, so the card is one click from the real flow. -->
+  <a
+    href={bookingUrl(session.slug)}
+    class="label absolute inset-x-5 bottom-5 z-10 h-0 overflow-hidden opacity-0
+           focus-visible:h-auto focus-visible:opacity-100 sm:inset-x-6 sm:bottom-6"
+  >Book {session.name} directly</a>
+</article>

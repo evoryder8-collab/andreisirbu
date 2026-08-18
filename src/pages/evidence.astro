@@ -1,0 +1,41 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHead from "../components/PageHead.astro";
+import { href } from "../lib/url";
+const quotes = [
+  { q: "I have never experienced anything close to this. I left feeling like my body had been given back to me.", a: "Private client · Zürich" },
+  { q: "Precise, unhurried and completely present. He works with a level of attention I did not know was possible.", a: "Returning client" },
+  { q: "I booked for my back. What actually shifted was something I had been carrying for years.", a: "First session" },
+  { q: "The only practitioner I have kept going back to in a decade.", a: "Long-standing client" },
+];
+---
+<Base title="Evidence — Andrei Sirbu"
+      description="What clients report after sessions, and the record behind the practice.">
+  <PageHead eyebrow="Evidence" title="The record."
+    lede="Eighteen years of practice and more than nine hundred sessions delivered through the practice store." />
+
+  <section class="bg-void px-5 pb-28 sm:px-8 md:pb-40">
+    <div class="mx-auto max-w-6xl">
+      <dl class="grid grid-cols-2 gap-8 border-y border-ash/60 py-12 md:grid-cols-4" data-reveal>
+        <div><dt class="label mb-3">Practising</dt><dd class="font-display text-4xl text-chalk">18<span class="text-mist text-xl align-super">yr</span></dd></div>
+        <div><dt class="label mb-3">Sessions</dt><dd class="font-display text-4xl text-chalk">900<span class="text-mist text-xl align-super">+</span></dd></div>
+        <div><dt class="label mb-3">Rating</dt><dd class="font-display text-4xl text-chalk">4.9</dd></div>
+        <div><dt class="label mb-3">City</dt><dd class="font-display text-4xl text-chalk">Zürich</dd></div>
+      </dl>
+
+      {quotes.map((c, i) => (
+        <figure class="border-b border-ash/60 py-12 md:py-16" data-reveal style={`--reveal-delay:${i * 80}ms`}>
+          <blockquote class="font-display text-[clamp(1.4rem,3.6vw,2.6rem)] leading-[1.14] tracking-[-0.015em] text-chalk">
+            “{c.q}”
+          </blockquote>
+          <figcaption class="label mt-6">{c.a}</figcaption>
+        </figure>
+      ))}
+
+      <p class="label mt-12 !normal-case !tracking-normal !text-[0.75rem] leading-relaxed max-w-[52ch]">
+        Reviews are collected through the practice store at the point of purchase.
+      </p>
+      <a href={href("/apply")} class="label mt-8 inline-block !text-bronze border-b border-bronze/40 pb-1">Reserve a session →</a>
+    </div>
+  </section>
+</Base>
