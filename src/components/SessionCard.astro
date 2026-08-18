@@ -18,13 +18,13 @@ const plate = plateFor(session.slug);
   <a
     href={href(`/sessions/${session.slug}`)}
     data-card-body
-    class="relative block overflow-hidden rounded-[4px] bg-stone/60
+    class="relative block overflow-hidden rounded-[16px] bg-stone/60
            [transform-style:preserve-3d] will-change-transform"
     aria-labelledby={`s-${session.slug}`}
   >
     <!-- Edge: a bevelled rim that catches light along the top, so the panel
          reads as a solid object rather than a bordered rectangle. -->
-    <span class="pointer-events-none absolute inset-0 z-30 rounded-[4px]
+    <span class="pointer-events-none absolute inset-0 z-30 rounded-[16px]
                  [box-shadow:inset_0_1px_0_0_rgba(232,227,218,0.14),inset_0_0_0_1px_rgba(35,38,36,0.9)]"></span>
 
     <!-- Specular highlight, tracking the cursor across the panel face. -->
@@ -91,7 +91,8 @@ const plate = plateFor(session.slug);
 
       <div class="mt-2 flex items-center justify-between gap-4 border-t border-ash/70 pt-4">
         <span class="font-mono text-sm tabular-nums text-bone/90">
-          {session.currency} {formatPrice(session.price)}
+          {session.currency}
+          <span data-count={String(session.price)} data-count-group="true">{formatPrice(session.price)}</span>
         </span>
         <span class="label !text-[0.6rem] !text-bronze transition-transform duration-500
                      group-hover:translate-x-1">Reserve →</span>

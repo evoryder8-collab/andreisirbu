@@ -146,18 +146,25 @@ export function createRefraction(
     canvas.dataset.ready = "true";
   };
 
+  // Measure the PARENT, never the canvas. renderer.setSize() writes inline
+  // width/height onto the canvas, which beats the CSS sizing classes; once the
+  // canvas shrank, observing it fed its own shrunken size back in and it could
+  // never recover, leaving a small plate stranded in the corner.
+  const host = (canvas.parentElement ?? canvas) as HTMLElement;
+
   const resize = () => {
-    const r = canvas.getBoundingClientRect();
+    const r = host.getBoundingClientRect();
+    if (!r.width || !r.height) return;
     renderer.setSize(r.width, r.height);
-    program.uniforms.uResolution.value = [
-      r.width * renderer.dpr,
-      r.height * renderer.dpr,
-    ];
+    // Re-assert layout ownership after OGL's inline write.
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    program.uniforms.uResolution.value = [r.width * renderer.dpr, r.height * renderer.dpr];
   };
   resize();
 
   const ro = new ResizeObserver(resize);
-  ro.observe(canvas);
+  ro.observe(host);
 
   // Only render while the scene is on screen.
   let visible = false;
@@ -170,8 +177,14 @@ export function createRefraction(
   io.observe(canvas);
 
   // Driven by the shared GSAP ticker, no second RAF loop.
+  let lastW = 0, lastH = 0;
   const tick = (time: number) => {
     if (!visible) return;
+    const r = host.getBoundingClientRect();
+    if (Math.abs(r.width - lastW) > 1 || Math.abs(r.height - lastH) > 1) {
+      lastW = r.width; lastH = r.height;
+      resize();
+    }
     program.uniforms.uTime.value = time;
     renderer.render({ scene: mesh });
   };

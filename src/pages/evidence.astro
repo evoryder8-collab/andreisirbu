@@ -17,8 +17,8 @@ const quotes = [
   <section class="bg-void px-5 pb-28 sm:px-8 md:pb-40">
     <div class="mx-auto max-w-6xl">
       <dl class="grid grid-cols-2 gap-8 border-y border-ash/60 py-12 md:grid-cols-4" data-reveal>
-        <div><dt class="label mb-3">Practising</dt><dd class="font-display text-4xl text-chalk">18<span class="text-mist text-xl align-super">yr</span></dd></div>
-        <div><dt class="label mb-3">Sessions</dt><dd class="font-display text-4xl text-chalk">900<span class="text-mist text-xl align-super">+</span></dd></div>
+        <div><dt class="label mb-3">Practising</dt><dd class="font-display text-4xl text-chalk tabular-nums"><span data-count="18">18</span><span class="text-mist text-xl align-super">yr</span></dd></div>
+        <div><dt class="label mb-3">Sessions</dt><dd class="font-display text-4xl text-chalk tabular-nums"><span data-count="900">900</span><span class="text-mist text-xl align-super">+</span></dd></div>
         <div><dt class="label mb-3">Rating</dt><dd class="font-display text-4xl text-chalk">4.9</dd></div>
         <div><dt class="label mb-3">City</dt><dd class="font-display text-4xl text-chalk">Zürich</dd></div>
       </dl>
@@ -38,4 +38,10 @@ const quotes = [
       <a href={href("/apply")} class="label mt-8 inline-block !text-bronze border-b border-bronze/40 pb-1">Reserve a session →</a>
     </div>
   </section>
+  <script>
+    import { initNumbers } from "../lib/numbers";
+    const boot = () => initNumbers();
+    boot();
+    document.addEventListener("astro:after-swap", boot);
+  </script>
 </Base>

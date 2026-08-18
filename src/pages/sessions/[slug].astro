@@ -45,7 +45,7 @@ const others = SESSIONS.filter((s) => s.slug !== session.slug && !s.aside).slice
 
         <div class="mt-10 flex flex-wrap items-center gap-6 border-t border-ash/70 pt-8" data-reveal>
           <span class="font-display text-3xl text-chalk tabular-nums">
-            <span class="label mr-2 align-middle">{session.currency}</span>{formatPrice(session.price)}
+            <span class="label mr-2 align-middle">{session.currency}</span><span data-count={String(session.price)} data-count-group="true">{formatPrice(session.price)}</span>
           </span>
           <a href={bookingUrl(session.slug)} data-magnetic
              class="sheen bevel inline-flex items-center gap-3 rounded-full bg-bronze px-8 py-4
@@ -78,4 +78,10 @@ const others = SESSIONS.filter((s) => s.slug !== session.slug && !s.aside).slice
       </ul>
     </div>
   </article>
+  <script>
+    import { initNumbers } from "../../lib/numbers";
+    const boot = () => initNumbers();
+    boot();
+    document.addEventListener("astro:after-swap", boot);
+  </script>
 </Base>

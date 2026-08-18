@@ -21,7 +21,7 @@ const { min } = priceRange();
   <Hero locale={locale} t={t} />
 
   <!-- ── 2. Positioning ──────────────────────────────────────────────── -->
-  <section class="relative bg-void px-5 py-28 sm:px-8 md:py-44" aria-labelledby="pos-title">
+  <section class="field relative bg-void px-5 py-28 sm:px-8 md:py-44" aria-labelledby="pos-title">
     <div class="mx-auto max-w-6xl">
       <p class="label mb-10" data-reveal>{t.positioning.eyebrow}</p>
 
@@ -34,7 +34,7 @@ const { min } = priceRange();
 
       <div class="mt-16 grid gap-14 md:mt-24 md:grid-cols-12 md:gap-10">
         <div class="md:col-span-5 md:col-start-1 -mx-5 sm:mx-0">
-          <div data-plate class="relative aspect-4/5 overflow-hidden bg-stone sm:rounded-[3px]">
+          <div data-plate data-fx-plate class="relative aspect-4/5 overflow-hidden rounded-[14px] bg-stone sm:rounded-[18px] will-change-transform">
             <Picture
               src={handsMono}
               alt="Practitioner's hands working along a draped back, in monochrome."
@@ -56,15 +56,15 @@ const { min } = priceRange();
           <dl class="mt-2 grid grid-cols-3 gap-4 border-t border-ash/70 pt-8 sm:gap-6" data-reveal style="--reveal-delay:180ms">
             <div>
               <dt class="label mb-2">{t.positioning.practising}</dt>
-              <dd class="font-display text-3xl text-chalk md:text-4xl">18<span class="text-mist text-xl align-super">yr</span></dd>
+              <dd class="font-display text-3xl text-chalk md:text-4xl tabular-nums"><span data-count="18">18</span><span class="text-mist text-xl align-super">yr</span></dd>
             </div>
             <div>
               <dt class="label mb-2">{t.positioning.sessionsHeld}</dt>
-              <dd class="font-display text-3xl text-chalk md:text-4xl">900<span class="text-mist text-xl align-super">+</span></dd>
+              <dd class="font-display text-3xl text-chalk md:text-4xl tabular-nums"><span data-count="900">900</span><span class="text-mist text-xl align-super">+</span></dd>
             </div>
             <div>
               <dt class="label mb-2">{t.positioning.atATime}</dt>
-              <dd class="font-display text-3xl text-chalk md:text-4xl">1</dd>
+              <dd class="font-display text-3xl text-chalk md:text-4xl tabular-nums"><span data-count="1">1</span></dd>
             </div>
           </dl>
         </div>
@@ -76,7 +76,7 @@ const { min } = priceRange();
   <MethodScene locale={locale} t={t} />
 
   <!-- ── 4. Session experience ───────────────────────────────────────── -->
-  <section data-process class="relative bg-basalt px-5 py-28 sm:px-8 md:py-40" aria-labelledby="proc-title">
+  <section data-process data-chapter class="field relative bg-basalt px-5 py-28 sm:px-8 md:py-40" aria-labelledby="proc-title">
     <div class="mx-auto max-w-6xl">
       <p class="label mb-10" data-reveal>{t.process.eyebrow}</p>
       <h2 id="proc-title"
@@ -115,7 +115,7 @@ const { min } = priceRange();
   </section>
 
   <!-- ── 5. Sessions ─────────────────────────────────────────────────── -->
-  <section id="sessions" class="relative bg-void px-5 py-28 sm:px-8 md:py-40" aria-labelledby="sess-title">
+  <section id="sessions" data-chapter class="field relative bg-void px-5 py-28 sm:px-8 md:py-40" aria-labelledby="sess-title">
     <div class="mx-auto max-w-6xl">
       <div class="mb-14 flex flex-wrap items-end justify-between gap-6 md:mb-20">
         <div>
@@ -126,7 +126,7 @@ const { min } = priceRange();
             {t.sessions.title}
           </h2>
         </div>
-        <p class="label" data-reveal>{t.sessions.from} {formatPrice(min)}</p>
+        <p class="label tabular-nums" data-reveal>{t.sessions.from} <span data-count={String(min)} data-count-group="true">{formatPrice(min)}</span></p>
       </div>
 
       <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
@@ -143,7 +143,7 @@ const { min } = priceRange();
   </section>
 
   <!-- ── 6. Evidence ─────────────────────────────────────────────────── -->
-  <section class="relative overflow-hidden bg-basalt px-5 py-28 sm:px-8 md:py-40" aria-labelledby="ev-title">
+  <section class="field relative overflow-hidden bg-basalt px-5 py-28 sm:px-8 md:py-40" aria-labelledby="ev-title">
     <div class="mx-auto max-w-6xl">
       <p class="label mb-10" data-reveal>{t.evidence.eyebrow}</p>
       <h2 id="ev-title" class="sr-only">What clients report</h2>
@@ -172,7 +172,7 @@ const { min } = priceRange();
   </section>
 
   <!-- ── 7. Studio ───────────────────────────────────────────────────── -->
-  <section data-studio class="relative h-[110svh] overflow-hidden bg-void" aria-labelledby="studio-title">
+  <section data-studio data-chapter class="relative h-[110svh] overflow-hidden bg-void" aria-labelledby="studio-title">
     <div class="absolute inset-0">
       <Picture
         src={room}
@@ -183,6 +183,7 @@ const { min } = priceRange();
         data-studio-img loading="lazy" decoding="async"
       />
       <div class="absolute inset-0 bg-gradient-to-b from-void via-transparent to-void"></div>
+      <div class="pointer-events-none absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-void to-transparent"></div>
     </div>
 
     <div class="relative z-10 flex h-full items-center px-5 sm:px-8">
@@ -204,7 +205,7 @@ const { min } = priceRange();
   </section>
 
   <!-- ── 8. Final CTA ────────────────────────────────────────────────── -->
-  <section class="relative overflow-hidden bg-void px-5 py-32 sm:px-8 md:py-48" aria-labelledby="cta-title">
+  <section class="field relative overflow-hidden bg-void px-5 py-32 sm:px-8 md:py-48" aria-labelledby="cta-title">
     <div class="absolute inset-0 opacity-45">
       <Picture src={candle} alt="" aria-hidden="true"
         widths={[900, 1400]} sizes="100vw" formats={["avif", "webp"]}
@@ -241,6 +242,8 @@ const { min } = priceRange();
     import { gsap, ScrollTrigger, onCleanup, prefersReducedMotion } from "../lib/motion";
     import { createRefraction } from "../lib/webgl/refraction";
     import { initCards } from "../lib/cards";
+    import { initScrollFx } from "../lib/scrollfx";
+    import { initNumbers } from "../lib/numbers";
 
     const boot = async () => {
       // The shader reads the same plate the poster shows.
@@ -316,6 +319,8 @@ const { min } = priceRange();
       });
 
       initCards();
+      initScrollFx();
+      initNumbers();
       onCleanup(() => ctx.revert());
       ScrollTrigger.refresh();
     };

@@ -61,4 +61,10 @@ const aside = asideOfferings();
     boot();
     document.addEventListener("astro:after-swap", boot);
   </script>
+  <script>
+    import { initNumbers } from "../../lib/numbers";
+    const boot = () => initNumbers();
+    boot();
+    document.addEventListener("astro:after-swap", boot);
+  </script>
 </Base>

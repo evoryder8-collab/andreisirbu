@@ -112,6 +112,38 @@
   .sheen:hover::after,
   .sheen:focus-visible::after { transform: translateX(120%); }
 
+  /* Full-bleed plates get a feathered edge instead of a butt cut, so a
+     photograph dissolves into the page rather than ending at a hard line. */
+  .feather-b {
+    -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+  }
+  .feather-y {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 82%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 82%, transparent 100%);
+  }
+
+  /* Ambient field: a slow, barely-there bloom of warm light that drifts
+     behind a chapter. Gives dark sections air instead of flat black. */
+  .field { position: relative; isolation: isolate; }
+  .field::before {
+    content: "";
+    position: absolute;
+    inset: -20% -10%;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(38% 30% at 22% 28%, rgba(192,131,67,0.13) 0%, transparent 68%),
+      radial-gradient(34% 28% at 78% 72%, rgba(107,126,121,0.11) 0%, transparent 70%);
+    filter: blur(18px);
+    animation: field-drift 26s ease-in-out infinite alternate;
+  }
+  @keyframes field-drift {
+    0%   { transform: translate3d(0,0,0) scale(1); opacity: 0.85; }
+    50%  { transform: translate3d(2.5%, -2%, 0) scale(1.06); opacity: 1; }
+    100% { transform: translate3d(-2%, 2.5%, 0) scale(1.03); opacity: 0.9; }
+  }
+
   /* Hairline that catches light at the top edge, like a bevelled
      panel rather than a flat border. */
   .bevel {
@@ -151,6 +183,7 @@ html.js [data-reveal] {
 html.js [data-reveal][data-state="in"] { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
+  .field::before { animation: none; }
   html.js [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
   .grain::before { animation: none; }
   .sheen::after { transition: none; }
