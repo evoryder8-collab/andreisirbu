@@ -125,7 +125,7 @@
 
   /* Ambient field: a slow, barely-there bloom of warm light that drifts
      behind a chapter. Gives dark sections air instead of flat black. */
-  .field { position: relative; isolation: isolate; }
+  .field { position: relative; isolation: isolate; overflow: clip; }
   .field::before {
     content: "";
     position: absolute;
@@ -143,9 +143,9 @@
     will-change: transform;
   }
   @keyframes field-drift {
-    0%   { transform: translate3d(0,0,0) scale(1); opacity: 0.85; }
-    50%  { transform: translate3d(0, -2%, 0) scale(1.06); opacity: 1; }
-    100% { transform: translate3d(0, 2.5%, 0) scale(1.03); opacity: 0.9; }
+    0%   { transform: translate3d(0,0,0) scaleY(1); opacity: 0.85; }
+    50%  { transform: translate3d(0, -2%, 0) scaleY(1.06); opacity: 1; }
+    100% { transform: translate3d(0, 2.5%, 0) scaleY(1.03); opacity: 0.9; }
   }
 
   /* Hairline that catches light at the top edge, like a bevelled
