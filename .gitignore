@@ -16,3 +16,6 @@ dist/
 # Business audit — contains order volume, pricing strategy, revenue signals.
 # Stays local. Never commit to a public repo.
 docs/audit-and-rebuild.html
+
+# Astro build output
+dist/

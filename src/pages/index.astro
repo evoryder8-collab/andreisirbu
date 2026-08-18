@@ -1,0 +1,57 @@
+---
+import Base from "../layouts/Base.astro";
+
+// Real catalogue, pulled from the live WooCommerce Store API.
+// Phase 04 replaces this static array with a build-time fetch.
+const sessions = [
+  { name: "Holistic Massage Masterclass", price: "1'250", note: "Course" },
+  { name: "Sacral Ritual", price: "395", note: "90 min" },
+  { name: "La Terapia Method", price: "295", note: "Nervous system reset" },
+  { name: "Relaxing Ritual", price: "295", note: "75 min" },
+  { name: "Lomi Lomi Ritual", price: "289", note: "75 min" },
+  { name: "Therapeutic Massage", price: "195", note: "55 min" },
+  { name: "ReVibe Energy Restart", price: "145", note: "40 min" },
+];
+---
+<Base title="Andrei Sirbu" description="Emotional release and nervous system reset. Zurich.">
+  <main class="min-h-screen flex flex-col justify-center max-w-3xl mx-auto px-7 py-24">
+
+    <p class="font-mono text-[11px] tracking-[0.18em] uppercase text-faint">
+      Zurich &middot; Rebuild in progress
+    </p>
+
+    <h1 class="font-display text-5xl sm:text-6xl leading-[1.05] tracking-tight mt-6 text-balance">
+      Emotional release &amp;<br />nervous system reset
+    </h1>
+
+    <p class="text-muted mt-7 max-w-[54ch] leading-relaxed">
+      Eighteen years of practice. Each session guided in real time, responding to
+      your body rather than following a fixed routine.
+    </p>
+
+    <!-- Pipeline proof: live tokens, the gleam interaction, and real catalogue data. -->
+    <div class="mt-16 border-t border-line pt-10">
+      <p class="font-mono text-[11px] tracking-[0.18em] uppercase text-faint mb-6">
+        Catalogue &middot; 8 products
+      </p>
+
+      <ul class="grid gap-px bg-line border border-line">
+        {sessions.map((s) => (
+          <li class="gleam bg-surface hover:bg-raise transition-colors duration-500
+                     flex items-baseline justify-between gap-6 px-5 py-4">
+            <span>
+              <span class="font-display text-lg">{s.name}</span>
+              <span class="font-mono text-[11px] uppercase tracking-wider text-faint ml-3">{s.note}</span>
+            </span>
+            <span class="font-mono text-sm text-gleam tabular-nums whitespace-nowrap">CHF {s.price}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <p class="font-mono text-[11px] text-faint mt-12 leading-relaxed">
+      Staging preview. Bookings, vouchers and checkout continue to run on the
+      live site at andreisirbu.com while this build is developed.
+    </p>
+  </main>
+</Base>
