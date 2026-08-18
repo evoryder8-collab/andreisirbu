@@ -1,0 +1,18 @@
+# Raw asset archive — 696MB of originals, kept locally, never committed.
+# Optimised web-ready derivatives live in public/media/ and ARE committed.
+assets-export/
+
+# Node
+node_modules/
+dist/
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+.astro/
+.vite/
+
+# Business audit — contains order volume, pricing strategy, revenue signals.
+# Stays local. Never commit to a public repo.
+docs/audit-and-rebuild.html
