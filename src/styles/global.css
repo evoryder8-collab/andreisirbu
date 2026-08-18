@@ -173,6 +173,85 @@
 /* Nothing behind the veil should scroll or be reachable. */
 html[data-overture="on"] body { overflow: hidden; }
 
+  /* ── Gilded type ───────────────────────────────────────────────────
+     Gold drawn through the letterforms. background-clip:text kills
+     text-shadow, so depth comes from filter:drop-shadow, which follows
+     the glyph alpha instead of the box. */
+  .gilt {
+    background-image: linear-gradient(
+      104deg,
+      #9A6B33 0%, #C08343 18%, #E8C489 34%,
+      #FFF2D8 46%, #FFFFFF 50%, #FFF2D8 54%,
+      #E8C489 66%, #C08343 82%, #9A6B33 100%
+    );
+    background-size: 260% 100%;
+    background-position: 130% 0%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter:
+      drop-shadow(0 1px 0 rgba(0,0,0,0.55))
+      drop-shadow(0 6px 18px rgba(0,0,0,0.6))
+      drop-shadow(0 0 26px rgba(192,131,67,0.28));
+  }
+  /* Slow travel of the highlight. Paused offscreen by the observer. */
+  .gilt-live { animation: gilt-travel 7.5s ease-in-out infinite alternate; }
+  @keyframes gilt-travel {
+    0%   { background-position: 130% 0%; }
+    100% { background-position: -30% 0%; }
+  }
+
+  /* Chalk type that still wants weight beneath it. */
+  .type-depth {
+    text-shadow:
+      0 1px 0 rgba(0,0,0,0.5),
+      0 8px 26px rgba(0,0,0,0.55),
+      0 0 42px rgba(192,131,67,0.12);
+  }
+
+  /* Lead paragraphs: the display face at reading size, warmed and lifted
+     off the plate. screen blending lets the photography glow through the
+     strokes without dropping legibility the way overlay does. */
+  .lede-lux {
+    font-family: var(--font-display);
+    font-weight: 420;
+    letter-spacing: 0.004em;
+    line-height: 1.45;
+    color: #F0EADD;
+    mix-blend-mode: screen;
+    text-shadow: 0 2px 18px rgba(0,0,0,0.65);
+  }
+
+  /* Depth rig: children can be pushed in Z against a shared camera. */
+  .depth { perspective: 1100px; perspective-origin: 50% 42%; transform-style: preserve-3d; }
+  .depth-near { transform: translateZ(46px); }
+  .depth-mid  { transform: translateZ(22px); }
+  .depth-far  { transform: translateZ(-38px); }
+
+  /* Gold breathing around a chosen object. */
+  .breathe-gold {
+    animation: breathe-gold 2.4s ease-in-out infinite;
+  }
+  @keyframes breathe-gold {
+    0%, 100% {
+      box-shadow:
+        0 0 0 1px rgba(192,131,67,0.55),
+        0 0 22px 2px rgba(192,131,67,0.28),
+        0 0 60px 6px rgba(192,131,67,0.14);
+    }
+    50% {
+      box-shadow:
+        0 0 0 1px rgba(232,196,137,0.95),
+        0 0 40px 6px rgba(192,131,67,0.55),
+        0 0 110px 18px rgba(192,131,67,0.30);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gilt-live { animation: none; background-position: 50% 0%; }
+    .breathe-gold { animation: none; box-shadow: 0 0 0 1px rgba(232,196,137,0.9), 0 0 30px rgba(192,131,67,0.4); }
+  }
+
 /* Masked type: each word sits in a clipped line and is lifted into place.
    The mask is inline-flex so descenders are not cut, and the negative
    margin compensates for the extra leading the clip introduces. */

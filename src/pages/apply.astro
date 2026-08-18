@@ -1,66 +1,93 @@
 ---
 import Base from "../layouts/Base.astro";
-import PageHead from "../components/PageHead.astro";
-import { privateSessions, bookingUrl, formatPrice } from "../data/catalogue";
+import OfferingCard from "../components/OfferingCard.astro";
+import { Picture } from "astro:assets";
+import { privateSessions, asideOfferings } from "../data/catalogue";
 import { candle } from "../lib/media";
 const sessions = privateSessions();
+const aside = asideOfferings();
 ---
 <Base title="Reserve a Session | Andrei Sirbu, Zürich"
-      description="Reserve a private session in Zürich, or write first if you are unsure which work suits you.">
-  <PageHead eyebrow="By application" title="Reserve a session."
-    lede="Choose the work directly, or write first. Booking, availability and payment are handled on the practice store."
-    plate={candle} alt="Candlelight in the treatment room." focus="50% 50%" />
+      description="Reserve a private session in Zürich. Choose the work, or write first if you are unsure which suits you.">
 
-  <section class="bg-void px-5 pb-28 sm:px-8 md:pb-40">
-    <div class="mx-auto max-w-6xl">
-      <ul class="grid gap-px bg-ash/40">
-        {sessions.map((s, i) => (
-          <li data-reveal style={`--reveal-delay:${i * 60}ms`}>
-            <a href={bookingUrl(s.slug)}
-               class="sheen group flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3
-                      bg-void px-5 py-7 transition-colors duration-500 hover:bg-stone/60 sm:px-8">
-              <span class="flex min-w-0 flex-col gap-2">
-                <span class="font-display text-2xl text-chalk sm:text-3xl">{s.name}</span>
-                <span class="flex gap-4"><span class="label">{s.duration}</span><span class="label">{s.modality}</span></span>
-              </span>
-              <span class="flex items-baseline gap-6">
-                <span class="font-mono text-sm tabular-nums text-bone/90">{s.currency} {formatPrice(s.price)}</span>
-                <span class="label !text-bronze transition-transform duration-500 group-hover:translate-x-1">Reserve →</span>
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
+  <!-- Arrival -->
+  <header class="depth relative overflow-hidden bg-void px-5 pb-14 pt-32 sm:px-8 md:pb-20 md:pt-44">
+    <div class="absolute inset-0 opacity-45">
+      <Picture src={candle} alt="" aria-hidden="true"
+        widths={[700, 1400]} sizes="100vw" formats={["avif","webp"]}
+        class="h-full w-full object-cover [filter:brightness(0.42)_saturate(0.85)]"
+        loading="eager" decoding="async" />
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_45%,transparent_2%,rgba(5,6,5,0.92)_72%)]"></div>
+    </div>
 
-      <div class="mt-20 grid gap-10 border-t border-ash/60 pt-14 md:grid-cols-12" data-reveal>
-        <div class="md:col-span-5">
-          <h2 class="font-display text-3xl text-chalk md:text-4xl">Not sure which?</h2>
-          <p class="mt-5 text-[0.95rem] leading-relaxed text-mist">
-            Write with a sentence or two about what brings you. The right
-            starting point is usually obvious after a short exchange.
-          </p>
-        </div>
-        <div class="flex flex-col gap-4 md:col-span-6 md:col-start-7">
-          <a href="mailto:info@andreisirbu.com"
-             class="bevel sheen flex items-center justify-between gap-4 rounded-[3px] bg-stone/60 px-6 py-5
-                    transition-colors duration-500 hover:bg-ash/70">
-            <span class="label">Email</span>
-            <span class="font-mono text-sm text-chalk">info@andreisirbu.com</span>
-          </a>
-          <a href="https://andreisirbu.com/contact/"
-             class="bevel sheen flex items-center justify-between gap-4 rounded-[3px] bg-stone/60 px-6 py-5
-                    transition-colors duration-500 hover:bg-ash/70">
-            <span class="label">Contact form</span>
-            <span class="font-mono text-sm text-chalk">Open →</span>
-          </a>
-          <a href="https://andreisirbu.com/balance/"
-             class="bevel sheen flex items-center justify-between gap-4 rounded-[3px] bg-stone/60 px-6 py-5
-                    transition-colors duration-500 hover:bg-ash/70">
-            <span class="label">Gift card balance</span>
-            <span class="font-mono text-sm text-chalk">Check →</span>
-          </a>
-        </div>
+    <div class="depth-near relative mx-auto max-w-6xl">
+      <p class="label mb-6" data-reveal>By application</p>
+      <h1 class="gilt gilt-live font-display max-w-[13ch] text-[clamp(2.6rem,13vw,5.4rem)] leading-[0.94] tracking-[-0.02em]">
+        Reserve a session
+      </h1>
+      <p class="lede-lux mt-7 max-w-[40ch] text-[1.08rem] md:text-xl" data-reveal>
+        Choose the work below. Booking, availability and payment are handled
+        on the practice store.
+      </p>
+    </div>
+  </header>
+
+  <!-- The blocks -->
+  <section class="depth relative bg-void px-5 pb-24 sm:px-8 md:pb-32" aria-label="Bookable sessions">
+    <div class="mx-auto grid max-w-6xl gap-6 md:grid-cols-2 md:gap-7">
+      {sessions.map((s, i) => <OfferingCard session={s} index={i} />)}
+    </div>
+
+    {aside.length > 0 && (
+      <div class="mx-auto mt-8 max-w-6xl grid gap-6 md:grid-cols-2 md:gap-7">
+        {aside.map((s, i) => <OfferingCard session={s} index={sessions.length + i} />)}
+      </div>
+    )}
+
+    <p class="label mx-auto mt-10 max-w-6xl !normal-case !tracking-normal !text-[0.72rem] leading-relaxed">
+      Tap a block to look closer. Reserve opens the booking flow on the
+      practice store, where availability and payment are handled.
+    </p>
+  </section>
+
+  <!-- Not sure -->
+  <section class="relative bg-basalt px-5 py-20 sm:px-8 md:py-28">
+    <div class="mx-auto grid max-w-6xl gap-10 md:grid-cols-12">
+      <div class="md:col-span-5" data-reveal>
+        <h2 class="gilt font-display text-[2.2rem] leading-[1.04] md:text-[2.8rem]">Not sure which?</h2>
+        <p class="lede-lux mt-5 text-[1.02rem]">
+          Write with a sentence or two about what brings you. The right
+          starting point is usually obvious after a short exchange.
+        </p>
+      </div>
+      <div class="flex flex-col gap-3 md:col-span-6 md:col-start-7" data-reveal>
+        <a href="mailto:info@andreisirbu.com"
+           class="sheen flex items-center justify-between gap-4 rounded-[14px] border border-ash bg-stone/50 px-6 py-5
+                  transition-colors duration-500 hover:border-bronze/50 hover:bg-ash/60">
+          <span class="label">Email</span>
+          <span class="font-mono text-sm text-chalk">info@andreisirbu.com</span>
+        </a>
+        <a href="https://andreisirbu.com/contact/"
+           class="sheen flex items-center justify-between gap-4 rounded-[14px] border border-ash bg-stone/50 px-6 py-5
+                  transition-colors duration-500 hover:border-bronze/50 hover:bg-ash/60">
+          <span class="label">Contact form</span>
+          <span class="font-mono text-sm text-chalk">Open →</span>
+        </a>
+        <a href="https://andreisirbu.com/balance/"
+           class="sheen flex items-center justify-between gap-4 rounded-[14px] border border-ash bg-stone/50 px-6 py-5
+                  transition-colors duration-500 hover:border-bronze/50 hover:bg-ash/60">
+          <span class="label">Gift card balance</span>
+          <span class="font-mono text-sm text-chalk">Check →</span>
+        </a>
       </div>
     </div>
   </section>
+
+  <script>
+    import { initOfferings } from "../lib/offerings";
+    import { initNumbers } from "../lib/numbers";
+    const boot = () => { initOfferings(); initNumbers(); };
+    boot();
+    document.addEventListener("astro:after-swap", boot);
+  </script>
 </Base>

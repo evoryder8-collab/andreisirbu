@@ -85,9 +85,20 @@ function runOverture(ov: HTMLElement): void {
     root.lang = code;
     delete root.dataset.overture;
 
+    // Only the homepage exists per locale today, so navigating is right when
+    // the visitor is on a homepage and wrong everywhere else: sending someone
+    // who landed on /apply/ or a session page to the locale root would throw
+    // away the page they actually came for. Elsewhere, record and stay.
+    const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     const here = window.location.pathname.replace(/\/$/, "");
+    const homePaths = new Set(
+      ["en", "de", "fr", "it", "es"].map((l) =>
+        (l === "en" ? base : `${base}/${l}`).replace(/\/$/, ""),
+      ),
+    );
+    const onAHomepage = homePaths.has(here);
     const target = (to || "").replace(/\/$/, "");
-    const navigating = Boolean(target) && target !== here;
+    const navigating = onAHomepage && Boolean(target) && target !== here;
 
     const done = () => {
       if (navigating) { window.location.href = to as string; return; }

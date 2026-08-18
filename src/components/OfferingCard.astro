@@ -1,0 +1,87 @@
+---
+import { Picture } from "astro:assets";
+import type { Session } from "../data/catalogue";
+import { bookingUrl, formatPrice } from "../data/catalogue";
+import { plateFor } from "../lib/media";
+
+interface Props { session: Session; index?: number; }
+const { session, index = 0 } = Astro.props;
+const plate = plateFor(session.slug);
+---
+<article
+  data-offering
+  data-slug={session.slug}
+  style={`--i:${index}`}
+  class="group relative [perspective:1200px]"
+>
+  <div
+    data-offering-body
+    class="relative overflow-hidden rounded-[20px] bg-stone/50
+           [transform-style:preserve-3d] will-change-transform"
+  >
+    <!-- Photograph, pushed back so the plate has interior depth. -->
+    <div data-offering-img class="absolute inset-[-6%] will-change-transform">
+      <Picture
+        src={plate.src}
+        alt={plate.alt}
+        widths={[420, 700, 1000]}
+        sizes="(min-width:768px) 46vw, 92vw"
+        formats={["avif", "webp"]}
+        style={`object-position:${plate.focus}`}
+        class="h-full w-full object-cover
+               [filter:grayscale(0.22)_contrast(1.08)_brightness(0.62)]
+               transition-[filter,transform] duration-[1400ms] ease-[var(--ease-material)]"
+        loading={index < 2 ? "eager" : "lazy"}
+        decoding="async"
+      />
+    </div>
+
+    <!-- Grade: keeps type readable over any frame. -->
+    <div class="pointer-events-none absolute inset-0
+                bg-[linear-gradient(180deg,rgba(5,6,5,0.35)_0%,rgba(5,6,5,0.15)_38%,rgba(5,6,5,0.88)_78%,rgba(5,6,5,0.97)_100%)]"></div>
+
+    <!-- Gold rim, lit from the top edge like a cast object. -->
+    <span class="pointer-events-none absolute inset-0 z-20 rounded-[20px]
+                 [box-shadow:inset_0_1px_0_0_rgba(232,196,137,0.30),inset_0_0_0_1px_rgba(35,38,36,0.85)]"></span>
+
+    <!-- Travelling sheen. -->
+    <span data-offering-sheen
+          class="pointer-events-none absolute inset-[-2px] z-20 -translate-x-[135%]
+                 bg-[linear-gradient(106deg,transparent_40%,rgba(232,196,137,0.28)_48%,rgba(255,255,255,0.20)_51%,transparent_60%)]"></span>
+
+    <div class="relative z-30 flex min-h-[19rem] flex-col justify-end gap-3 p-6 sm:min-h-[21rem]">
+      <div class="flex items-center gap-4">
+        <span class="label">{session.duration}</span>
+        <span class="label !tracking-[0.16em]">{session.modality}</span>
+        {session.signature && <span class="label !text-bronze">Signature</span>}
+      </div>
+
+      <h3 class="gilt gilt-live font-display text-[2.1rem] leading-[1.02] tracking-tight sm:text-[2.4rem]">
+        {session.name}
+      </h3>
+
+      <p class="max-w-[34ch] text-[0.92rem] leading-relaxed text-bone/75">
+        {session.description}
+      </p>
+
+      <div class="mt-2 flex items-center justify-between gap-4 border-t border-bone/12 pt-4">
+        <span class="font-mono text-sm tabular-nums text-bone/90">
+          {session.currency}
+          <span data-count={String(session.price)} data-count-group="true">{formatPrice(session.price)}</span>
+        </span>
+
+        <a
+          data-offering-cta
+          href={bookingUrl(session.slug)}
+          class="relative inline-flex items-center gap-2 rounded-full border border-bronze/45
+                 bg-void/55 px-5 py-2.5 text-[0.62rem] font-semibold uppercase
+                 tracking-[0.2em] text-bone backdrop-blur-md transition-colors duration-500
+                 hover:border-bronze hover:text-chalk"
+        >
+          Reserve
+          <span data-offering-arrow class="transition-transform duration-500">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</article>

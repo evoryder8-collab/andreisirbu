@@ -29,7 +29,7 @@ const { min } = priceRange();
           class="font-display tracking-[-0.02em] text-chalk
                  text-[clamp(2.5rem,9vw,4.2rem)] leading-[1]">
         <span class="block" data-type-reveal>{t.positioning.t1}</span>
-        <span class="block italic text-bronze" data-type-reveal>{t.positioning.t2}</span>
+        <span class="gilt gilt-live block italic" data-type-reveal>{t.positioning.t2}</span>
       </h2>
 
       <div class="mt-16 grid gap-14 md:mt-24 md:grid-cols-12 md:gap-10">
@@ -49,8 +49,8 @@ const { min } = priceRange();
         </div>
 
         <div class="flex flex-col justify-center gap-8 md:col-span-6 md:col-start-7">
-          <p class="font-display text-[1.75rem] leading-[1.18] tracking-[-0.01em] text-chalk
-                    sm:text-[2rem] md:text-[2.4rem]" data-reveal>{t.positioning.lede}</p>
+          <p class="lede-lux text-[1.6rem] leading-[1.25] tracking-[-0.01em]
+                    sm:text-[1.9rem] md:text-[2.25rem]" data-reveal>{t.positioning.lede}</p>
           <p class="text-[0.95rem] leading-relaxed text-mist" data-reveal style="--reveal-delay:100ms">{t.positioning.body}</p>
 
           <dl class="mt-2 grid grid-cols-3 gap-4 border-t border-ash/70 pt-8 sm:gap-6" data-reveal style="--reveal-delay:180ms">
@@ -81,7 +81,7 @@ const { min } = priceRange();
       <p class="label mb-10" data-reveal>{t.process.eyebrow}</p>
       <h2 id="proc-title"
           class="font-display max-w-[16ch] text-chalk tracking-[-0.02em]
-                 text-[clamp(2.6rem,9vw,4rem)] leading-[0.98]" data-type-reveal>
+                 type-depth text-[clamp(2.6rem,9vw,4rem)] leading-[0.98]" data-type-reveal>
         {t.process.title}
       </h2>
 
@@ -122,7 +122,7 @@ const { min } = priceRange();
           <p class="label mb-5" data-reveal>{t.sessions.eyebrow}</p>
           <h2 id="sess-title"
               class="font-display text-chalk tracking-[-0.02em]
-                     text-[clamp(2.6rem,9vw,4rem)] leading-[1]" data-type-reveal>
+                     type-depth text-[clamp(2.6rem,9vw,4rem)] leading-[1]" data-type-reveal>
             {t.sessions.title}
           </h2>
         </div>
@@ -172,7 +172,7 @@ const { min } = priceRange();
   </section>
 
   <!-- ── 7. Studio ───────────────────────────────────────────────────── -->
-  <section data-studio data-chapter class="relative h-[110svh] overflow-hidden bg-void" aria-labelledby="studio-title">
+  <section data-studio data-chapter class="depth relative h-[110svh] overflow-hidden bg-void" aria-labelledby="studio-title">
     <div class="absolute inset-0">
       <Picture
         src={room}
@@ -186,11 +186,11 @@ const { min } = priceRange();
       <div class="pointer-events-none absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-void to-transparent"></div>
     </div>
 
-    <div class="relative z-10 flex h-full items-center px-5 sm:px-8">
+    <div class="depth-near relative z-10 flex h-full items-center px-5 sm:px-8">
       <div class="mx-auto w-full max-w-6xl">
         <p class="label mb-6" data-reveal>{t.studio.eyebrow}</p>
         <h2 id="studio-title"
-            class="font-display max-w-[14ch] text-chalk tracking-[-0.02em]
+            class="gilt gilt-live font-display max-w-[14ch] tracking-[-0.02em]
                    text-[clamp(2.2rem,7vw,5.5rem)] leading-[0.98]" data-type-reveal>
           {t.studio.title}
         </h2>
@@ -217,11 +217,11 @@ const { min } = priceRange();
     <div class="relative mx-auto max-w-4xl text-center">
       <p class="label mb-8" data-reveal>{t.cta.eyebrow}</p>
       <h2 id="cta-title"
-          class="font-display text-chalk tracking-[-0.02em]
+          class="gilt gilt-live font-display tracking-[-0.02em]
                  text-[clamp(2.2rem,7vw,5.5rem)] leading-[0.98]" data-reveal>
         {t.cta.title.split("\n").map((line, i) => (<>{i > 0 && <br />}{line}</>))}
       </h2>
-      <p class="mx-auto mt-8 max-w-[44ch] text-[0.95rem] leading-relaxed text-mist" data-reveal>{t.cta.body}</p>
+      <p class="lede-lux mx-auto mt-8 max-w-[42ch] text-[1.05rem]" data-reveal>{t.cta.body}</p>
 
       <div class="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row" data-reveal>
         <a href={href("/apply")} data-magnetic
