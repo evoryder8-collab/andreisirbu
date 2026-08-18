@@ -1,12 +1,16 @@
 ---
-import { href } from "../lib/url";
+import { localeHref, DICTS, type Dict, type Locale } from "../i18n/dict";
+interface Props { locale?: Locale; t?: Dict; }
+const { locale = "en" } = Astro.props;
+const t: Dict = Astro.props.t ?? DICTS[locale];
+const href = (p: string) => localeHref(locale, p);
 const path = Astro.url.pathname.replace(/\/$/, "");
 const links = [
-  { label: "Method", to: "/la-terapia-method" },
-  { label: "Sessions", to: "/sessions" },
-  { label: "Studio", to: "/studio" },
-  { label: "Evidence", to: "/evidence" },
-  { label: "Andrei", to: "/about" },
+  { label: t.nav.method, to: "/la-terapia-method" },
+  { label: t.nav.sessions, to: "/sessions" },
+  { label: t.nav.studio, to: "/studio" },
+  { label: t.nav.evidence, to: "/evidence" },
+  { label: t.nav.about, to: "/about" },
 ];
 const isCurrent = (to: string) => path === href(to).replace(/\/$/, "");
 ---
@@ -46,7 +50,7 @@ const isCurrent = (to: string) => path === href(to).replace(/\/$/, "");
       class="sheen bevel group relative shrink-0 rounded-full bg-stone/60 px-5 py-2.5
              text-[0.66rem] font-medium uppercase tracking-[0.2em] text-chalk
              transition-colors duration-500 hover:bg-ash/80 sm:px-6"
-    >Reserve</a>
+    >{t.nav.reserve}</a>
   </nav>
 </header>
 
@@ -68,6 +72,6 @@ const isCurrent = (to: string) => path === href(to).replace(/\/$/, "");
     ))}
     <a href={href("/apply")}
        class="ml-auto shrink-0 whitespace-nowrap rounded-full bg-bronze px-4 py-2
-              text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-void">Reserve</a>
+              text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-void">{t.nav.reserve}</a>
   </div>
 </nav>

@@ -4,7 +4,7 @@
  * A single full-bleed photographic plane seen through moving water. Scroll
  * drives `uProgress` from 1 → 0: the image begins heavily refracted and
  * chromatically split, and resolves into stillness as the copy unfolds.
- * Disorganisation reorganising — the claim the method actually makes.
+ * Disorganisation reorganising, the claim the method actually makes.
  *
  * Runs on OGL (~10KB) rather than Three.js: this is one shaded plane, not
  * a scene, so there is no geometry, lighting or camera management to justify
@@ -33,7 +33,7 @@ const fragment = /* glsl */ `
   uniform vec2  uImageSize;
   varying vec2 vUv;
 
-  // Cheap value noise — enough to break up the sine banding without
+  // Cheap value noise, enough to break up the sine banding without
   // the cost of a full simplex implementation.
   float hash(vec2 p) {
     return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
@@ -116,7 +116,7 @@ export function createRefraction(
       dpr: Math.min(window.devicePixelRatio || 1, 2),
     });
   } catch {
-    return null; // no WebGL context — poster remains visible
+    return null; // no WebGL context, poster remains visible
   }
 
   const gl = renderer.gl;
@@ -169,7 +169,7 @@ export function createRefraction(
   );
   io.observe(canvas);
 
-  // Driven by the shared GSAP ticker — no second RAF loop.
+  // Driven by the shared GSAP ticker, no second RAF loop.
   const tick = (time: number) => {
     if (!visible) return;
     program.uniforms.uTime.value = time;
@@ -194,7 +194,7 @@ export function createRefraction(
     st.kill();
     io.disconnect();
     ro.disconnect();
-    // Explicit GPU teardown — otherwise view transitions leak contexts.
+    // Explicit GPU teardown, otherwise view transitions leak contexts.
     gl.deleteProgram(program.program);
     gl.deleteTexture(texture.texture);
     geometry.remove();

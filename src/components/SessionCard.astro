@@ -10,53 +10,80 @@ const { session, index = 0 } = Astro.props;
 const plate = plateFor(session.slug);
 ---
 <article
-  data-tilt
+  data-card
   data-reveal
-  style={`--reveal-delay:${index * 70}ms`}
-  class="group relative"
+  style={`--reveal-delay:${index * 70}ms; --i:${index}`}
+  class="group relative [perspective:1400px]"
 >
   <a
     href={href(`/sessions/${session.slug}`)}
-    class="sheen bevel relative block overflow-hidden rounded-[3px] bg-stone/70
-           transition-colors duration-700 hover:bg-ash/60"
+    data-card-body
+    class="relative block overflow-hidden rounded-[4px] bg-stone/60
+           [transform-style:preserve-3d] will-change-transform"
     aria-labelledby={`s-${session.slug}`}
   >
-    <!-- 4:5 for every card, without exception. The old site's mismatched
-         crops were its loudest cheapness signal. -->
-    <div class="relative aspect-4/5 overflow-hidden bg-basalt">
-      <Picture
-        src={plate.src}
-        alt={plate.alt}
-        widths={[400, 640, 900]}
-        sizes="(min-width:1024px) 30vw, (min-width:640px) 45vw, 88vw"
-        formats={["avif", "webp"]}
-        style={`object-position:${plate.focus}`}
-        class="h-full w-full object-cover opacity-80 transition-[transform,opacity,filter]
-               duration-[1200ms] ease-[var(--ease-material)]
-               group-hover:scale-[1.06] group-hover:opacity-100
-               [filter:grayscale(0.25)_contrast(1.05)] group-hover:[filter:grayscale(0)_contrast(1.08)]"
-        loading={index < 3 ? "eager" : "lazy"}
-        decoding="async"
-      />
-      <div class="pointer-events-none absolute inset-0
-                  bg-gradient-to-t from-void via-void/25 to-transparent"></div>
+    <!-- Edge: a bevelled rim that catches light along the top, so the panel
+         reads as a solid object rather than a bordered rectangle. -->
+    <span class="pointer-events-none absolute inset-0 z-30 rounded-[4px]
+                 [box-shadow:inset_0_1px_0_0_rgba(232,227,218,0.14),inset_0_0_0_1px_rgba(35,38,36,0.9)]"></span>
+
+    <!-- Specular highlight, tracking the cursor across the panel face. -->
+    <span
+      data-card-gleam
+      class="pointer-events-none absolute inset-0 z-20 opacity-0 transition-opacity duration-500
+             group-hover:opacity-100"
+      style="background: radial-gradient(420px circle at var(--mx,50%) var(--my,0%),
+             rgba(192,131,67,0.20) 0%, rgba(232,227,218,0.07) 28%, transparent 62%);"
+    ></span>
+
+    <!-- Single diagonal sheen pass on entry of hover. -->
+    <span data-card-sheen
+      class="pointer-events-none absolute inset-[-2px] z-20 -translate-x-[130%]
+             bg-[linear-gradient(108deg,transparent_38%,rgba(192,131,67,0.24)_48%,rgba(245,242,236,0.16)_52%,transparent_62%)]
+             transition-transform duration-[900ms] ease-[var(--ease-material)]
+             group-hover:translate-x-[130%]"></span>
+
+    <div class="relative aspect-4/5 overflow-hidden bg-basalt [transform-style:preserve-3d]">
+      <!-- Image sits behind the face and counter-moves, which is what creates
+           the parallax depth inside the object. -->
+      <div data-card-img class="absolute inset-[-8%] will-change-transform">
+        <Picture
+          src={plate.src}
+          alt={plate.alt}
+          widths={[400, 640, 900]}
+          sizes="(min-width:1024px) 30vw, (min-width:640px) 45vw, 88vw"
+          formats={["avif", "webp"]}
+          style={`object-position:${plate.focus}`}
+          class="h-full w-full object-cover opacity-85 transition-[opacity,filter] duration-[1200ms]
+                 [filter:grayscale(0.3)_contrast(1.06)_brightness(0.9)]
+                 group-hover:opacity-100 group-hover:[filter:grayscale(0)_contrast(1.1)_brightness(1)]"
+          loading={index < 3 ? "eager" : "lazy"}
+          decoding="async"
+        />
+      </div>
+
+      <div class="pointer-events-none absolute inset-0 z-10
+                  bg-gradient-to-t from-void via-void/35 to-transparent"></div>
 
       {session.signature && (
-        <span class="label absolute left-4 top-4 rounded-full border border-bronze/45
-                     bg-void/60 px-3 py-1.5 !text-[0.55rem] !text-bronze backdrop-blur-md">
+        <span class="label absolute left-4 top-4 z-20 rounded-full border border-bronze/45
+                     bg-void/55 px-3 py-1.5 !text-[0.55rem] !text-bronze backdrop-blur-md
+                     [transform:translateZ(40px)]">
           Signature
         </span>
       )}
     </div>
 
-    <div class="flex flex-col gap-3 p-5 sm:p-6">
+    <!-- Content lifted forward in Z so the card has genuine interior depth. -->
+    <div class="relative z-20 flex flex-col gap-3 p-5 sm:p-6
+                [transform:translateZ(28px)]">
       <div class="flex items-baseline justify-between gap-3">
         <span class="label">{session.duration}</span>
         <span class="label !tracking-[0.16em]">{session.modality}</span>
       </div>
 
       <h3 id={`s-${session.slug}`}
-          class="font-display text-2xl leading-[1.1] tracking-tight text-chalk sm:text-[1.65rem]">
+          class="font-display text-[1.7rem] leading-[1.08] tracking-tight text-chalk sm:text-[1.8rem]">
         {session.name}
       </h3>
 
@@ -67,17 +94,12 @@ const plate = plateFor(session.slug);
           {session.currency} {formatPrice(session.price)}
         </span>
         <span class="label !text-[0.6rem] !text-bronze transition-transform duration-500
-                     group-hover:translate-x-1">
-          Reserve →
-        </span>
+                     group-hover:translate-x-1">Reserve →</span>
       </div>
     </div>
   </a>
 
-  <!-- Direct booking handoff, so the card is one click from the real flow. -->
-  <a
-    href={bookingUrl(session.slug)}
-    class="label absolute inset-x-5 bottom-5 z-10 h-0 overflow-hidden opacity-0
-           focus-visible:h-auto focus-visible:opacity-100 sm:inset-x-6 sm:bottom-6"
-  >Book {session.name} directly</a>
+  <a href={bookingUrl(session.slug)}
+     class="label absolute inset-x-5 bottom-5 z-40 h-0 overflow-hidden opacity-0
+            focus-visible:h-auto focus-visible:opacity-100">Book {session.name} directly</a>
 </article>

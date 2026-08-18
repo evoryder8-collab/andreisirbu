@@ -1,10 +1,15 @@
 ---
 import { getImage } from "astro:assets";
 import { gorgeWide, gorgePortrait } from "../lib/media";
-import { href } from "../lib/url";
+import { localeHref, DICTS, type Dict, type Locale } from "../i18n/dict";
 
 // True art direction: desktop gets the wide gorge, mobile gets the portrait
 // frame. Not one composition cropped two ways.
+interface Props { locale?: Locale; t?: Dict; }
+const { locale = "en" } = Astro.props;
+const t: Dict = Astro.props.t ?? DICTS[locale];
+const href = (p: string) => localeHref(locale, p);
+
 const wide = await getImage({
   src: gorgeWide, widths: [1280, 1920, 2600], formats: ["avif"],
   sizes: "100vw",
@@ -18,7 +23,15 @@ const tallFallback = await getImage({ src: gorgePortrait, widths: [640, 900], fo
 ---
 <section data-hero class="relative h-[100svh] w-full overflow-hidden bg-void">
   <!-- Plate. Clipped to a widening band on first scroll. -->
-  <div data-hero-clip class="absolute inset-0 will-change-[clip-path]">
+  <div
+    data-hero-clip
+    class="absolute inset-0 will-change-[mask-image]"
+    style="
+      --m1: 0%; --m2: 100%;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 var(--m1), #000 var(--m2), transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 var(--m1), #000 var(--m2), transparent 100%);
+    "
+  >
     <picture>
       <source media="(min-width:768px)" type="image/avif" srcset={wide.srcSet.attribute} sizes="100vw" />
       <source media="(min-width:768px)" type="image/webp" srcset={wideFallback.srcSet.attribute} sizes="100vw" />
@@ -52,20 +65,17 @@ const tallFallback = await getImage({ src: gorgePortrait, widths: [640, 900], fo
 
   <div class="relative z-20 flex h-full flex-col justify-end px-5 pb-24 sm:px-8 md:pb-28">
     <div data-hero-copy class="mx-auto w-full max-w-6xl">
-      <p class="label mb-5 md:mb-7">Private practice · Zürich · Since 2008</p>
+      <p class="label mb-5 md:mb-7">{t.hero.eyebrow}</p>
 
       <h1 class="font-display tracking-[-0.02em] text-chalk
                  text-[clamp(2.6rem,11vw,8.5rem)] leading-[0.92] md:leading-[0.86]">
-        <span data-hero-line class="block">Emotional release</span>
-        <span data-hero-line class="block italic text-bone/85">&amp; nervous</span>
-        <span data-hero-line class="block">system reset</span>
+        <span data-hero-line class="block">{t.hero.l1}</span>
+        <span data-hero-line class="block italic text-bone/85">{t.hero.l2}</span>
+        <span data-hero-line class="block">{t.hero.l3}</span>
       </h1>
 
       <div class="mt-8 flex flex-col gap-6 md:mt-12 md:flex-row md:items-end md:justify-between">
-        <p class="max-w-[38ch] text-[0.95rem] leading-relaxed text-mist md:text-base">
-          Eighteen years of practice. Each session guided in real time,
-          responding to your body rather than following a fixed routine.
-        </p>
+        <p class="max-w-[38ch] text-[0.95rem] leading-relaxed text-mist md:text-base">{t.hero.lede}</p>
 
         <a
           href={href("/apply")}
@@ -75,7 +85,7 @@ const tallFallback = await getImage({ src: gorgePortrait, widths: [640, 900], fo
                  tracking-[0.22em] text-chalk backdrop-blur-md transition-colors
                  duration-500 hover:bg-ash"
         >
-          Reserve a session
+          {t.hero.cta}
           <span class="transition-transform duration-500 group-hover:translate-x-1">→</span>
         </a>
       </div>
@@ -83,6 +93,6 @@ const tallFallback = await getImage({ src: gorgePortrait, widths: [640, 900], fo
   </div>
 
   <div class="pointer-events-none absolute inset-x-0 bottom-6 z-20 flex justify-center">
-    <span class="label !text-[0.55rem] opacity-60">Scroll</span>
+    <span class="label !text-[0.55rem] opacity-60">{t.hero.scroll}</span>
   </div>
 </section>

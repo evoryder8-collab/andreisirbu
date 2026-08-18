@@ -7,12 +7,12 @@ import { handsMono } from "../../lib/media";
 const sessions = privateSessions();
 const aside = asideOfferings();
 ---
-<Base title="Sessions — Andrei Sirbu, Zürich"
+<Base title="Sessions | Andrei Sirbu, Zürich"
       description="Six private sessions, from focused structural work to the ninety-minute Sacral Ritual. Zürich, by appointment.">
   <PageHead
     eyebrow="The work offered"
     title="Sessions"
-    lede="Each session is guided in real time. If you are unsure which suits you, write first — the right starting point is usually obvious after a short conversation."
+    lede="Each session is guided in real time. If you are unsure which suits you, write first, the right starting point is usually obvious after a short conversation."
     plate={handsMono} alt="Practitioner's hands at work, in monochrome." focus="50% 55%" />
 
   <section class="bg-void px-5 pb-28 sm:px-8 md:pb-40">
@@ -55,4 +55,10 @@ const aside = asideOfferings();
       </div>
     </div>
   </section>
+  <script>
+    import { initCards } from "../../lib/cards";
+    const boot = () => initCards();
+    boot();
+    document.addEventListener("astro:after-swap", boot);
+  </script>
 </Base>

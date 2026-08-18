@@ -1,0 +1,97 @@
+---
+/**
+ * The overture.
+ *
+ * A held moment before the site is entered: the visitor chooses a language,
+ * and the veil dissolves. Shown once per visitor, then remembered.
+ *
+ * Renders inert markup with `hidden` so no-JS visitors and crawlers go
+ * straight to the site. The inline head script decides, before paint , 
+ * whether to arm it, so a returning visitor never sees a flash.
+ */
+import { LOCALES, LOCALE_NAMES, localeHref, DICTS, type Dict, type Locale } from "../i18n/dict";
+interface Props { locale?: Locale; t?: Dict; }
+const { locale = "en" } = Astro.props;
+const t: Dict = Astro.props.t ?? DICTS[locale];
+// Each option carries its own destination, so choosing a language navigates
+// into that locale rather than only setting a preference.
+const LANGS = LOCALES.map((code) => ({
+  code,
+  native: LOCALE_NAMES[code].native,
+  word: LOCALE_NAMES[code].word,
+  to: localeHref(code, "/"),
+}));
+---
+<div
+  id="overture"
+  hidden
+  class="fixed inset-0 z-[100] bg-void"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="overture-title"
+>
+  <!-- Ambient light, breathing. The only looping motion on the site, and it
+       exists to make the wait feel intentional rather than empty. -->
+  <div data-ov-glow
+       class="pointer-events-none absolute inset-0 opacity-0
+              bg-[radial-gradient(ellipse_50%_40%_at_50%_45%,rgba(192,131,67,0.16)_0%,transparent_70%)]"></div>
+
+  <div class="relative flex h-full flex-col items-center justify-center px-6">
+    <div data-ov-mark class="mb-14 text-center opacity-0 sm:mb-20">
+      <p class="font-display text-2xl tracking-tight text-chalk sm:text-3xl">Andrei Sirbu</p>
+      <p class="label mt-3 !text-[0.55rem]">Zürich</p>
+    </div>
+
+    <!-- The seam: a line of light that opens the moment. -->
+    <div data-ov-seam
+         class="mb-14 h-px w-full max-w-md origin-center scale-x-0
+                bg-gradient-to-r from-transparent via-bronze to-transparent sm:mb-20"></div>
+
+    <h2 id="overture-title" data-ov-label class="label mb-10 opacity-0 sm:mb-12">
+      {t.overture.choose}
+    </h2>
+
+    <ul class="flex w-full max-w-lg flex-col">
+      {LANGS.map((l) => (
+        <li data-ov-item class="opacity-0">
+          <button
+            type="button"
+            data-lang={l.code}
+            data-to={l.to}
+            class="group relative flex w-full items-baseline justify-between gap-6
+                   border-b border-ash/50 py-4 text-left transition-colors duration-500
+                   hover:border-bronze/60 sm:py-5"
+          >
+            <span class="font-display text-2xl leading-none tracking-tight text-bone
+                         transition-all duration-500 group-hover:translate-x-2
+                         group-hover:text-chalk sm:text-3xl">{l.native}</span>
+            <span class="label !text-[0.58rem] transition-all duration-500
+                         group-hover:!text-bronze">{l.word}</span>
+            <!-- Light gathers under the hovered line. -->
+            <span class="pointer-events-none absolute inset-x-0 -bottom-px h-px origin-left
+                         scale-x-0 bg-gradient-to-r from-bronze via-bronze/60 to-transparent
+                         transition-transform duration-700 ease-[var(--ease-material)]
+                         group-hover:scale-x-100"></span>
+          </button>
+        </li>
+      ))}
+    </ul>
+
+    <p data-ov-note class="label mt-12 !text-[0.55rem] !tracking-[0.16em] opacity-0">
+      {t.overture.note}
+    </p>
+  </div>
+</div>
+
+<script is:inline>
+  // Runs before paint: a returning visitor must never see this flash.
+  (function () {
+    try {
+      if (!localStorage.getItem("as-lang")) {
+        var el = document.currentScript && document.currentScript.previousElementSibling;
+        var ov = document.getElementById("overture");
+        if (ov) { ov.hidden = false; document.documentElement.dataset.overture = "on"; }
+      }
+    } catch (e) { /* private mode, just show the site */ }
+  })();
+</script>

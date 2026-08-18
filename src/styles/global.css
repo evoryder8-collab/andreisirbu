@@ -61,7 +61,7 @@
 
 @layer components {
   /* Micro-label: the site's connective tissue. Used for chapter
-     numbers, durations, modality — never for reading text. */
+     numbers, durations, modality, never for reading text. */
   .label {
     font-family: var(--font-mono);
     font-size: 0.625rem;
@@ -124,7 +124,20 @@
   }
 }
 
-/* Motion primitives — the JS sets data-state; CSS owns the look, so
+/* The overture veil parts from the centre using the same mask language as
+   the hero dissolve, so entry and first scroll feel like one material. */
+#overture {
+  /* Closed: the two black halves meet at the centre line. Parting animates
+     --m1 toward 0% and --m2 toward 100%, opening a gap that reveals the site. */
+  --m1: 50%;
+  --m2: 50%;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 var(--m1), transparent var(--m1), transparent var(--m2), #000 var(--m2), #000 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 var(--m1), transparent var(--m1), transparent var(--m2), #000 var(--m2), #000 100%);
+}
+/* Nothing behind the veil should scroll or be reachable. */
+html[data-overture="on"] body { overflow: hidden; }
+
+/* Motion primitives, the JS sets data-state; CSS owns the look, so
    content is fully visible if JS never runs. */
 [data-reveal] { opacity: 1; }
 html.js [data-reveal] {

@@ -11,7 +11,7 @@
  */
 
 export interface Session {
-  /** WooCommerce product slug — also the booking URL segment. */
+  /** WooCommerce product slug, also the booking URL segment. */
   slug: string;
   /** Display name. Shorter than the Woo product title where that title is unwieldy. */
   name: string;
@@ -28,7 +28,7 @@ export interface Session {
   description: string;
   /** Longer copy for the session detail route. */
   detail: string;
-  /** Ordering weight for the grid — the signature work leads. */
+  /** Ordering weight for the grid, the signature work leads. */
   rank: number;
   /** Marks the proprietary method. Rendered with additional emphasis. */
   signature?: boolean;
@@ -57,7 +57,7 @@ export const SESSIONS: Session[] = [
     description:
       "The proprietary work. Guided in real time, following the body rather than a routine.",
     detail:
-      "The method this practice is built on. Structure and intuition held together — precise touch, breath awareness, and guidance that responds to what your body is doing in the moment rather than to a fixed sequence.",
+      "The method this practice is built on. Structure and intuition held together: precise touch, breath awareness, and guidance that responds to what your body is doing in the moment rather than to a fixed sequence.",
     rank: 1,
     signature: true,
   },
@@ -136,13 +136,13 @@ export const SESSIONS: Session[] = [
     modality: "Teaching",
     description: "Eighteen years of practice, taught directly to practitioners.",
     detail:
-      "Not a session. A course for working practitioners who want the method itself — how the work is structured, and how to read a body in real time.",
+      "Not a session. A course for working practitioners who want the method itself: how the work is structured, and how to read a body in real time.",
     rank: 7,
     aside: true,
   },
 ];
 
-/** The private-session ladder — what the sessions grid shows. */
+/** The private-session ladder, what the sessions grid shows. */
 export const privateSessions = (): Session[] =>
   SESSIONS.filter((s) => !s.aside).sort((a, b) => a.rank - b.rank);
 

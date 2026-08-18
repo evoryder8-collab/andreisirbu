@@ -1,0 +1,360 @@
+/**
+ * Localised copy.
+ *
+ * Transcreated, not translated. Each locale uses the register and idiom a
+ * native reader expects from a private practice at this price: formal address
+ * throughout (Sie / vous / lei / usted), and figures of speech chosen for the
+ * culture rather than carried over from English.
+ *
+ * Notable departures from the English, all deliberate:
+ *  - "You are guided, not treated" becomes "Sie werden begleitet, nicht
+ *    behandelt" in German, which turns on begleiten/behandeln, a distinction
+ *    German already carries and English has to explain.
+ *  - "If this resonates" has no natural German equivalent. "Wenn Sie sich
+ *    darin wiedererkennen" (if you recognise yourself in this) is what a
+ *    German practitioner would actually write.
+ *  - French uses "si cela vous parle", the ordinary idiom, rather than any
+ *    literal rendering of resonance.
+ *  - "Apply" is softened everywhere outside English: bewerben/candidature read
+ *    as a job application, so each locale uses its own word for a request.
+ */
+
+export const LOCALES = ["en", "de", "fr", "it", "es"] as const;
+export type Locale = (typeof LOCALES)[number];
+
+export const LOCALE_NAMES: Record<Locale, { native: string; word: string }> = {
+  en: { native: "English",  word: "Welcome"    },
+  de: { native: "Deutsch",  word: "Willkommen" },
+  fr: { native: "Français", word: "Bienvenue"  },
+  it: { native: "Italiano", word: "Benvenuto"  },
+  es: { native: "Español",  word: "Bienvenido" },
+};
+
+export interface Dict {
+  htmlLang: string;
+  meta: { title: string; description: string };
+  nav: { method: string; sessions: string; studio: string; evidence: string; about: string; reserve: string };
+  overture: { choose: string; note: string };
+  hero: { eyebrow: string; l1: string; l2: string; l3: string; lede: string; cta: string; scroll: string };
+  positioning: { eyebrow: string; t1: string; t2: string; lede: string; body: string;
+                 practising: string; sessionsHeld: string; atATime: string };
+  method: { eyebrow: string; body: string; more: string };
+  process: { eyebrow: string; title: string; steps: { k: string; t: string }[];
+             resultsLabel: string; results: string[] };
+  sessions: { eyebrow: string; title: string; from: string; all: string; reserve: string };
+  evidence: { eyebrow: string; q1: string; a1: string; q2: string; a2: string; verified: string; delivered: string; more: string };
+  studio: { eyebrow: string; title: string; body: string; link: string };
+  cta: { eyebrow: string; title: string; body: string; primary: string; secondary: string };
+  footer: { tagline: string; practice: string; booking: string; legal: string; rights: string };
+}
+
+const en: Dict = {
+  htmlLang: "en",
+  meta: {
+    title: "Andrei Sirbu | Emotional Release & Nervous System Reset, Zürich",
+    description: "A private practice in Zürich. Eighteen years of somatic work, guided in real time. Sessions from CHF 195.",
+  },
+  nav: { method: "Method", sessions: "Sessions", studio: "Studio", evidence: "Evidence", about: "Andrei", reserve: "Reserve" },
+  overture: { choose: "Choose your language", note: "Sessions are held in English and German" },
+  hero: {
+    eyebrow: "Private practice · Zürich · Since 2008",
+    l1: "Emotional release", l2: "& nervous", l3: "system reset",
+    lede: "Eighteen years of practice. Each session guided in real time, responding to your body rather than following a fixed routine.",
+    cta: "Reserve a session", scroll: "Scroll",
+  },
+  positioning: {
+    eyebrow: "Authority", t1: "A practice built on", t2: "precision and experience.",
+    lede: "With over 18 years of dedicated practice, this work combines therapeutic structure with intuitive awareness.",
+    body: "Each session is guided in real time, responding to your body rather than following a fixed routine. This is not a treatment menu. It is one practitioner, one room, and the particular body in front of him.",
+    practising: "Practising", sessionsHeld: "Sessions held", atATime: "At a time",
+  },
+  method: {
+    eyebrow: "Proprietary method",
+    body: "A deeper form of work, designed for those ready to go beyond surface-level relaxation. Structure and intuition held together: precise touch, breath awareness, and guidance that follows the body rather than a sequence.",
+    more: "The method in full",
+  },
+  process: {
+    eyebrow: "What happens", title: "You are guided, not treated.",
+    steps: [
+      { k: "Arrival", t: "You are met, not processed. The room is prepared before you reach it." },
+      { k: "Descent", t: "You are gently guided into a state of deep relaxation, where the body begins to release stored tension naturally." },
+      { k: "The work", t: "Through precise touch, breath awareness and intuitive guidance, patterns held beneath the surface can soften and reorganise." },
+      { k: "After", t: "Nothing is rushed. You leave when the nervous system has settled, not when the hour ends." },
+    ],
+    resultsLabel: "Results of this work",
+    results: ["Release of deep physical tension", "Emotional lightness and clarity", "Nervous system regulation", "Improved sleep and recovery", "Greater connection with your body"],
+  },
+  sessions: { eyebrow: "The work offered", title: "Sessions", from: "From CHF", all: "All sessions and detail", reserve: "Reserve" },
+  evidence: {
+    eyebrow: "Evidence",
+    q1: "I have never experienced anything close to this. I left feeling like my body had been given back to me.", a1: "Private client · Zürich",
+    q2: "Precise, unhurried and completely present. He works with a level of attention I did not know was possible.", a2: "Returning client",
+    verified: "Verified on the practice store", delivered: "900+ sessions delivered", more: "Read more",
+  },
+  studio: {
+    eyebrow: "The studio", title: "One room in Zürich.",
+    body: "Private, unshared and prepared for a single person at a time. No reception, no queue, no adjoining treatment rooms.",
+    link: "Location and arrival",
+  },
+  cta: {
+    eyebrow: "By application", title: "If this resonates,\nyou are welcome to apply.",
+    body: "Sessions are limited and held privately. Reserve directly, or write first if you are unsure which work suits you.",
+    primary: "Reserve a session", secondary: "See all sessions",
+  },
+  footer: {
+    tagline: "Sessions are held privately,\none at a time.",
+    practice: "Practice", booking: "Booking", legal: "Legal",
+    rights: "Holistic & Massage Therapy, Zürich",
+  },
+};
+
+const de: Dict = {
+  htmlLang: "de",
+  meta: {
+    title: "Andrei Sirbu | Emotionales Lösen & Regulation des Nervensystems, Zürich",
+    description: "Eine private Praxis in Zürich. Achtzehn Jahre Körperarbeit, im Moment geführt. Sitzungen ab CHF 195.",
+  },
+  nav: { method: "Methode", sessions: "Sitzungen", studio: "Praxis", evidence: "Stimmen", about: "Andrei", reserve: "Termin" },
+  overture: { choose: "Wählen Sie Ihre Sprache", note: "Sitzungen finden auf Deutsch und Englisch statt" },
+  hero: {
+    eyebrow: "Private Praxis · Zürich · Seit 2008",
+    l1: "Emotionales Lösen", l2: "& Regulation", l3: "des Nervensystems",
+    lede: "Achtzehn Jahre Praxis. Jede Sitzung entsteht im Moment und folgt Ihrem Körper, nicht einem festen Ablauf.",
+    cta: "Termin vereinbaren", scroll: "Scrollen",
+  },
+  positioning: {
+    eyebrow: "Erfahrung", t1: "Eine Praxis, die auf", t2: "Präzision und Erfahrung ruht.",
+    lede: "Aus über 18 Jahren konsequenter Praxis verbindet diese Arbeit therapeutische Struktur mit intuitivem Gespür.",
+    body: "Jede Sitzung entsteht im Moment und richtet sich nach Ihrem Körper, nicht nach einem festen Ablauf. Das ist keine Behandlungsliste. Es sind ein Therapeut, ein Raum und der Mensch, der gerade da ist.",
+    practising: "In Praxis", sessionsHeld: "Sitzungen", atATime: "Gleichzeitig",
+  },
+  method: {
+    eyebrow: "Eigene Methode",
+    body: "Eine tiefere Form der Arbeit, für alle, die über oberflächliche Entspannung hinausgehen möchten. Struktur und Intuition greifen ineinander: präzise Berührung, Atemwahrnehmung und eine Führung, die dem Körper folgt statt einem Ablauf.",
+    more: "Die Methode im Ganzen",
+  },
+  process: {
+    eyebrow: "Der Ablauf", title: "Sie werden begleitet, nicht behandelt.",
+    steps: [
+      { k: "Ankommen", t: "Sie werden empfangen, nicht abgefertigt. Der Raum ist vorbereitet, bevor Sie ihn betreten." },
+      { k: "Absinken", t: "Sie werden behutsam in eine tiefe Entspannung geführt, in der der Körper gehaltene Spannung von selbst loslässt." },
+      { k: "Die Arbeit", t: "Durch präzise Berührung, Atemwahrnehmung und intuitive Führung dürfen Muster unter der Oberfläche weich werden und sich neu ordnen." },
+      { k: "Danach", t: "Nichts wird beschleunigt. Sie gehen, wenn das Nervensystem zur Ruhe gekommen ist, nicht wenn die Stunde vorbei ist." },
+    ],
+    resultsLabel: "Was diese Arbeit bewirkt",
+    results: ["Lösen tief sitzender körperlicher Spannung", "Emotionale Leichtigkeit und Klarheit", "Regulation des Nervensystems", "Besserer Schlaf und schnellere Erholung", "Ein deutlicheres Gefühl für den eigenen Körper"],
+  },
+  sessions: { eyebrow: "Das Angebot", title: "Sitzungen", from: "Ab CHF", all: "Alle Sitzungen im Detail", reserve: "Termin" },
+  evidence: {
+    eyebrow: "Stimmen",
+    q1: "So etwas habe ich noch nie erlebt. Ich ging mit dem Gefühl, meinen Körper zurückbekommen zu haben.", a1: "Privatklientin · Zürich",
+    q2: "Präzise, ohne Eile und ganz da. Er arbeitet mit einer Aufmerksamkeit, die ich für unmöglich gehalten hätte.", a2: "Langjähriger Klient",
+    verified: "Bestätigt über den Praxis-Shop", delivered: "Über 900 Sitzungen", more: "Mehr lesen",
+  },
+  studio: {
+    eyebrow: "Die Praxis", title: "Ein Raum in Zürich.",
+    body: "Privat, für Sie allein und immer nur für einen Menschen vorbereitet. Kein Empfang, keine Wartezeit, keine Behandlungsräume nebenan.",
+    link: "Lage und Anreise",
+  },
+  cta: {
+    eyebrow: "Auf Anfrage", title: "Wenn Sie sich darin wiedererkennen,\nfreue ich mich auf Ihre Anfrage.",
+    body: "Die Zahl der Sitzungen ist begrenzt und jede findet privat statt. Buchen Sie direkt, oder schreiben Sie zuerst, wenn Sie unsicher sind, welche Arbeit passt.",
+    primary: "Termin vereinbaren", secondary: "Alle Sitzungen ansehen",
+  },
+  footer: {
+    tagline: "Jede Sitzung findet privat statt,\nimmer nur eine nach der anderen.",
+    practice: "Praxis", booking: "Buchung", legal: "Rechtliches",
+    rights: "Ganzheitliche Massage- und Körpertherapie, Zürich",
+  },
+};
+
+const fr: Dict = {
+  htmlLang: "fr",
+  meta: {
+    title: "Andrei Sirbu | Libération émotionnelle & régulation du système nerveux, Zurich",
+    description: "Un cabinet privé à Zurich. Dix-huit ans de travail corporel, guidé dans l'instant. Séances à partir de CHF 195.",
+  },
+  nav: { method: "Méthode", sessions: "Séances", studio: "Le cabinet", evidence: "Témoignages", about: "Andrei", reserve: "Réserver" },
+  overture: { choose: "Choisissez votre langue", note: "Les séances se déroulent en anglais et en allemand" },
+  hero: {
+    eyebrow: "Cabinet privé · Zurich · Depuis 2008",
+    l1: "Libération émotionnelle", l2: "& régulation", l3: "du système nerveux",
+    lede: "Dix-huit ans de pratique. Chaque séance se construit dans l'instant et suit votre corps, non un protocole établi.",
+    cta: "Réserver une séance", scroll: "Défiler",
+  },
+  positioning: {
+    eyebrow: "Expérience", t1: "Une pratique fondée sur", t2: "la précision et l'expérience.",
+    lede: "Fort de plus de 18 ans de pratique assidue, ce travail allie une structure thérapeutique à une écoute intuitive.",
+    body: "Chaque séance se construit dans l'instant et suit votre corps, non un protocole établi. Il ne s'agit pas d'une carte de soins. Il y a un praticien, une pièce, et le corps qui se présente.",
+    practising: "De pratique", sessionsHeld: "Séances", atATime: "À la fois",
+  },
+  method: {
+    eyebrow: "Méthode propre",
+    body: "Un travail plus profond, pensé pour celles et ceux qui veulent aller au-delà de la simple détente. La structure et l'intuition avancent ensemble : un toucher précis, une attention au souffle, et une conduite qui suit le corps plutôt qu'une séquence.",
+    more: "La méthode en détail",
+  },
+  process: {
+    eyebrow: "Le déroulement", title: "Vous êtes accompagné, non traité.",
+    steps: [
+      { k: "L'accueil", t: "On vous reçoit, on ne vous expédie pas. La pièce est préparée avant votre arrivée." },
+      { k: "La descente", t: "Vous êtes conduit en douceur vers une détente profonde, où le corps relâche de lui-même les tensions accumulées." },
+      { k: "Le travail", t: "Par un toucher précis, une attention au souffle et une conduite intuitive, ce qui se tient sous la surface peut s'assouplir et se réorganiser." },
+      { k: "Après", t: "Rien n'est pressé. Vous partez lorsque le système nerveux s'est apaisé, non lorsque l'heure est écoulée." },
+    ],
+    resultsLabel: "Ce que ce travail apporte",
+    results: ["Relâchement des tensions physiques profondes", "Légèreté et clarté émotionnelles", "Régulation du système nerveux", "Un sommeil et une récupération meilleurs", "Un lien plus juste avec son corps"],
+  },
+  sessions: { eyebrow: "Les prestations", title: "Séances", from: "Dès CHF", all: "Toutes les séances en détail", reserve: "Réserver" },
+  evidence: {
+    eyebrow: "Témoignages",
+    q1: "Je n'avais jamais rien vécu de tel. Je suis repartie avec le sentiment qu'on m'avait rendu mon corps.", a1: "Cliente privée · Zurich",
+    q2: "Précis, sans hâte et pleinement présent. Il travaille avec une attention que je ne croyais pas possible.", a2: "Client fidèle",
+    verified: "Vérifié sur la boutique du cabinet", delivered: "Plus de 900 séances", more: "Lire la suite",
+  },
+  studio: {
+    eyebrow: "Le cabinet", title: "Une seule pièce, à Zurich.",
+    body: "Privée, réservée à vous seul et préparée pour une personne à la fois. Pas d'accueil, pas d'attente, aucune salle de soins mitoyenne.",
+    link: "Adresse et accès",
+  },
+  cta: {
+    eyebrow: "Sur demande", title: "Si cela vous parle,\nvotre demande est la bienvenue.",
+    body: "Les séances sont peu nombreuses et se déroulent en privé. Réservez directement, ou écrivez d'abord si vous hésitez sur le travail qui vous convient.",
+    primary: "Réserver une séance", secondary: "Voir toutes les séances",
+  },
+  footer: {
+    tagline: "Les séances se déroulent en privé,\nune à la fois.",
+    practice: "Le cabinet", booking: "Réservation", legal: "Mentions légales",
+    rights: "Massage et thérapie holistique, Zurich",
+  },
+};
+
+const it: Dict = {
+  htmlLang: "it",
+  meta: {
+    title: "Andrei Sirbu | Rilascio emotivo & riequilibrio del sistema nervoso, Zurigo",
+    description: "Uno studio privato a Zurigo. Diciotto anni di lavoro corporeo, guidato nel momento. Sessioni da CHF 195.",
+  },
+  nav: { method: "Metodo", sessions: "Sessioni", studio: "Lo studio", evidence: "Testimonianze", about: "Andrei", reserve: "Prenota" },
+  overture: { choose: "Scelga la sua lingua", note: "Le sessioni si tengono in inglese e tedesco" },
+  hero: {
+    eyebrow: "Studio privato · Zurigo · Dal 2008",
+    l1: "Rilascio emotivo", l2: "& riequilibrio", l3: "del sistema nervoso",
+    lede: "Diciotto anni di pratica. Ogni sessione nasce nel momento e segue il suo corpo, non una sequenza prestabilita.",
+    cta: "Prenoti una sessione", scroll: "Scorri",
+  },
+  positioning: {
+    eyebrow: "Esperienza", t1: "Una pratica fondata su", t2: "precisione ed esperienza.",
+    lede: "Da oltre 18 anni di pratica costante, questo lavoro unisce una struttura terapeutica a un ascolto intuitivo.",
+    body: "Ogni sessione nasce nel momento e segue il suo corpo, non una sequenza prestabilita. Non è un elenco di trattamenti. C'è un terapista, una stanza e la persona che si presenta.",
+    practising: "Di pratica", sessionsHeld: "Sessioni", atATime: "Per volta",
+  },
+  method: {
+    eyebrow: "Metodo proprio",
+    body: "Un lavoro più profondo, pensato per chi vuole andare oltre il semplice rilassamento. Struttura e intuito procedono insieme: tocco preciso, ascolto del respiro e una guida che segue il corpo invece di una sequenza.",
+    more: "Il metodo per intero",
+  },
+  process: {
+    eyebrow: "Come si svolge", title: "Viene accompagnato, non trattato.",
+    steps: [
+      { k: "L'arrivo", t: "Viene accolto, non smaltito. La stanza è pronta prima che lei entri." },
+      { k: "La discesa", t: "Viene condotto con delicatezza in un rilassamento profondo, dove il corpo lascia andare da sé la tensione trattenuta." },
+      { k: "Il lavoro", t: "Con un tocco preciso, l'ascolto del respiro e una guida intuitiva, ciò che si tiene sotto la superficie può ammorbidirsi e riorganizzarsi." },
+      { k: "Dopo", t: "Nulla viene affrettato. Se ne va quando il sistema nervoso si è posato, non quando finisce l'ora." },
+    ],
+    resultsLabel: "Che cosa porta questo lavoro",
+    results: ["Rilascio delle tensioni fisiche profonde", "Leggerezza e chiarezza emotiva", "Riequilibrio del sistema nervoso", "Sonno e recupero migliori", "Un legame più chiaro con il proprio corpo"],
+  },
+  sessions: { eyebrow: "Che cosa offro", title: "Sessioni", from: "Da CHF", all: "Tutte le sessioni in dettaglio", reserve: "Prenota" },
+  evidence: {
+    eyebrow: "Testimonianze",
+    q1: "Non avevo mai provato nulla di simile. Sono uscita con la sensazione che mi fosse stato restituito il corpo.", a1: "Cliente privata · Zurigo",
+    q2: "Preciso, senza fretta e del tutto presente. Lavora con un'attenzione che non credevo possibile.", a2: "Cliente di lunga data",
+    verified: "Verificato sullo shop dello studio", delivered: "Oltre 900 sessioni", more: "Continua a leggere",
+  },
+  studio: {
+    eyebrow: "Lo studio", title: "Una sola stanza, a Zurigo.",
+    body: "Privata, riservata a lei e preparata per una persona alla volta. Nessuna reception, nessuna attesa, nessuna sala accanto.",
+    link: "Dove si trova e come arrivare",
+  },
+  cta: {
+    eyebrow: "Su richiesta", title: "Se sente che questo la riguarda,\nla sua richiesta è benvenuta.",
+    body: "Le sessioni sono poche e si svolgono in privato. Prenoti direttamente, oppure scriva prima se non è certo di quale lavoro faccia al caso suo.",
+    primary: "Prenoti una sessione", secondary: "Vedi tutte le sessioni",
+  },
+  footer: {
+    tagline: "Le sessioni si svolgono in privato,\nuna alla volta.",
+    practice: "Lo studio", booking: "Prenotazione", legal: "Note legali",
+    rights: "Massaggio e terapia olistica, Zurigo",
+  },
+};
+
+const es: Dict = {
+  htmlLang: "es",
+  meta: {
+    title: "Andrei Sirbu | Liberación emocional y regulación del sistema nervioso, Zúrich",
+    description: "Una consulta privada en Zúrich. Dieciocho años de trabajo corporal, guiado en el momento. Sesiones desde CHF 195.",
+  },
+  nav: { method: "Método", sessions: "Sesiones", studio: "La consulta", evidence: "Testimonios", about: "Andrei", reserve: "Reservar" },
+  overture: { choose: "Elija su idioma", note: "Las sesiones se imparten en inglés y alemán" },
+  hero: {
+    eyebrow: "Consulta privada · Zúrich · Desde 2008",
+    l1: "Liberación emocional", l2: "y regulación", l3: "del sistema nervioso",
+    lede: "Dieciocho años de práctica. Cada sesión se construye en el momento y sigue a su cuerpo, no una rutina fija.",
+    cta: "Reservar una sesión", scroll: "Desplácese",
+  },
+  positioning: {
+    eyebrow: "Trayectoria", t1: "Una práctica sostenida por", t2: "la precisión y la experiencia.",
+    lede: "Con más de 18 años de práctica constante, este trabajo une una estructura terapéutica a una escucha intuitiva.",
+    body: "Cada sesión se construye en el momento y sigue a su cuerpo, no una rutina fija. No es una carta de tratamientos. Hay un terapeuta, una sala y el cuerpo que llega.",
+    practising: "De práctica", sessionsHeld: "Sesiones", atATime: "Cada vez",
+  },
+  method: {
+    eyebrow: "Método propio",
+    body: "Un trabajo más profundo, pensado para quienes quieren ir más allá de la relajación superficial. Estructura e intuición avanzan juntas: un tacto preciso, atención a la respiración y una guía que sigue al cuerpo en lugar de a una secuencia.",
+    more: "El método completo",
+  },
+  process: {
+    eyebrow: "Cómo transcurre", title: "Se le acompaña, no se le trata.",
+    steps: [
+      { k: "La llegada", t: "Se le recibe, no se le despacha. La sala está preparada antes de que usted entre." },
+      { k: "El descenso", t: "Se le conduce con calma a una relajación profunda, donde el cuerpo suelta por sí solo la tensión guardada." },
+      { k: "El trabajo", t: "Con un tacto preciso, atención a la respiración y una guía intuitiva, lo que se sostiene bajo la superficie puede ablandarse y reordenarse." },
+      { k: "Después", t: "Nada se apresura. Usted se marcha cuando el sistema nervioso se ha asentado, no cuando termina la hora." },
+    ],
+    resultsLabel: "Lo que deja este trabajo",
+    results: ["Liberación de la tensión física profunda", "Ligereza y claridad emocional", "Regulación del sistema nervioso", "Mejor sueño y recuperación", "Un vínculo más claro con el propio cuerpo"],
+  },
+  sessions: { eyebrow: "Lo que ofrezco", title: "Sesiones", from: "Desde CHF", all: "Todas las sesiones en detalle", reserve: "Reservar" },
+  evidence: {
+    eyebrow: "Testimonios",
+    q1: "Nunca había vivido nada parecido. Salí con la sensación de que me habían devuelto el cuerpo.", a1: "Clienta privada · Zúrich",
+    q2: "Preciso, sin prisa y del todo presente. Trabaja con una atención que no creía posible.", a2: "Cliente habitual",
+    verified: "Verificado en la tienda de la consulta", delivered: "Más de 900 sesiones", more: "Seguir leyendo",
+  },
+  studio: {
+    eyebrow: "La consulta", title: "Una sola sala, en Zúrich.",
+    body: "Privada, reservada para usted y preparada para una persona cada vez. Sin recepción, sin espera, sin salas contiguas.",
+    link: "Dónde está y cómo llegar",
+  },
+  cta: {
+    eyebrow: "Con cita previa", title: "Si esto le resuena,\nserá un placer recibir su solicitud.",
+    body: "Las sesiones son limitadas y se realizan en privado. Reserve directamente, o escriba antes si no sabe qué trabajo le conviene.",
+    primary: "Reservar una sesión", secondary: "Ver todas las sesiones",
+  },
+  footer: {
+    tagline: "Las sesiones se realizan en privado,\nuna a una.",
+    practice: "La consulta", booking: "Reservas", legal: "Aviso legal",
+    rights: "Masaje y terapia holística, Zúrich",
+  },
+};
+
+export const DICTS: Record<Locale, Dict> = { en, de, fr, it, es };
+
+export const isLocale = (v: string): v is Locale => (LOCALES as readonly string[]).includes(v);
+
+/** English lives at the root; every other locale is prefixed. */
+export const localeHref = (locale: Locale, path = "/"): string => {
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+  const p = path.startsWith("/") ? path : `/${path}`;
+  return locale === "en" ? `${base}${p}` : `${base}/${locale}${p === "/" ? "/" : p}`;
+};

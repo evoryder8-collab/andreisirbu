@@ -3,23 +3,28 @@ import "../styles/global.css";
 import SEO from "../components/SEO.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import LanguageOverture from "../components/LanguageOverture.astro";
 import { ClientRouter } from "astro:transitions";
 
+import { DICTS, type Dict, type Locale } from "../i18n/dict";
 interface Props {
   title: string;
   description: string;
   image?: string;
   business?: boolean;
+  locale?: Locale;
+  t?: Dict;
 }
-const { title, description, image, business } = Astro.props;
+const { title, description, image, business, locale = "en" } = Astro.props;
+const t: Dict = Astro.props.t ?? DICTS[locale];
 
-// Inline SVG grain, base64'd into a CSS var — no extra request for a
+// Inline SVG grain, base64'd into a CSS var, no extra request for a
 // texture that sits over every pixel of the site.
 const grain = `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="180" height="180" filter="url(#n)" opacity="0.55"/></svg>`;
 const grainUrl = `url("data:image/svg+xml;base64,${Buffer.from(grain).toString("base64")}")`;
 ---
 <!doctype html>
-<html lang="en" style={`--grain-src:${grainUrl}`}>
+<html lang={t.htmlLang} style={`--grain-src:${grainUrl}`}>
   <head>
     <meta charset="utf-8" />
     <!-- Zoom deliberately enabled. The previous site disabled it (WCAG 1.4.4). -->
@@ -38,14 +43,16 @@ const grainUrl = `url("data:image/svg+xml;base64,${Buffer.from(grain).toString("
   </head>
 
   <body class="grain">
-    <Nav />
+    <LanguageOverture locale={locale} t={t} />
+    <Nav locale={locale} t={t} />
     <main id="main">
       <slot />
     </main>
-    <Footer />
+    <Footer locale={locale} t={t} />
 
     <script>
       import { initMotion, destroyMotion, gsap, prefersReducedMotion } from "../lib/motion";
+      import { initOverture } from "../lib/overture";
 
       const veilNav = () => {
         const nav = document.querySelector<HTMLElement>("[data-nav]");
@@ -66,7 +73,7 @@ const grainUrl = `url("data:image/svg+xml;base64,${Buffer.from(grain).toString("
         io.observe(sentinel);
       };
 
-      // Magnetic CTA — pointer only, and never for touch or reduced motion.
+      // Magnetic CTA, pointer only, and never for touch or reduced motion.
       const magnetise = () => {
         if (prefersReducedMotion()) return;
         if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
@@ -87,6 +94,7 @@ const grainUrl = `url("data:image/svg+xml;base64,${Buffer.from(grain).toString("
       };
 
       const boot = () => {
+        initOverture();
         initMotion();
         veilNav();
         magnetise();
