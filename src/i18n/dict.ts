@@ -34,7 +34,7 @@ export interface Dict {
   htmlLang: string;
   meta: { title: string; description: string };
   nav: { method: string; sessions: string; studio: string; evidence: string; about: string; reserve: string };
-  overture: { choose: string; note: string };
+  overture: { choose: string; note: string; autoPrefix: string; cancelHint: string; entering: string };
   hero: { eyebrow: string; l1: string; l2: string; l3: string; lede: string; cta: string; scroll: string };
   positioning: { eyebrow: string; t1: string; t2: string; lede: string; body: string;
                  practising: string; sessionsHeld: string; atATime: string };
@@ -55,7 +55,7 @@ const en: Dict = {
     description: "A private practice in Zürich. Eighteen years of somatic work, guided in real time. Sessions from CHF 195.",
   },
   nav: { method: "Method", sessions: "Sessions", studio: "Studio", evidence: "Evidence", about: "Andrei", reserve: "Reserve" },
-  overture: { choose: "Choose your language", note: "Sessions are held in English and German" },
+  overture: { choose: "Choose your language", note: "Sessions are held in English and German", autoPrefix: "English selected in", cancelHint: "Choose another to stay", entering: "Entering" },
   hero: {
     eyebrow: "Private practice · Zürich · Since 2008",
     l1: "Emotional release", l2: "& nervous", l3: "system reset",
@@ -115,7 +115,7 @@ const de: Dict = {
     description: "Eine private Praxis in Zürich. Achtzehn Jahre Körperarbeit, im Moment geführt. Sitzungen ab CHF 195.",
   },
   nav: { method: "Methode", sessions: "Sitzungen", studio: "Praxis", evidence: "Stimmen", about: "Andrei", reserve: "Termin" },
-  overture: { choose: "Wählen Sie Ihre Sprache", note: "Sitzungen finden auf Deutsch und Englisch statt" },
+  overture: { choose: "Wählen Sie Ihre Sprache", note: "Sitzungen finden auf Deutsch und Englisch statt", autoPrefix: "Deutsch wird gewählt in", cancelHint: "Wählen Sie eine andere Sprache", entering: "Sie treten ein" },
   hero: {
     eyebrow: "Private Praxis · Zürich · Seit 2008",
     l1: "Emotionales Lösen", l2: "& Regulation", l3: "des Nervensystems",
@@ -175,7 +175,7 @@ const fr: Dict = {
     description: "Un cabinet privé à Zurich. Dix-huit ans de travail corporel, guidé dans l'instant. Séances à partir de CHF 195.",
   },
   nav: { method: "Méthode", sessions: "Séances", studio: "Le cabinet", evidence: "Témoignages", about: "Andrei", reserve: "Réserver" },
-  overture: { choose: "Choisissez votre langue", note: "Les séances se déroulent en anglais et en allemand" },
+  overture: { choose: "Choisissez votre langue", note: "Les séances se déroulent en anglais et en allemand", autoPrefix: "Français sélectionné dans", cancelHint: "Choisissez-en une autre pour rester", entering: "Entrée" },
   hero: {
     eyebrow: "Cabinet privé · Zurich · Depuis 2008",
     l1: "Libération émotionnelle", l2: "& régulation", l3: "du système nerveux",
@@ -235,7 +235,7 @@ const it: Dict = {
     description: "Uno studio privato a Zurigo. Diciotto anni di lavoro corporeo, guidato nel momento. Sessioni da CHF 195.",
   },
   nav: { method: "Metodo", sessions: "Sessioni", studio: "Lo studio", evidence: "Testimonianze", about: "Andrei", reserve: "Prenota" },
-  overture: { choose: "Scelga la sua lingua", note: "Le sessioni si tengono in inglese e tedesco" },
+  overture: { choose: "Scelga la sua lingua", note: "Le sessioni si tengono in inglese e tedesco", autoPrefix: "Italiano selezionato tra", cancelHint: "Ne scelga un’altra per restare", entering: "Ingresso" },
   hero: {
     eyebrow: "Studio privato · Zurigo · Dal 2008",
     l1: "Rilascio emotivo", l2: "& riequilibrio", l3: "del sistema nervoso",
@@ -295,7 +295,7 @@ const es: Dict = {
     description: "Una consulta privada en Zúrich. Dieciocho años de trabajo corporal, guiado en el momento. Sesiones desde CHF 195.",
   },
   nav: { method: "Método", sessions: "Sesiones", studio: "La consulta", evidence: "Testimonios", about: "Andrei", reserve: "Reservar" },
-  overture: { choose: "Elija su idioma", note: "Las sesiones se imparten en inglés y alemán" },
+  overture: { choose: "Elija su idioma", note: "Las sesiones se imparten en inglés y alemán", autoPrefix: "Español seleccionado en", cancelHint: "Elija otro para quedarse", entering: "Entrando" },
   hero: {
     eyebrow: "Consulta privada · Zúrich · Desde 2008",
     l1: "Liberación emocional", l2: "y regulación", l3: "del sistema nervioso",

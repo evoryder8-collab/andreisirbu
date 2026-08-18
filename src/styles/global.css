@@ -169,6 +169,23 @@
 /* Nothing behind the veil should scroll or be reachable. */
 html[data-overture="on"] body { overflow: hidden; }
 
+/* The row the browser language matched, waiting to settle. */
+button[data-armed="true"] { border-color: color-mix(in srgb, var(--color-bronze) 55%, transparent); }
+button[data-armed="true"] span:first-child { color: var(--color-chalk); }
+button[data-armed="true"]::after {
+  content: "";
+  position: absolute;
+  inset: -2px -10px;
+  border-radius: 3px;
+  pointer-events: none;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--color-bronze) 16%, transparent), transparent 65%);
+  animation: armed-pulse 1.6s ease-in-out infinite;
+}
+@keyframes armed-pulse { 0%,100% { opacity: 0.25; } 50% { opacity: 0.85; } }
+@media (prefers-reduced-motion: reduce) {
+  button[data-armed="true"]::after { animation: none; opacity: 0.5; }
+}
+
 /* Motion primitives, the JS sets data-state; CSS owns the look, so
    content is fully visible if JS never runs. */
 [data-reveal] { opacity: 1; }

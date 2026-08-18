@@ -77,9 +77,43 @@ const LANGS = LOCALES.map((code) => ({
       ))}
     </ul>
 
-    <p data-ov-note class="label mt-12 !text-[0.55rem] !tracking-[0.16em] opacity-0">
+    <!-- Auto-selection countdown. Populated by the detector; stays empty and
+         invisible when the browser language is not one we carry. -->
+    <div data-ov-auto class="mt-12 flex min-h-[2.5rem] flex-col items-center gap-2 opacity-0">
+      <p class="label !text-[0.58rem] !tracking-[0.18em] !text-bronze">
+        <span data-ov-auto-text></span>
+        <span data-ov-auto-n class="ml-1 inline-block w-3 tabular-nums text-chalk"></span>
+      </p>
+      <p data-ov-auto-hint class="label !text-[0.5rem] !tracking-[0.14em] opacity-60"></p>
+    </div>
+
+    <p data-ov-note class="label mt-6 !text-[0.55rem] !tracking-[0.16em] opacity-0">
       {t.overture.note}
     </p>
+  </div>
+
+  <!-- The passage. Shown after a language is settled: the mark gathers light,
+       a gleam crosses the letterforms, and the glow blooms outward as the
+       veil parts. -->
+  <div data-ov-passage
+       class="pointer-events-none absolute inset-0 z-10 flex items-center justify-center opacity-0">
+    <div data-ov-bloom
+         class="absolute h-[52vmin] w-[52vmin] rounded-full opacity-0
+                bg-[radial-gradient(circle,rgba(192,131,67,0.34)_0%,rgba(192,131,67,0.10)_38%,transparent_70%)]
+                blur-2xl"></div>
+    <div class="relative text-center">
+      <p data-ov-passage-mark
+         class="relative font-display text-4xl tracking-tight text-chalk sm:text-6xl
+                [text-shadow:0_0_28px_rgba(192,131,67,0.45),0_0_70px_rgba(192,131,67,0.18)]">
+        Andrei Sirbu
+        <span data-ov-gleam
+              class="pointer-events-none absolute inset-0 -translate-x-[130%]
+                     bg-[linear-gradient(104deg,transparent_40%,rgba(245,242,236,0.85)_50%,transparent_60%)]
+                     bg-clip-text text-transparent"
+              aria-hidden="true">Andrei Sirbu</span>
+      </p>
+      <p data-ov-passage-note class="label mt-5 !text-[0.55rem] !text-bronze opacity-0"></p>
+    </div>
   </div>
 </div>
 
