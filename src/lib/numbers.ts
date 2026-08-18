@@ -31,20 +31,28 @@ export function initNumbers(): void {
         const group = el.dataset.countGroup === "true";
         const obj = { v: 0 };
 
-        // Larger figures travel further and take slightly longer, so a 900
-        // and an 18 feel like they carry different weight.
-        const duration = gsap.utils.clamp(0.9, 2.0, 0.7 + Math.log10(Math.max(target, 1)) * 0.42);
+        // Prices resolve almost instantly and flash: a figure at this price
+        // point should land with confidence, not crawl upward. Other figures
+        // still travel, paced by magnitude.
+        const isPrice = group;
+        const duration = isPrice
+          ? 0.34
+          : gsap.utils.clamp(0.9, 1.6, 0.7 + Math.log10(Math.max(target, 1)) * 0.36);
 
         gsap.to(obj, {
           v: target,
           duration,
-          ease: "power2.out",
+          ease: isPrice ? "power3.out" : "power2.out",
           onUpdate: () => {
             const n = Math.round(obj.v);
             el.textContent = group ? swiss(n) : String(n);
           },
           onComplete: () => {
             el.textContent = group ? swiss(target) : String(target);
+            // Quick shine as it lands.
+            el.classList.remove("num-flash");
+            void el.offsetWidth; // restart the animation
+            el.classList.add("num-flash");
           },
         });
       }

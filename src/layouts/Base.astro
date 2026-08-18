@@ -52,7 +52,7 @@ const grainUrl = `url("data:image/svg+xml;base64,${Buffer.from(grain).toString("
 
     <script>
       import { initMotion, destroyMotion, gsap, prefersReducedMotion } from "../lib/motion";
-      import { initOverture } from "../lib/overture";
+      import { initOverture, openOverture } from "../lib/overture";
 
       const veilNav = () => {
         const nav = document.querySelector<HTMLElement>("[data-nav]");
@@ -93,8 +93,18 @@ const grainUrl = `url("data:image/svg+xml;base64,${Buffer.from(grain).toString("
         });
       };
 
+      const portalToggle = () => {
+        document.querySelectorAll<HTMLElement>("[data-open-portal]").forEach((el) => {
+          el.addEventListener("click", (e) => {
+            e.preventDefault();
+            openOverture();
+          });
+        });
+      };
+
       const boot = () => {
         initOverture();
+        portalToggle();
         initMotion();
         veilNav();
         magnetise();

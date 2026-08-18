@@ -129,7 +129,10 @@
   .field::before {
     content: "";
     position: absolute;
-    inset: -20% -10%;
+    /* Vertical bleed only. A horizontal inset pushed this past the viewport
+       and was a genuine source of sideways scroll on narrow screens. */
+    inset: -20% 0;
+    max-width: 100%;
     z-index: -1;
     pointer-events: none;
     background:
@@ -137,11 +140,12 @@
       radial-gradient(34% 28% at 78% 72%, rgba(107,126,121,0.11) 0%, transparent 70%);
     filter: blur(18px);
     animation: field-drift 26s ease-in-out infinite alternate;
+    will-change: transform;
   }
   @keyframes field-drift {
     0%   { transform: translate3d(0,0,0) scale(1); opacity: 0.85; }
-    50%  { transform: translate3d(2.5%, -2%, 0) scale(1.06); opacity: 1; }
-    100% { transform: translate3d(-2%, 2.5%, 0) scale(1.03); opacity: 0.9; }
+    50%  { transform: translate3d(0, -2%, 0) scale(1.06); opacity: 1; }
+    100% { transform: translate3d(0, 2.5%, 0) scale(1.03); opacity: 0.9; }
   }
 
   /* Hairline that catches light at the top edge, like a bevelled
@@ -168,6 +172,17 @@
 }
 /* Nothing behind the veil should scroll or be reachable. */
 html[data-overture="on"] body { overflow: hidden; }
+
+/* A figure landing: a fast gleam across it, then gone. */
+.num-flash {
+  animation: num-flash 460ms var(--ease-material) 1;
+}
+@keyframes num-flash {
+  0%   { color: var(--color-chalk); text-shadow: 0 0 0 rgba(192,131,67,0); }
+  18%  { color: #FFF6E8; text-shadow: 0 0 14px rgba(192,131,67,0.85), 0 0 30px rgba(192,131,67,0.35); }
+  100% { color: inherit; text-shadow: 0 0 0 rgba(192,131,67,0); }
+}
+@media (prefers-reduced-motion: reduce) { .num-flash { animation: none; } }
 
 /* The row the browser language matched, waiting to settle. */
 button[data-armed="true"] { border-color: color-mix(in srgb, var(--color-bronze) 55%, transparent); }

@@ -23,12 +23,16 @@ const isCurrent = (to: string) => path === href(to).replace(/\/$/, "");
   class="fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter] duration-500
          data-[veiled=true]:bg-void/70 data-[veiled=true]:backdrop-blur-xl"
 >
-  <nav aria-label="Primary" class="flex items-center justify-between gap-6 px-5 py-4 sm:px-8 sm:py-5">
-    <a href={href("/")} class="group flex items-baseline gap-2.5 shrink-0">
+  <nav aria-label="Primary" class="flex w-full max-w-full items-center justify-between gap-3 px-4 py-4 sm:gap-6 sm:px-8 sm:py-5">
+    <!-- The wordmark is home, and also the way back to the portal. Without
+         JS it stays an ordinary link to the homepage. -->
+    <a href={href("/")} data-open-portal
+       class="group flex min-w-0 items-baseline gap-2.5"
+       title="Change language">
       <span class="font-display text-lg leading-none tracking-tight text-chalk sm:text-xl">
         Andrei Sirbu
       </span>
-      <span class="label hidden sm:inline">Zürich</span>
+      <span class="label hidden sm:inline transition-colors duration-500 group-hover:!text-bronze">Zürich</span>
     </a>
 
     <ul class="hidden items-center gap-7 md:flex">
@@ -49,7 +53,7 @@ const isCurrent = (to: string) => path === href(to).replace(/\/$/, "");
       data-magnetic
       class="sheen bevel group relative shrink-0 rounded-full bg-stone/60 px-5 py-2.5
              text-[0.66rem] font-medium uppercase tracking-[0.2em] text-chalk
-             transition-colors duration-500 hover:bg-ash/80 sm:px-6"
+             transition-colors duration-500 hover:bg-ash/80 sm:px-6 shrink-0"
     >{t.nav.reserve}</a>
   </nav>
 </header>
@@ -61,7 +65,7 @@ const isCurrent = (to: string) => path === href(to).replace(/\/$/, "");
   class="fixed inset-x-0 bottom-0 z-50 md:hidden translate-y-full transition-transform
          duration-500 data-[shown=true]:translate-y-0"
 >
-  <div class="mx-3 mb-3 flex items-center gap-1 overflow-x-auto rounded-full border
+  <div class="mx-3 mb-3 flex max-w-full items-center gap-1 overflow-x-auto overscroll-x-contain rounded-full border
               border-ash/80 bg-void/85 px-1.5 py-1.5 backdrop-blur-xl
               [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
     {links.map((l) => (

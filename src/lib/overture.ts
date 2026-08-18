@@ -24,9 +24,39 @@ function detectLocale(): Locale | null {
   return null;
 }
 
+/**
+ * Reopen the portal after a preference has already been stored. Resets the
+ * inline state GSAP left behind, then replays the whole arrival.
+ */
+export function openOverture(): void {
+  const ov = document.getElementById("overture");
+  if (!ov) return;
+
+  gsap.killTweensOf(ov);
+  ov.hidden = false;
+  document.documentElement.dataset.overture = "on";
+
+  // Wind every animated part back to its pre-arrival state.
+  gsap.set(ov, { clearProps: "opacity" });
+  ov.style.setProperty("--m1", "50%");
+  ov.style.setProperty("--m2", "50%");
+  gsap.set("[data-ov-glow],[data-ov-mark],[data-ov-label],[data-ov-item],[data-ov-note],[data-ov-auto]",
+           { opacity: 0, y: 0, clearProps: "transform" });
+  gsap.set("[data-ov-seam]", { scaleX: 0, opacity: 1 });
+  gsap.set("[data-ov-passage]", { opacity: 0 });
+  gsap.set("[data-ov-bloom]", { opacity: 0, scale: 1 });
+  gsap.set("[data-ov-passage-mark]", { opacity: 0, scale: 0.94 });
+
+  runOverture(ov);
+}
+
 export function initOverture(): void {
   const ov = document.getElementById("overture");
   if (!ov || ov.hidden) return;
+  runOverture(ov);
+}
+
+function runOverture(ov: HTMLElement): void {
 
   const root = document.documentElement;
   root.style.overflow = "hidden";
@@ -81,9 +111,12 @@ export function initOverture(): void {
               { scale: 0.94, opacity: 0 },
               { scale: 1, opacity: 1, duration: 1.1, ease: "power3.out" }, 0.4)
       .to("[data-ov-bloom]", { opacity: 1, scale: 1.18, duration: 1.6, ease: "power2.out" }, 0.5)
+      // The light travels through the letterforms. Animating the gradient
+              // position keeps the type still; translating the layer instead
+              // reads as a second copy of the words sliding across.
       .fromTo("[data-ov-gleam]",
-              { xPercent: -130 },
-              { xPercent: 130, duration: 1.15, ease: "power2.inOut" }, 0.85)
+              { backgroundPosition: "190% 0%" },
+              { backgroundPosition: "-90% 0%", duration: 1.5, ease: "power2.inOut" }, 0.7)
       .to(note, { opacity: 1, duration: 0.6 }, 1.1)
       .to("[data-ov-bloom]", { opacity: 0, scale: 1.6, duration: 0.9, ease: "power2.in" }, 1.9)
       .to("[data-ov-passage]", { opacity: 0, duration: 0.6, ease: "power2.in" }, 2.1)
