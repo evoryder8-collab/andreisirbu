@@ -173,6 +173,22 @@
 /* Nothing behind the veil should scroll or be reachable. */
 html[data-overture="on"] body { overflow: hidden; }
 
+/* Masked type: each word sits in a clipped line and is lifted into place.
+   The mask is inline-flex so descenders are not cut, and the negative
+   margin compensates for the extra leading the clip introduces. */
+.tr-mask {
+  display: inline-flex;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.tr-w {
+  display: inline-block;
+  will-change: transform;
+  transform-origin: left bottom;
+}
+
 /* A figure landing: a fast gleam across it, then gone. */
 .num-flash {
   animation: num-flash 460ms var(--ease-material) 1;

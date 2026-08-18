@@ -28,8 +28,8 @@ const { min } = priceRange();
       <h2 id="pos-title"
           class="font-display tracking-[-0.02em] text-chalk
                  text-[clamp(2.5rem,9vw,4.2rem)] leading-[1]">
-        <span class="block" data-reveal>{t.positioning.t1}</span>
-        <span class="block italic text-bronze" data-reveal style="--reveal-delay:120ms">{t.positioning.t2}</span>
+        <span class="block" data-type-reveal>{t.positioning.t1}</span>
+        <span class="block italic text-bronze" data-type-reveal>{t.positioning.t2}</span>
       </h2>
 
       <div class="mt-16 grid gap-14 md:mt-24 md:grid-cols-12 md:gap-10">
@@ -81,7 +81,7 @@ const { min } = priceRange();
       <p class="label mb-10" data-reveal>{t.process.eyebrow}</p>
       <h2 id="proc-title"
           class="font-display max-w-[16ch] text-chalk tracking-[-0.02em]
-                 text-[clamp(2.6rem,9vw,4rem)] leading-[0.98]" data-reveal>
+                 text-[clamp(2.6rem,9vw,4rem)] leading-[0.98]" data-type-reveal>
         {t.process.title}
       </h2>
 
@@ -122,7 +122,7 @@ const { min } = priceRange();
           <p class="label mb-5" data-reveal>{t.sessions.eyebrow}</p>
           <h2 id="sess-title"
               class="font-display text-chalk tracking-[-0.02em]
-                     text-[clamp(2.6rem,9vw,4rem)] leading-[1]" data-reveal>
+                     text-[clamp(2.6rem,9vw,4rem)] leading-[1]" data-type-reveal>
             {t.sessions.title}
           </h2>
         </div>
@@ -149,11 +149,11 @@ const { min } = priceRange();
       <h2 id="ev-title" class="sr-only">What clients report</h2>
 
       <!-- Set as pull-quotes at editorial scale rather than a slider. -->
-      <figure class="border-t border-ash/60 py-12 md:py-16" data-reveal>
+      <figure class="border-t border-ash/60 py-12 md:py-16"><div data-type-reveal>
         <blockquote class="font-display text-[clamp(1.5rem,4vw,3rem)] leading-[1.12] tracking-[-0.015em] text-chalk">
           “{t.evidence.q1}”
-        </blockquote>
-        <figcaption class="label mt-7">{t.evidence.a1}</figcaption>
+        </blockquote></div>
+        <figcaption class="label mt-7" data-reveal>{t.evidence.a1}</figcaption>
       </figure>
 
       <figure class="border-t border-ash/60 py-12 md:py-16" data-reveal style="--reveal-delay:110ms">
@@ -191,7 +191,7 @@ const { min } = priceRange();
         <p class="label mb-6" data-reveal>{t.studio.eyebrow}</p>
         <h2 id="studio-title"
             class="font-display max-w-[14ch] text-chalk tracking-[-0.02em]
-                   text-[clamp(2.2rem,7vw,5.5rem)] leading-[0.98]" data-reveal>
+                   text-[clamp(2.2rem,7vw,5.5rem)] leading-[0.98]" data-type-reveal>
           {t.studio.title}
         </h2>
         <p class="mt-8 max-w-[42ch] text-[0.95rem] leading-relaxed text-bone/80 md:text-base" data-reveal>{t.studio.body}</p>
@@ -244,6 +244,7 @@ const { min } = priceRange();
     import { initCards } from "../lib/cards";
     import { initScrollFx } from "../lib/scrollfx";
     import { initNumbers } from "../lib/numbers";
+    import { initTypeReveals } from "../lib/type";
 
     const boot = async () => {
       // The shader reads the same plate the poster shows.
@@ -295,19 +296,52 @@ const { min } = priceRange();
           scrollTrigger: { trigger: "[data-plate]", start: "top bottom", end: "bottom top", scrub: 1.2 },
         });
 
-        /* Method wordmark separates as the refraction resolves. */
-        gsap.fromTo("[data-method-word]",
-          { yPercent: 110, opacity: 0 },
-          {
-            yPercent: 0, opacity: 1, stagger: 0.12, ease: "power3.out", duration: 1.1,
-            scrollTrigger: { trigger: '[data-scene="method"]', start: "top 55%" },
+        /* The method chapter is a passage, not a hold. A virtual camera
+           pushes through the plate while the copy resolves in stages and a
+           rail reports progress, so a long sticky section reads as advancing
+           rather than as the foot of the page. */
+        const methodScene = document.querySelector('[data-scene="method"]');
+        if (methodScene) {
+          const rail = document.querySelector<HTMLElement>("[data-method-rail]");
+          const pct = document.querySelector<HTMLElement>("[data-method-pct]");
+
+          ScrollTrigger.create({
+            trigger: methodScene,
+            start: "top top",
+            end: "bottom bottom",
+            onUpdate: (self) => {
+              const p = self.progress;
+              if (rail) rail.style.width = (p * 100).toFixed(1) + "%";
+              if (pct) pct.textContent = String(Math.round(p * 100)).padStart(2, "0");
+            },
           });
-        gsap.fromTo("[data-method-copy]",
-          { opacity: 0, y: 24 },
-          {
-            opacity: 1, y: 0, ease: "power2.out", duration: 1,
-            scrollTrigger: { trigger: '[data-scene="method"]', start: "top 42%" },
-          });
+
+          gsap.timeline({
+            scrollTrigger: { trigger: methodScene, start: "top top", end: "bottom bottom", scrub: 1 },
+          })
+            .fromTo("[data-method-camera]",
+              { scale: 1.16, yPercent: 3 },
+              { scale: 1.0, yPercent: 0, ease: "none" }, 0)
+            .to("[data-method-camera]",
+              { scale: 1.08, yPercent: -5, ease: "power1.in" }, 0.72);
+
+          gsap.fromTo("[data-method-word]",
+            { yPercent: 115, opacity: 0 },
+            { yPercent: 0, opacity: 1, stagger: 0.11, ease: "expo.out", duration: 1.2,
+              scrollTrigger: { trigger: methodScene, start: "top 62%" } });
+          gsap.fromTo("[data-method-eyebrow]",
+            { opacity: 0, y: 14 },
+            { opacity: 1, y: 0, duration: 0.9, ease: "power3.out",
+              scrollTrigger: { trigger: methodScene, start: "top 70%" } });
+          gsap.fromTo("[data-method-copy]",
+            { opacity: 0, y: 26 },
+            { opacity: 1, y: 0, ease: "power3.out", duration: 1,
+              scrollTrigger: { trigger: methodScene, start: "top 40%" } });
+          gsap.fromTo("[data-method-link]",
+            { opacity: 0, y: 16 },
+            { opacity: 1, y: 0, ease: "power3.out", duration: 0.9,
+              scrollTrigger: { trigger: methodScene, start: "top 22%" } });
+        }
 
         /* Studio plate drifts behind the type. */
         gsap.fromTo("[data-studio-img]",
@@ -321,6 +355,7 @@ const { min } = priceRange();
       initCards();
       initScrollFx();
       initNumbers();
+      initTypeReveals();
       onCleanup(() => ctx.revert());
       ScrollTrigger.refresh();
     };

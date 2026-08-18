@@ -16,19 +16,34 @@ export function initCards(): void {
   const cards = document.querySelectorAll<HTMLElement>("[data-card]");
   if (!cards.length) return;
 
-  // Idle float, desynchronised per card so the grid breathes unevenly,
-  // the way suspended objects actually do.
+  // Entrance, then float. The float is started by the entrance's onComplete
+  // rather than on init: both animate y, so running them together made the
+  // card fight itself on the way in.
   cards.forEach((card, i) => {
     const body = card.querySelector<HTMLElement>("[data-card-body]");
     if (!body) return;
-    gsap.to(body, {
-      y: i % 2 === 0 ? -7 : -10,
-      duration: 3.4 + (i % 3) * 0.55,
-      ease: "sine.inOut",
-      repeat: -1,
-      yoyo: true,
-      delay: i * 0.22,
-    });
+
+    gsap.set(body, { transformPerspective: 1400 });
+
+    const startFloat = () => {
+      gsap.to(body, {
+        y: i % 2 === 0 ? -7 : -10,
+        duration: 3.4 + (i % 3) * 0.55,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+        delay: (i % 4) * 0.18,
+      });
+    };
+
+    gsap.fromTo(body,
+      { y: 64, rotateX: -13, scale: 0.94, opacity: 0 },
+      {
+        y: 0, rotateX: 0, scale: 1, opacity: 1,
+        duration: 1.25, ease: "expo.out", delay: (i % 3) * 0.09,
+        scrollTrigger: { trigger: card, start: "top 88%", once: true },
+        onComplete: startFloat,
+      });
   });
 
   if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
