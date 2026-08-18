@@ -11,28 +11,28 @@ const sessions = privateSessions();
     lede="Choose the work directly, or write first. Booking, availability and payment are handled on the practice store."
     plate={candle} alt="Candlelight in the treatment room." focus="50% 50%" />
 
-  <section class="bg-void px-5 pb-28 sm:px-8 md:pb-40">
+  <section class="bg-ink px-5 pb-28 sm:px-8 md:pb-40">
     <div class="mx-auto max-w-6xl">
-      <ul class="grid gap-px bg-ash/40">
+      <ul class="grid gap-px bg-slate/40">
         {sessions.map((s, i) => (
           <li data-reveal style={`--reveal-delay:${i * 60}ms`}>
             <a href={bookingUrl(s.slug)}
                class="sheen group flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3
-                      bg-void px-5 py-7 transition-colors duration-500 hover:bg-stone/60 sm:px-8">
+                      bg-ink px-5 py-7 transition-colors duration-500 hover:bg-iron/60 sm:px-8">
               <span class="flex min-w-0 flex-col gap-2">
                 <span class="font-display text-2xl text-chalk sm:text-3xl">{s.name}</span>
                 <span class="flex gap-4"><span class="label">{s.duration}</span><span class="label">{s.modality}</span></span>
               </span>
               <span class="flex items-baseline gap-6">
-                <span class="font-mono text-sm tabular-nums text-bone/90">{s.currency} {formatPrice(s.price)}</span>
-                <span class="label !text-bronze transition-transform duration-500 group-hover:translate-x-1">Reserve →</span>
+                <span class="font-mono text-sm tabular-nums text-plaster/90">{s.currency} {formatPrice(s.price)}</span>
+                <span class="label !text-verdigris transition-transform duration-500 group-hover:translate-x-1">Reserve →</span>
               </span>
             </a>
           </li>
         ))}
       </ul>
 
-      <div class="mt-20 grid gap-10 border-t border-ash/60 pt-14 md:grid-cols-12" data-reveal>
+      <div class="mt-20 grid gap-10 border-t border-slate/60 pt-14 md:grid-cols-12" data-reveal>
         <div class="md:col-span-5">
           <h2 class="font-display text-3xl text-chalk md:text-4xl">Not sure which?</h2>
           <p class="mt-5 text-[0.95rem] leading-relaxed text-mist">
@@ -42,20 +42,20 @@ const sessions = privateSessions();
         </div>
         <div class="flex flex-col gap-4 md:col-span-6 md:col-start-7">
           <a href="mailto:info@andreisirbu.com"
-             class="bevel sheen flex items-center justify-between gap-4 rounded-[3px] bg-stone/60 px-6 py-5
-                    transition-colors duration-500 hover:bg-ash/70">
+             class="bevel sheen flex items-center justify-between gap-4 rounded-[3px] bg-iron/60 px-6 py-5
+                    transition-colors duration-500 hover:bg-slate/70">
             <span class="label">Email</span>
             <span class="font-mono text-sm text-chalk">info@andreisirbu.com</span>
           </a>
           <a href="https://andreisirbu.com/contact/"
-             class="bevel sheen flex items-center justify-between gap-4 rounded-[3px] bg-stone/60 px-6 py-5
-                    transition-colors duration-500 hover:bg-ash/70">
+             class="bevel sheen flex items-center justify-between gap-4 rounded-[3px] bg-iron/60 px-6 py-5
+                    transition-colors duration-500 hover:bg-slate/70">
             <span class="label">Contact form</span>
             <span class="font-mono text-sm text-chalk">Open →</span>
           </a>
           <a href="https://andreisirbu.com/balance/"
-             class="bevel sheen flex items-center justify-between gap-4 rounded-[3px] bg-stone/60 px-6 py-5
-                    transition-colors duration-500 hover:bg-ash/70">
+             class="bevel sheen flex items-center justify-between gap-4 rounded-[3px] bg-iron/60 px-6 py-5
+                    transition-colors duration-500 hover:bg-slate/70">
             <span class="label">Gift card balance</span>
             <span class="font-mono text-sm text-chalk">Check →</span>
           </a>

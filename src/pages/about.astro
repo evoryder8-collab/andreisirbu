@@ -6,16 +6,16 @@ import { href } from "../lib/url";
 ---
 <Base title="Andrei Sirbu | Practitioner, Zürich"
       description="Eighteen years of somatic and therapeutic practice, held in a single private room in Zürich.">
-  <article class="bg-void">
+  <article class="bg-ink">
     <div class="mx-auto grid max-w-6xl gap-12 px-5 pb-24 pt-32 sm:px-8 md:grid-cols-12 md:gap-16 md:pb-36 md:pt-44">
       <div class="md:col-span-5" data-reveal>
-        <div class="relative aspect-4/5 overflow-hidden rounded-[3px] bg-stone">
+        <div class="relative aspect-4/5 overflow-hidden rounded-[3px] bg-iron">
           <Picture src={portrait} alt="Andrei Sirbu, portrait."
             widths={[500, 900]} sizes="(min-width:768px) 40vw, 88vw" formats={["avif","webp"]}
             class="h-full w-full object-cover object-[50%_28%]
                    [filter:grayscale(0.35)_contrast(1.1)_brightness(0.82)]"
             loading="eager" decoding="async" />
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-void/70 to-transparent"></div>
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent"></div>
         </div>
       </div>
 
@@ -25,7 +25,7 @@ import { href } from "../lib/url";
                    text-[clamp(2.2rem,6vw,4.6rem)] leading-[1]" data-reveal>Andrei Sirbu</h1>
 
         <div class="mt-8 space-y-6 text-[0.98rem] leading-relaxed text-mist md:text-base" data-reveal>
-          <p class="text-lg text-bone/85 md:text-xl">
+          <p class="text-lg text-plaster/85 md:text-xl">
             Eighteen years of dedicated practice, combining therapeutic
             structure with intuitive awareness.
           </p>
@@ -43,12 +43,12 @@ import { href } from "../lib/url";
 
         <div class="mt-10 flex flex-wrap gap-4" data-reveal>
           <a href={href("/apply")} data-magnetic
-             class="sheen bevel inline-flex items-center gap-3 rounded-full bg-stone/70 px-7 py-4
+             class="sheen bevel inline-flex items-center gap-3 rounded-full bg-iron/70 px-7 py-4
                     text-[0.66rem] font-medium uppercase tracking-[0.22em] text-chalk">
             Reserve a session →
           </a>
           <a href={href("/la-terapia-method")}
-             class="label self-center border-b border-ash pb-1 transition-colors duration-500 hover:!text-chalk">
+             class="label self-center border-b border-slate pb-1 transition-colors duration-500 hover:!text-chalk">
             The method
           </a>
         </div>

@@ -1,0 +1,77 @@
+---
+import { getImage } from "astro:assets";
+import { gorgeWide, gorgePortrait } from "../lib/media";
+import { localeHref, type Dict, type Locale } from "../i18n/dict";
+
+interface Props { locale: Locale; t: Dict; }
+const { locale, t } = Astro.props;
+const href = (p: string) => localeHref(locale, p);
+
+const wide = await getImage({ src: gorgeWide, widths: [1280, 2000], formats: ["avif"], sizes: "100vw" });
+const tall = await getImage({ src: gorgePortrait, widths: [720, 1080], formats: ["avif"], sizes: "100vw" });
+const tallJpg = await getImage({ src: gorgePortrait, widths: [720], formats: ["webp"], sizes: "100vw" });
+---
+<!--
+  ARRIVAL.
+  The name is the architecture. Photography arrives as three horizontal
+  bands sliding at different rates behind the letterforms, so the image is
+  read through the type rather than sitting under it.
+-->
+<section data-arrival class="relative h-[100svh] w-full overflow-clip bg-ink">
+
+  <!-- Banded plate. Each band carries the same frame at a different offset
+       and scale; together they read as one image being drawn through slats. -->
+  <div class="absolute inset-0 grid grid-rows-3">
+    {[0, 1, 2].map((i) => (
+      <div class="relative overflow-clip">
+        <picture>
+          <source media="(min-width:768px)" type="image/avif" srcset={wide.srcSet.attribute} sizes="100vw" />
+          <source type="image/avif" srcset={tall.srcSet.attribute} sizes="100vw" />
+          <img
+            data-band src={tallJpg.src} alt={i === 1 ? "An alpine gorge: wet basalt, moving water, a seated figure." : ""}
+            aria-hidden={i !== 1 ? "true" : undefined}
+            width="2000" height="1333"
+            fetchpriority={i === 1 ? "high" : "auto"} decoding="async"
+            style={`--band:${i}; transform: translateY(${-i * 33.3333}%)`}
+            class="h-[300%] w-full object-cover will-change-transform
+                   [filter:contrast(1.14)_saturate(0.9)_brightness(0.55)]"
+          />
+        </picture>
+      </div>
+    ))}
+  </div>
+
+  <!-- Verdigris wash: the oxidised accent as atmosphere, not a gold glow. -->
+  <div class="pointer-events-none absolute inset-0 mix-blend-color
+              bg-[linear-gradient(168deg,rgba(62,107,96,0.55)_0%,transparent_46%,rgba(168,86,47,0.30)_100%)]"></div>
+  <div class="pointer-events-none absolute inset-0
+              bg-[linear-gradient(to_top,rgba(14,13,11,0.94)_0%,rgba(14,13,11,0.30)_48%,rgba(14,13,11,0.62)_100%)]"></div>
+
+  <!-- Structural type. Blend mode drives it into the plate. -->
+  <div class="relative z-10 flex h-full flex-col justify-between px-4 pb-8 pt-20 sm:px-7 md:pb-10">
+    <div class="flex items-start justify-between gap-4">
+      <p class="tag max-w-[22ch] leading-relaxed">{t.hero.eyebrow}</p>
+      <p class="tag hidden text-right sm:block">47.3769° N<br />8.5417° E</p>
+    </div>
+
+    <h1 class="arch text-chalk [text-shadow:0_2px_40px_rgba(14,13,11,0.85)]
+               text-[clamp(2.9rem,16vw,12rem)]">
+      <span data-cut style="--cut-delay:120ms"><span>{t.hero.l1}</span></span>
+      <span data-cut style="--cut-delay:260ms"><span class="text-patina">{t.hero.l2}</span></span>
+      <span data-cut style="--cut-delay:400ms"><span>{t.hero.l3}</span></span>
+    </h1>
+
+    <div class="rule mt-8 flex flex-wrap items-end justify-between gap-5 pt-5 text-plaster">
+      <p class="max-w-[34ch] text-[0.9rem] leading-relaxed text-plaster/75" data-reveal style="--reveal-delay:700ms">
+        {t.hero.lede}
+      </p>
+      <a href={href("/apply")} data-magnetic data-reveal style="--reveal-delay:800ms"
+         class="edge-chroma group inline-flex items-center gap-4 bg-verdigris px-7 py-4
+                text-[0.66rem] font-semibold uppercase tracking-[0.2em] text-chalk
+                transition-colors duration-500 hover:bg-oxide">
+        {t.hero.cta}
+        <span class="transition-transform duration-500 group-hover:translate-x-1.5">↗</span>
+      </a>
+    </div>
+  </div>
+</section>

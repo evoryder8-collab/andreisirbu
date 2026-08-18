@@ -25,7 +25,7 @@ const LANGS = LOCALES.map((code) => ({
 <div
   id="overture"
   hidden
-  class="fixed inset-0 z-[100] bg-void"
+  class="fixed inset-0 z-[100] bg-ink"
   role="dialog"
   aria-modal="true"
   aria-labelledby="overture-title"
@@ -45,7 +45,7 @@ const LANGS = LOCALES.map((code) => ({
     <!-- The seam: a line of light that opens the moment. -->
     <div data-ov-seam
          class="mb-14 h-px w-full max-w-md origin-center scale-x-0
-                bg-gradient-to-r from-transparent via-bronze to-transparent sm:mb-20"></div>
+                bg-gradient-to-r from-transparent via-verdigris to-transparent sm:mb-20"></div>
 
     <h2 id="overture-title" data-ov-label class="label mb-10 opacity-0 sm:mb-12">
       {t.overture.choose}
@@ -59,17 +59,17 @@ const LANGS = LOCALES.map((code) => ({
             data-lang={l.code}
             data-to={l.to}
             class="group relative flex w-full items-baseline justify-between gap-6
-                   border-b border-ash/50 py-4 text-left transition-colors duration-500
-                   hover:border-bronze/60 sm:py-5"
+                   border-b border-slate/50 py-4 text-left transition-colors duration-500
+                   hover:border-verdigris/60 sm:py-5"
           >
-            <span class="font-display text-2xl leading-none tracking-tight text-bone
+            <span class="font-display text-2xl leading-none tracking-tight text-plaster
                          transition-all duration-500 group-hover:translate-x-2
                          group-hover:text-chalk sm:text-3xl">{l.native}</span>
             <span class="label !text-[0.58rem] transition-all duration-500
-                         group-hover:!text-bronze">{l.word}</span>
+                         group-hover:!text-verdigris">{l.word}</span>
             <!-- Light gathers under the hovered line. -->
             <span class="pointer-events-none absolute inset-x-0 -bottom-px h-px origin-left
-                         scale-x-0 bg-gradient-to-r from-bronze via-bronze/60 to-transparent
+                         scale-x-0 bg-gradient-to-r from-verdigris via-verdigris/60 to-transparent
                          transition-transform duration-700 ease-[var(--ease-material)]
                          group-hover:scale-x-100"></span>
           </button>
@@ -80,7 +80,7 @@ const LANGS = LOCALES.map((code) => ({
     <!-- Auto-selection countdown. Populated by the detector; stays empty and
          invisible when the browser language is not one we carry. -->
     <div data-ov-auto class="mt-12 flex min-h-[2.5rem] flex-col items-center gap-2 opacity-0">
-      <p class="label !text-[0.58rem] !tracking-[0.18em] !text-bronze">
+      <p class="label !text-[0.58rem] !tracking-[0.18em] !text-verdigris">
         <span data-ov-auto-text></span>
         <span data-ov-auto-n class="ml-1 inline-block w-3 tabular-nums text-chalk"></span>
       </p>
@@ -110,7 +110,7 @@ const LANGS = LOCALES.map((code) => ({
                      bg-[linear-gradient(104deg,#E7E3DA_38%,#FFF8EC_47%,#FFFFFF_50%,#FFF8EC_53%,#E7E3DA_62%)]
                      [background-size:280%_100%]">Andrei Sirbu</span>
       </p>
-      <p data-ov-passage-note class="label mt-5 !text-[0.55rem] !text-bronze opacity-0"></p>
+      <p data-ov-passage-note class="label mt-5 !text-[0.55rem] !text-verdigris opacity-0"></p>
     </div>
   </div>
 </div>

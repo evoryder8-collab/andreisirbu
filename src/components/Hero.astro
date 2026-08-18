@@ -21,7 +21,7 @@ const tall = await getImage({
 });
 const tallFallback = await getImage({ src: gorgePortrait, widths: [640, 900], formats: ["webp"], sizes: "100vw" });
 ---
-<section data-hero class="relative h-[100svh] w-full overflow-hidden bg-void">
+<section data-hero class="relative h-[100svh] w-full overflow-hidden bg-ink">
   <!-- Plate. Clipped to a widening band on first scroll. -->
   <div
     data-hero-clip
@@ -50,7 +50,7 @@ const tallFallback = await getImage({ src: gorgePortrait, widths: [640, 900], fo
     <!-- Depth: two graded veils rather than a flat scrim, so the plate keeps
          its shadow detail while type stays legible. -->
     <div class="pointer-events-none absolute inset-0 bg-gradient-to-t
-                from-void via-void/45 to-void/25 md:via-void/30 md:to-transparent"></div>
+                from-ink via-ink/45 to-ink/25 md:via-ink/30 md:to-transparent"></div>
     <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_78%,transparent_18%,rgba(5,6,5,0.82)_82%)]"></div>
     <!-- Headline sits left over pale mist; this holds its contrast without
          darkening the whole plate. -->
@@ -61,7 +61,7 @@ const tallFallback = await getImage({ src: gorgePortrait, widths: [640, 900], fo
   <!-- The light-line: a single bronze seam that opens as the plate collapses. -->
   <div data-hero-seam
        class="pointer-events-none absolute inset-x-0 top-1/2 z-10 h-px origin-center scale-x-0
-              bg-gradient-to-r from-transparent via-bronze to-transparent opacity-0"></div>
+              bg-gradient-to-r from-transparent via-verdigris to-transparent opacity-0"></div>
 
   <div class="relative z-20 flex h-full flex-col justify-end px-5 pb-24 sm:px-8 md:pb-28">
     <div data-hero-copy class="mx-auto w-full max-w-6xl">
@@ -70,7 +70,7 @@ const tallFallback = await getImage({ src: gorgePortrait, widths: [640, 900], fo
       <h1 class="font-display tracking-[-0.02em] text-chalk
                  text-[clamp(2.6rem,11vw,8.5rem)] leading-[0.92] md:leading-[0.86]">
         <span data-hero-line class="block">{t.hero.l1}</span>
-        <span data-hero-line class="block italic text-bone/85">{t.hero.l2}</span>
+        <span data-hero-line class="block italic text-plaster/85">{t.hero.l2}</span>
         <span data-hero-line class="block">{t.hero.l3}</span>
       </h1>
 
@@ -81,9 +81,9 @@ const tallFallback = await getImage({ src: gorgePortrait, widths: [640, 900], fo
           href={href("/apply")}
           data-magnetic
           class="sheen bevel group inline-flex w-fit items-center gap-3 rounded-full
-                 bg-stone/70 px-7 py-4 text-[0.68rem] font-medium uppercase
+                 bg-iron/70 px-7 py-4 text-[0.68rem] font-medium uppercase
                  tracking-[0.22em] text-chalk backdrop-blur-md transition-colors
-                 duration-500 hover:bg-ash"
+                 duration-500 hover:bg-slate"
         >
           {t.hero.cta}
           <span class="transition-transform duration-500 group-hover:translate-x-1">→</span>

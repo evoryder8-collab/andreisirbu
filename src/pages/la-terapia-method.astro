@@ -20,11 +20,11 @@ const principles = [
 
   <MethodScene />
 
-  <section class="bg-basalt px-5 py-28 sm:px-8 md:py-40">
+  <section class="bg-graphite px-5 py-28 sm:px-8 md:py-40">
     <div class="mx-auto max-w-6xl">
-      <ol class="grid gap-px bg-ash/40 md:grid-cols-2">
+      <ol class="grid gap-px bg-slate/40 md:grid-cols-2">
         {principles.map((p, i) => (
-          <li class="bg-basalt p-8 md:p-12" data-reveal style={`--reveal-delay:${i * 80}ms`}>
+          <li class="bg-graphite p-8 md:p-12" data-reveal style={`--reveal-delay:${i * 80}ms`}>
             <span class="label">{String(i + 1).padStart(2, "0")}</span>
             <h2 class="font-display mt-5 text-3xl text-chalk md:text-4xl">{p.k}</h2>
             <p class="mt-4 text-[0.95rem] leading-relaxed text-mist">{p.t}</p>
@@ -32,14 +32,14 @@ const principles = [
         ))}
       </ol>
 
-      <div class="mt-20 flex flex-wrap items-center justify-between gap-8 border-t border-ash/60 pt-12" data-reveal>
+      <div class="mt-20 flex flex-wrap items-center justify-between gap-8 border-t border-slate/60 pt-12" data-reveal>
         <div>
           <p class="label mb-3">{s.duration} · {s.modality}</p>
           <p class="font-display text-3xl text-chalk">{s.currency} {formatPrice(s.price)}</p>
         </div>
         <a href={bookingUrl(s.slug)} data-magnetic
-           class="sheen bevel inline-flex items-center gap-3 rounded-full bg-bronze px-8 py-4
-                  text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-void">
+           class="sheen bevel inline-flex items-center gap-3 rounded-full bg-verdigris px-8 py-4
+                  text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-ink">
           Reserve the method →
         </a>
       </div>

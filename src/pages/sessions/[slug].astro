@@ -17,16 +17,16 @@ const plate = plateFor(session.slug);
 const others = SESSIONS.filter((s) => s.slug !== session.slug && !s.aside).slice(0, 3);
 ---
 <Base title={`${session.name}, Andrei Sirbu, Zürich`} description={session.description}>
-  <article class="bg-void">
+  <article class="bg-ink">
     <div class="mx-auto grid max-w-6xl gap-12 px-5 pb-24 pt-32 sm:px-8 md:grid-cols-12 md:gap-14 md:pb-36 md:pt-44">
       <div class="md:col-span-6">
-        <div class="relative aspect-4/5 overflow-hidden rounded-[3px] bg-stone" data-reveal>
+        <div class="relative aspect-4/5 overflow-hidden rounded-[3px] bg-iron" data-reveal>
           <Picture src={plate.src} alt={plate.alt}
             widths={[500, 800, 1200]} sizes="(min-width:768px) 46vw, 90vw"
             formats={["avif","webp"]} style={`object-position:${plate.focus}`}
             class="h-full w-full object-cover [filter:contrast(1.05)]"
             loading="eager" decoding="async" />
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-void/60 to-transparent"></div>
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent"></div>
         </div>
       </div>
 
@@ -34,22 +34,22 @@ const others = SESSIONS.filter((s) => s.slug !== session.slug && !s.aside).slice
         <div class="flex items-center gap-5" data-reveal>
           <span class="label">{session.duration}</span>
           <span class="label">{session.modality}</span>
-          {session.signature && <span class="label !text-bronze">Signature</span>}
+          {session.signature && <span class="label !text-verdigris">Signature</span>}
         </div>
 
         <h1 class="font-display mt-6 text-chalk tracking-[-0.02em]
                    text-[clamp(2.2rem,6vw,4.4rem)] leading-[1]" data-reveal>{session.name}</h1>
 
-        <p class="mt-7 text-lg leading-relaxed text-bone/85" data-reveal>{session.description}</p>
+        <p class="mt-7 text-lg leading-relaxed text-plaster/85" data-reveal>{session.description}</p>
         <p class="mt-5 text-[0.95rem] leading-relaxed text-mist" data-reveal>{session.detail}</p>
 
-        <div class="mt-10 flex flex-wrap items-center gap-6 border-t border-ash/70 pt-8" data-reveal>
+        <div class="mt-10 flex flex-wrap items-center gap-6 border-t border-slate/70 pt-8" data-reveal>
           <span class="font-display text-3xl text-chalk tabular-nums">
             <span class="label mr-2 align-middle">{session.currency}</span><span data-count={String(session.price)} data-count-group="true">{formatPrice(session.price)}</span>
           </span>
           <a href={bookingUrl(session.slug)} data-magnetic
-             class="sheen bevel inline-flex items-center gap-3 rounded-full bg-bronze px-8 py-4
-                    text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-void">
+             class="sheen bevel inline-flex items-center gap-3 rounded-full bg-verdigris px-8 py-4
+                    text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-ink">
             Reserve →
           </a>
         </div>
@@ -60,14 +60,14 @@ const others = SESSIONS.filter((s) => s.slug !== session.slug && !s.aside).slice
       </div>
     </div>
 
-    <div class="mx-auto max-w-6xl border-t border-ash/60 px-5 py-20 sm:px-8">
+    <div class="mx-auto max-w-6xl border-t border-slate/60 px-5 py-20 sm:px-8">
       <p class="label mb-10">Other sessions</p>
-      <ul class="grid gap-px bg-ash/50 sm:grid-cols-3">
+      <ul class="grid gap-px bg-slate/50 sm:grid-cols-3">
         {others.map((o) => (
           <li>
             <a href={href(`/sessions/${o.slug}`)}
-               class="sheen flex h-full flex-col justify-between gap-6 bg-void p-6
-                      transition-colors duration-500 hover:bg-stone/60">
+               class="sheen flex h-full flex-col justify-between gap-6 bg-ink p-6
+                      transition-colors duration-500 hover:bg-iron/60">
               <span class="font-display text-xl text-chalk">{o.name}</span>
               <span class="font-mono text-xs tabular-nums text-mist">
                 {o.currency} {formatPrice(o.price)}

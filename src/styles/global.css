@@ -1,228 +1,192 @@
 @import "tailwindcss";
 
-@import "@fontsource-variable/bodoni-moda";
-@import "@fontsource-variable/archivo";
+@import "@fontsource-variable/archivo/wdth.css";
+@import "@fontsource-variable/archivo/standard.css";
 @import "@fontsource/ibm-plex-mono/400.css";
 @import "@fontsource/ibm-plex-mono/500.css";
 
-/* ─────────────────────────────────────────────────────────────
-   Material palette. Drawn from the gorge photography that forms
-   the site's visual spine: wet basalt, mist, mineral water, and
-   the warm bronze of candlelight against skin.
-   ───────────────────────────────────────────────────────────── */
-@theme {
-  --color-void:    #050605;
-  --color-basalt:  #0C0D0C;
-  --color-stone:   #161817;
-  --color-ash:     #232624;
-  --color-slate:   #363A38;
-  --color-mist:    #8E948F;
-  --color-bone:    #E7E3DA;
-  --color-chalk:   #F5F2EC;
-  --color-bronze:  #C08343;
-  --color-ember:   #8B4E24;
-  --color-water:   #6B7E79;
+/* ─────────────────────────────────────────────────────────────────────
+   THE INSTITUTION
 
-  --font-display: "Bodoni Moda Variable", "Didot", "Bodoni MT", Georgia, serif;
+   Two worlds, cut against each other: plaster and ink. Not a dark theme
+   with accents, but a page that moves between a lit archive and a dark
+   chamber. The accent materials are oxidised: verdigris on copper and
+   iron oxide, mineral rather than gilded, taken from the gorge the
+   photography was shot in rather than from luxury convention.
+
+   Type is structural. The display face is Archivo on its width axis,
+   pushed expanded and set at architectural scale so it builds the page
+   instead of captioning photographs.
+   ───────────────────────────────────────────────────────────────────── */
+@theme {
+  /* Ink world */
+  --color-ink:      #0E0D0B;
+  --color-graphite: #171613;
+  --color-iron:     #23221E;
+  --color-slate:    #3A3A35;
+
+  /* Plaster world */
+  --color-plaster:  #E5DDCF;
+  --color-lime:     #F4EFE4;
+  --color-chalk:    #FCFAF5;
+
+  /* Oxidised accents */
+  --color-verdigris:#3E6B60;
+  --color-patina:   #6E9A8C;
+  --color-oxide:    #A8562F;
+  --color-steel:    #A3ABAB;
+  --color-mist:     #8A8B85;
+
+  --font-display: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
   --font-body: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  --ease-material: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-veil: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-camera: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-cut: cubic-bezier(0.7, 0, 0.2, 1);
 }
 
 @layer base {
-  html {
-    background: var(--color-void);
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-  /* Lenis drives scrolling; native smooth-scroll would fight it. */
+  html { background: var(--color-ink); -webkit-font-smoothing: antialiased; }
   html.lenis { scroll-behavior: auto !important; }
-  html.lenis body { min-height: 100%; }
 
   body {
-    background: var(--color-void);
-    color: var(--color-bone);
+    background: var(--color-ink);
+    color: var(--color-plaster);
     font-family: var(--font-body);
-    font-weight: 380;
+    font-weight: 400;
+    /* Real clipping, not a mask for layout bugs: full-bleed scenes push
+       their own imagery sideways on purpose and must not extend the page. */
     overflow-x: clip;
   }
 
-  ::selection { background: var(--color-bronze); color: var(--color-void); }
+  ::selection { background: var(--color-verdigris); color: var(--color-chalk); }
+  :focus-visible { outline: 2px solid var(--color-patina); outline-offset: 2px; }
 
-  :focus-visible {
-    outline: 1px solid var(--color-bronze);
-    outline-offset: 3px;
+  /* Monumental: expanded width axis, negative tracking, no italics. */
+  .arch {
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 118, "wght" 700;
+    letter-spacing: -0.035em;
+    line-height: 0.82;
+    text-transform: uppercase;
+    text-wrap: balance;
   }
-
-  h1, h2, h3 { font-family: var(--font-display); font-weight: 500; text-wrap: balance; }
+  .arch-thin {
+    font-family: var(--font-display);
+    font-variation-settings: "wdth" 112, "wght" 400;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
+    text-transform: uppercase;
+  }
 }
 
 @layer components {
-  /* Micro-label: the site's connective tissue. Used for chapter
-     numbers, durations, modality, never for reading text. */
-  .label {
+  /* Specimen label. Technical, archival, never decorative. */
+  .tag {
     font-family: var(--font-mono);
-    font-size: 0.625rem;
-    letter-spacing: 0.22em;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--color-mist);
   }
+  .tag-ink { color: var(--color-slate); }
 
-  /* Film grain. One fixed layer over the whole document, so the
-     entire site shares a single emulsion rather than per-section noise. */
-  .grain::before {
-    content: "";
-    position: fixed;
-    inset: -50%;
-    z-index: 60;
-    pointer-events: none;
-    opacity: 0.16;
-    background-image: var(--grain-src);
-    background-size: 180px 180px;
-    animation: grain-shift 6s steps(6) infinite;
-  }
-  @keyframes grain-shift {
-    0%   { transform: translate(0, 0); }
-    20%  { transform: translate(-2%, 3%); }
-    40%  { transform: translate(3%, -2%); }
-    60%  { transform: translate(-3%, -3%); }
-    80%  { transform: translate(2%, 2%); }
-    100% { transform: translate(0, 0); }
-  }
+  /* Exposed structure: hairline rules that read as architecture. */
+  .rule { border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent); }
 
-  /* Sheen: one diagonal pass of reflected light. Cards, CTAs. */
-  .sheen { position: relative; overflow: hidden; isolation: isolate; }
-  .sheen::after {
-    content: "";
-    position: absolute; inset: -1px;
-    z-index: 2;
-    pointer-events: none;
-    background: linear-gradient(
-      108deg,
-      transparent 38%,
-      color-mix(in srgb, var(--color-bronze) 26%, transparent) 49%,
-      color-mix(in srgb, var(--color-chalk) 14%, transparent) 52%,
-      transparent 63%
-    );
-    transform: translateX(-120%);
-    transition: transform 900ms var(--ease-material);
-  }
-  .sheen:hover::after,
-  .sheen:focus-visible::after { transform: translateX(120%); }
+  /* Plates are cut, not rounded. Sharp corners, hard edges, no pills. */
+  .plate { position: relative; overflow: hidden; background: var(--color-graphite); }
 
-  /* Full-bleed plates get a feathered edge instead of a butt cut, so a
-     photograph dissolves into the page rather than ending at a hard line. */
-  .feather-b {
-    -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
-  }
-  .feather-y {
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 82%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 82%, transparent 100%);
-  }
-
-  /* Ambient field: a slow, barely-there bloom of warm light that drifts
-     behind a chapter. Gives dark sections air instead of flat black. */
-  .field { position: relative; isolation: isolate; }
-  .field::before {
+  /* A beam of light crossing a scene. Light is an element here, not a filter. */
+  .beam { position: relative; isolation: isolate; }
+  .beam::after {
     content: "";
     position: absolute;
-    /* Vertical bleed only. A horizontal inset pushed this past the viewport
-       and was a genuine source of sideways scroll on narrow screens. */
-    inset: -20% 0;
-    max-width: 100%;
-    z-index: -1;
+    inset: -30% -60%;
+    z-index: 1;
     pointer-events: none;
-    background:
-      radial-gradient(38% 30% at 22% 28%, rgba(192,131,67,0.13) 0%, transparent 68%),
-      radial-gradient(34% 28% at 78% 72%, rgba(107,126,121,0.11) 0%, transparent 70%);
-    filter: blur(18px);
-    animation: field-drift 26s ease-in-out infinite alternate;
-    will-change: transform;
+    background: linear-gradient(
+      74deg,
+      transparent 42%,
+      color-mix(in srgb, var(--color-chalk) 12%, transparent) 49%,
+      color-mix(in srgb, var(--color-patina) 16%, transparent) 51%,
+      transparent 58%
+    );
+    transform: translate3d(-14%, 0, 0);
+    animation: beam-travel 18s linear infinite;
   }
-  @keyframes field-drift {
-    0%   { transform: translate3d(0,0,0) scale(1); opacity: 0.85; }
-    50%  { transform: translate3d(0, -2%, 0) scale(1.06); opacity: 1; }
-    100% { transform: translate3d(0, 2.5%, 0) scale(1.03); opacity: 0.9; }
+  @keyframes beam-travel {
+    0%   { transform: translate3d(-30%, 0, 0); opacity: 0; }
+    12%  { opacity: 1; }
+    88%  { opacity: 1; }
+    100% { transform: translate3d(30%, 0, 0); opacity: 0; }
   }
 
-  /* Hairline that catches light at the top edge, like a bevelled
-     panel rather than a flat border. */
-  .bevel {
-    border: 1px solid var(--color-ash);
-    background-image: linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--color-bone) 8%, transparent) 0%,
-      transparent 22%
-    );
+  /* Chromatic edge: a thin dispersion at a boundary, like light through
+     the edge of thick glass. Used sparingly, on structural edges only. */
+  .edge-chroma {
+    box-shadow:
+      inset 0 1px 0 0 color-mix(in srgb, var(--color-patina) 45%, transparent),
+      inset 0 -1px 0 0 color-mix(in srgb, var(--color-oxide) 30%, transparent);
   }
 }
 
-/* The overture veil parts from the centre using the same mask language as
-   the hero dissolve, so entry and first scroll feel like one material. */
+/* The veil. Closed at 50/50, the two halves meeting at the centre line;
+   parting animates --m1 to 0% and --m2 to 100%, opening onto the site. */
 #overture {
-  /* Closed: the two black halves meet at the centre line. Parting animates
-     --m1 toward 0% and --m2 toward 100%, opening a gap that reveals the site. */
   --m1: 50%;
   --m2: 50%;
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 var(--m1), transparent var(--m1), transparent var(--m2), #000 var(--m2), #000 100%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 var(--m1), transparent var(--m1), transparent var(--m2), #000 var(--m2), #000 100%);
 }
-/* Nothing behind the veil should scroll or be reachable. */
 html[data-overture="on"] body { overflow: hidden; }
 
-/* A figure landing: a fast gleam across it, then gone. */
-.num-flash {
-  animation: num-flash 460ms var(--ease-material) 1;
-}
-@keyframes num-flash {
-  0%   { color: var(--color-chalk); text-shadow: 0 0 0 rgba(192,131,67,0); }
-  18%  { color: #FFF6E8; text-shadow: 0 0 14px rgba(192,131,67,0.85), 0 0 30px rgba(192,131,67,0.35); }
-  100% { color: inherit; text-shadow: 0 0 0 rgba(192,131,67,0); }
-}
-@media (prefers-reduced-motion: reduce) { .num-flash { animation: none; } }
-
 /* The row the browser language matched, waiting to settle. */
-button[data-armed="true"] { border-color: color-mix(in srgb, var(--color-bronze) 55%, transparent); }
-button[data-armed="true"] span:first-child { color: var(--color-chalk); }
+button[data-armed="true"] { border-color: color-mix(in srgb, var(--color-patina) 60%, transparent); }
 button[data-armed="true"]::after {
   content: "";
-  position: absolute;
-  inset: -2px -10px;
-  border-radius: 3px;
+  position: absolute; inset: -2px -10px;
   pointer-events: none;
-  background: linear-gradient(90deg, color-mix(in srgb, var(--color-bronze) 16%, transparent), transparent 65%);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--color-patina) 20%, transparent), transparent 65%);
   animation: armed-pulse 1.6s ease-in-out infinite;
 }
 @keyframes armed-pulse { 0%,100% { opacity: 0.25; } 50% { opacity: 0.85; } }
-@media (prefers-reduced-motion: reduce) {
-  button[data-armed="true"]::after { animation: none; opacity: 0.5; }
+
+/* A figure landing: a fast gleam across it, then gone. */
+.num-flash { animation: num-flash 460ms var(--ease-camera) 1; }
+@keyframes num-flash {
+  0%   { color: var(--color-chalk); text-shadow: 0 0 0 rgba(110,154,140,0); }
+  18%  { color: #FFFFFF; text-shadow: 0 0 14px rgba(110,154,140,0.9), 0 0 30px rgba(110,154,140,0.4); }
+  100% { color: inherit; text-shadow: 0 0 0 rgba(110,154,140,0); }
 }
 
-/* Motion primitives, the JS sets data-state; CSS owns the look, so
-   content is fully visible if JS never runs. */
+/* Reveals: type rises out of its own baseline behind a hard mask, so it
+   reads as being cut into the page rather than fading in. */
+[data-cut] { display: block; }
+html.js [data-cut] { overflow: hidden; }
+html.js [data-cut] > * {
+  display: block;
+  transform: translateY(102%);
+  transition: transform 1150ms var(--ease-camera);
+  transition-delay: var(--cut-delay, 0ms);
+}
+html.js [data-cut][data-state="in"] > * { transform: translateY(0); }
+
 [data-reveal] { opacity: 1; }
 html.js [data-reveal] {
   opacity: 0;
-  transform: translateY(var(--reveal-y, 1.6rem));
-  transition:
-    opacity 1100ms var(--ease-material),
-    transform 1100ms var(--ease-material);
+  transition: opacity 900ms var(--ease-camera);
   transition-delay: var(--reveal-delay, 0ms);
 }
-html.js [data-reveal][data-state="in"] { opacity: 1; transform: none; }
+html.js [data-reveal][data-state="in"] { opacity: 1; }
 
 @media (prefers-reduced-motion: reduce) {
-  .field::before { animation: none; }
-  html.js [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
-  .grain::before { animation: none; }
-  .sheen::after { transition: none; }
+  html.js [data-cut] > * { transform: none !important; transition: none !important; }
+  html.js [data-reveal] { opacity: 1 !important; transition: none !important; }
+  .beam::after { animation: none; opacity: 0.4; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }

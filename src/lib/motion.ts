@@ -51,10 +51,13 @@ export function initMotion(): void {
   }
 
   lenis = new Lenis({
-    duration: 1.15,
-    easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    // Shorter glide: the previous 1.15s read as resistance. Touch is left
+    // entirely native (syncTouch off) so a finger drag is never intercepted.
+    duration: 0.85,
+    easing: (t: number) => 1 - Math.pow(1 - t, 3),
     smoothWheel: true,
-    touchMultiplier: 1.6,
+    syncTouch: false,
+    touchMultiplier: 2,
   });
 
   lenis.on("scroll", ScrollTrigger.update);
@@ -79,7 +82,7 @@ export function initMotion(): void {
 
 /** Scroll-linked reveal. CSS owns the appearance; this only flips state. */
 function initReveals(): void {
-  const targets = document.querySelectorAll<HTMLElement>("[data-reveal]");
+  const targets = document.querySelectorAll<HTMLElement>("[data-reveal],[data-cut]");
   if (!targets.length) return;
 
   const io = new IntersectionObserver(
@@ -100,7 +103,7 @@ function initReveals(): void {
 
 function revealAll(): void {
   document
-    .querySelectorAll<HTMLElement>("[data-reveal]")
+    .querySelectorAll<HTMLElement>("[data-reveal],[data-cut]")
     .forEach((el) => (el.dataset.state = "in"));
 }
 

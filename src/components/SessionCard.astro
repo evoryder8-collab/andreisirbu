@@ -18,7 +18,7 @@ const plate = plateFor(session.slug);
   <a
     href={href(`/sessions/${session.slug}`)}
     data-card-body
-    class="relative block overflow-hidden rounded-[16px] bg-stone/60
+    class="relative block overflow-hidden rounded-[16px] bg-iron/60
            [transform-style:preserve-3d] will-change-transform"
     aria-labelledby={`s-${session.slug}`}
   >
@@ -43,7 +43,7 @@ const plate = plateFor(session.slug);
              transition-transform duration-[900ms] ease-[var(--ease-material)]
              group-hover:translate-x-[130%]"></span>
 
-    <div class="relative aspect-4/5 overflow-hidden bg-basalt [transform-style:preserve-3d]">
+    <div class="relative aspect-4/5 overflow-hidden bg-graphite [transform-style:preserve-3d]">
       <!-- Image sits behind the face and counter-moves, which is what creates
            the parallax depth inside the object. -->
       <div data-card-img class="absolute inset-[-8%] will-change-transform">
@@ -63,11 +63,11 @@ const plate = plateFor(session.slug);
       </div>
 
       <div class="pointer-events-none absolute inset-0 z-10
-                  bg-gradient-to-t from-void via-void/35 to-transparent"></div>
+                  bg-gradient-to-t from-ink via-ink/35 to-transparent"></div>
 
       {session.signature && (
-        <span class="label absolute left-4 top-4 z-20 rounded-full border border-bronze/45
-                     bg-void/55 px-3 py-1.5 !text-[0.55rem] !text-bronze backdrop-blur-md
+        <span class="label absolute left-4 top-4 z-20 rounded-full border border-verdigris/45
+                     bg-ink/55 px-3 py-1.5 !text-[0.55rem] !text-verdigris backdrop-blur-md
                      [transform:translateZ(40px)]">
           Signature
         </span>
@@ -89,12 +89,12 @@ const plate = plateFor(session.slug);
 
       <p class="text-[0.9rem] leading-relaxed text-mist">{session.description}</p>
 
-      <div class="mt-2 flex items-center justify-between gap-4 border-t border-ash/70 pt-4">
-        <span class="font-mono text-sm tabular-nums text-bone/90">
+      <div class="mt-2 flex items-center justify-between gap-4 border-t border-slate/70 pt-4">
+        <span class="font-mono text-sm tabular-nums text-plaster/90">
           {session.currency}
           <span data-count={String(session.price)} data-count-group="true">{formatPrice(session.price)}</span>
         </span>
-        <span class="label !text-[0.6rem] !text-bronze transition-transform duration-500
+        <span class="label !text-[0.6rem] !text-verdigris transition-transform duration-500
                      group-hover:translate-x-1">Reserve →</span>
       </div>
     </div>
