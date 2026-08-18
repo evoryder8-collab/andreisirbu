@@ -217,9 +217,11 @@ html[data-overture="on"] body { overflow: hidden; }
     font-weight: 420;
     letter-spacing: 0.004em;
     line-height: 1.45;
-    color: #F0EADD;
-    mix-blend-mode: screen;
-    text-shadow: 0 2px 18px rgba(0,0,0,0.65);
+    /* No blend mode here. screen looked luminous over plain black but went
+       muddy over the graded header plate, which is where it mattered most.
+       Legibility of a lead paragraph beats the effect. */
+    color: #EFE9DC;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 2px 22px rgba(0,0,0,0.6);
   }
 
   /* Depth rig: children can be pushed in Z against a shared camera. */

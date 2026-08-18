@@ -33,7 +33,7 @@ export function initOfferings(): void {
       const cb = bodyOf(c);
       const ci = imgOf(c);
       if (cb) gsap.to(cb, { scale: 1, opacity: 1, duration: 0.7, ease: "power3.out" });
-      if (ci) gsap.to(ci, { scale: 1, filter: "grayscale(0.22) contrast(1.08) brightness(0.62)", duration: 0.9, ease: "power3.out" });
+      if (ci) gsap.to(ci, { scale: 1, filter: "grayscale(0.22) contrast(1.06) brightness(0.52)", duration: 0.9, ease: "power3.out" });
     });
   };
 
@@ -55,8 +55,8 @@ export function initOfferings(): void {
         gsap.to(ci, {
           scale: isIt ? 1.06 : 1,
           filter: isIt
-            ? "grayscale(0) contrast(1.12) brightness(0.86)"
-            : "grayscale(0.35) contrast(1.05) brightness(0.5)",
+            ? "grayscale(0) contrast(1.1) brightness(0.68)"
+            : "grayscale(0.4) contrast(1.04) brightness(0.42)",
           duration: 1.1, ease: "power3.out",
         });
       }
@@ -84,7 +84,7 @@ export function initOfferings(): void {
       .to(cards.filter((c) => c !== card).map(bodyOf).filter(Boolean) as HTMLElement[],
           { opacity: 0, scale: 0.94, duration: 0.5, ease: "power2.in" }, 0)
       .to(b, { scale: 1.14, duration: 0.9, ease: "power2.in" }, 0.05)
-      .to(imgOf(card), { scale: 1.2, filter: "grayscale(0) contrast(1.15) brightness(1.05)", duration: 0.9, ease: "power2.in" }, 0.05)
+      .to(imgOf(card), { scale: 1.2, filter: "grayscale(0) contrast(1.15) brightness(0.95)", duration: 0.9, ease: "power2.in" }, 0.05)
       .to(veil, { opacity: 1, duration: 0.55, ease: "power2.in" }, 0.45);
   };
 
