@@ -68,6 +68,26 @@
 }
 
 @layer components {
+  /* Editorial fields: a hairline under the text, gold gathering on focus.
+     Boxed inputs read as SaaS; a baseline reads as stationery. */
+  .lux-field {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-ash);
+    border-radius: 0;
+    padding: 0.65rem 0.1rem;
+    font-size: 0.98rem;
+    color: var(--color-chalk);
+    outline: none;
+    transition: border-color 400ms var(--ease-material), box-shadow 400ms var(--ease-material);
+  }
+  .lux-field:focus {
+    border-color: rgba(232,196,137,0.85);
+    box-shadow: 0 12px 18px -14px rgba(192,131,67,0.5);
+  }
+  .lux-field::placeholder { color: var(--color-faint); }
+
   /* Calendar: the chosen day and time are lit, not merely filled. */
   .cal-day.is-chosen {
     background: linear-gradient(160deg, rgba(192,131,67,0.30), rgba(192,131,67,0.12));

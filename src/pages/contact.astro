@@ -22,27 +22,22 @@ const embed = `https://www.google.com/maps?q=${q}&z=16&output=embed`;
           <label class="flex flex-col gap-2">
             <span class="label !text-[0.52rem]">Name</span>
             <input name="name" type="text" required autocomplete="name"
-              class="rounded-[10px] border border-ash bg-stone/40 px-4 py-3 text-[0.95rem] text-chalk
-                     outline-none transition-colors duration-300 focus:border-bronze/70" />
+              class="lux-field" />
           </label>
           <label class="flex flex-col gap-2">
             <span class="label !text-[0.52rem]">Email</span>
             <input name="email" type="email" required autocomplete="email"
-              class="rounded-[10px] border border-ash bg-stone/40 px-4 py-3 text-[0.95rem] text-chalk
-                     outline-none transition-colors duration-300 focus:border-bronze/70" />
+              class="lux-field" />
           </label>
         </div>
         <label class="flex flex-col gap-2">
           <span class="label !text-[0.52rem]">Phone <span class="opacity-50">optional</span></span>
           <input name="phone" type="tel" autocomplete="tel"
-            class="rounded-[10px] border border-ash bg-stone/40 px-4 py-3 text-[0.95rem] text-chalk
-                   outline-none transition-colors duration-300 focus:border-bronze/70" />
+            class="lux-field" />
         </label>
         <label class="flex flex-col gap-2">
           <span class="label !text-[0.52rem]">Message</span>
-          <textarea name="message" rows="5" required
-            class="resize-none rounded-[10px] border border-ash bg-stone/40 px-4 py-3 text-[0.95rem] text-chalk
-                   outline-none transition-colors duration-300 focus:border-bronze/70"></textarea>
+          <textarea name="message" rows="5" required class="lux-field resize-none"></textarea>
         </label>
 
         <button type="submit" data-magnetic
@@ -71,6 +66,11 @@ const embed = `https://www.google.com/maps?q=${q}&z=16&output=embed`;
         <div class="rounded-[14px] border border-ash bg-stone/40 px-5 py-4">
           <p class="label mb-2">Hours</p>
           <p class="font-mono text-[0.82rem] text-chalk">{STUDIO.hours}</p>
+          <!-- Concierge detail: the studio's own clock, live. -->
+          <p data-studio-clock hidden class="mt-3 flex items-center gap-2.5 font-mono text-[0.72rem]">
+            <span data-studio-dot class="h-[7px] w-[7px] rounded-full"></span>
+            <span data-studio-state class="text-bone/85"></span>
+          </p>
         </div>
       </div>
     </div>
@@ -78,9 +78,10 @@ const embed = `https://www.google.com/maps?q=${q}&z=16&output=embed`;
 
   <!-- Map -->
   <section class="relative px-5 pb-28 sm:px-8 md:pb-36" aria-label="Studio location">
-    <div class="relative mx-auto max-w-6xl overflow-hidden rounded-[20px] border border-ash">
+    <div class="relative mx-auto max-w-6xl overflow-hidden rounded-[20px] border border-ash
+                [box-shadow:inset_0_1px_0_0_rgba(232,196,137,0.18),0_30px_70px_-30px_rgba(0,0,0,0.9)]">
       <!-- Graded so the map belongs to the site rather than to Google. -->
-      <div class="relative h-[380px] sm:h-[460px]">
+      <div class="relative h-[420px] sm:h-[500px]">
         <iframe
           src={embed}
           title={`Map showing ${STUDIO.street}, ${STUDIO.city}`}
@@ -91,6 +92,42 @@ const embed = `https://www.google.com/maps?q=${q}&z=16&output=embed`;
                     bg-[linear-gradient(180deg,rgba(5,6,5,0.55)_0%,transparent_28%,transparent_58%,rgba(5,6,5,0.92)_100%)]"></div>
         <div class="pointer-events-none absolute inset-0
                     bg-[radial-gradient(ellipse_70%_60%_at_50%_45%,transparent_0%,rgba(5,6,5,0.55)_100%)]"></div>
+
+        <!-- ── The instrument layer ─────────────────────────────────
+             The embed centres on the studio, so everything here is drawn
+             about the true centre of the frame. -->
+        <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+          <!-- Concentric survey rings about the studio -->
+          <svg class="absolute left-1/2 top-1/2 h-[150%] w-auto -translate-x-1/2 -translate-y-1/2 opacity-[0.32]"
+               viewBox="0 0 400 400" fill="none">
+            <circle cx="200" cy="200" r="52"  stroke="rgba(232,196,137,0.5)" stroke-width="0.6"/>
+            <circle cx="200" cy="200" r="104" stroke="rgba(232,196,137,0.32)" stroke-width="0.5" stroke-dasharray="1 5"/>
+            <circle cx="200" cy="200" r="168" stroke="rgba(232,196,137,0.2)" stroke-width="0.5" stroke-dasharray="1 8"/>
+            <line x1="200" y1="130" x2="200" y2="150" stroke="rgba(232,196,137,0.55)" stroke-width="0.6"/>
+            <line x1="200" y1="250" x2="200" y2="270" stroke="rgba(232,196,137,0.55)" stroke-width="0.6"/>
+            <line x1="130" y1="200" x2="150" y2="200" stroke="rgba(232,196,137,0.55)" stroke-width="0.6"/>
+            <line x1="250" y1="200" x2="270" y2="200" stroke="rgba(232,196,137,0.55)" stroke-width="0.6"/>
+          </svg>
+
+          <!-- The studio: the practice's flame, held in breathing gold -->
+          <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <span class="breathe-gold absolute left-1/2 top-1/2 h-12 w-12 -translate-x-1/2 -translate-y-1/2 rounded-full"></span>
+            <svg viewBox="0 0 32 32" class="relative h-8 w-8 drop-shadow-[0_2px_10px_rgba(192,131,67,0.7)]">
+              <path d="M16 6c3.5 4.2 5.5 7.2 5.5 10.2A5.5 5.5 0 0 1 16 22a5.5 5.5 0 0 1-5.5-5.8C10.5 13.2 12.5 10.2 16 6z" fill="#E8C489"/>
+            </svg>
+          </span>
+
+          <!-- Engraved corner ticks -->
+          <span class="absolute left-4 top-4 h-5 w-5 border-l border-t border-bronze/50"></span>
+          <span class="absolute right-4 top-4 h-5 w-5 border-r border-t border-bronze/50"></span>
+          <span class="absolute bottom-4 left-4 h-5 w-5 border-b border-l border-bronze/50"></span>
+          <span class="absolute bottom-4 right-4 h-5 w-5 border-b border-r border-bronze/50"></span>
+
+          <!-- Survey plate: the coordinates, engraved top-right -->
+          <span class="absolute right-6 top-5 hidden font-mono text-[0.58rem] tracking-[0.18em] text-bone/60 sm:block">
+            {STUDIO.lat.toFixed(4)}° N · {STUDIO.lng.toFixed(4)}° E
+          </span>
+        </div>
       </div>
 
       <div class="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col gap-4 p-5 sm:flex-row sm:items-end sm:justify-between sm:p-7">
@@ -150,8 +187,33 @@ const embed = `https://www.google.com/maps?q=${q}&z=16&output=embed`;
     import { initDirections } from "../lib/directions";
     import { STUDIO } from "../lib/availability";
 
+    const studioClock = () => {
+      const wrap = document.querySelector<HTMLElement>("[data-studio-clock]");
+      const dot = document.querySelector<HTMLElement>("[data-studio-dot]");
+      const state = document.querySelector<HTMLElement>("[data-studio-state]");
+      if (!wrap || !dot || !state) return;
+      const paint = () => {
+        // The studio's clock, not the visitor's.
+        const parts = new Intl.DateTimeFormat("en-GB", {
+          timeZone: "Europe/Zurich", hour: "2-digit", minute: "2-digit", hour12: false,
+        }).formatToParts(new Date());
+        const h = Number(parts.find((p) => p.type === "hour")?.value ?? 0);
+        const hm = `${parts.find((p) => p.type === "hour")?.value}:${parts.find((p) => p.type === "minute")?.value}`;
+        const open = h >= 9 && h < 19;
+        dot.style.background = open ? "#6FB894" : "#8B4E24";
+        dot.style.boxShadow = open ? "0 0 10px rgba(111,184,148,0.7)" : "0 0 8px rgba(139,78,36,0.6)";
+        state.textContent = open
+          ? `Open now in Zürich · ${hm} · until 19:00`
+          : `Closed in Zürich · ${hm} · opens 09:00`;
+      };
+      paint();
+      window.setInterval(paint, 60_000);
+      wrap.hidden = false;
+    };
+
     const boot = () => {
       initDirections();
+      studioClock();
 
       // Mail handoff: the form works today without a backend, and the shape
       // matches what a real endpoint would receive when one is connected.
