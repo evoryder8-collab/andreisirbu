@@ -1,0 +1,107 @@
+---
+/**
+ * The dock.
+ *
+ * Three marks suspended at the right edge, above the chapter bar. Leaving
+ * the site is never silent: choosing one opens a held moment that names
+ * where the visitor is going and lets them stay.
+ */
+import { DICTS, type Dict, type Locale } from "../i18n/dict";
+import { STUDIO } from "../lib/availability";
+
+interface Props { locale?: Locale; t?: Dict; }
+const { locale = "en" } = Astro.props;
+const t: Dict = Astro.props.t ?? DICTS[locale];
+
+const CHANNELS = [
+  { id: "instagram", name: "Instagram", kind: "visit",
+    href: "https://www.instagram.com/mistic.andrei", tint: "#D6336C" },
+  { id: "facebook", name: "Facebook", kind: "visit",
+    href: "https://www.facebook.com/share/1J8ha7PK8i/", tint: "#3E7BC4" },
+  { id: "whatsapp", name: "WhatsApp", kind: "contact",
+    href: `https://wa.me/${STUDIO.phoneHref.replace(/[^0-9]/g, "")}`, tint: "#3FA870" },
+];
+---
+<aside data-dock aria-label={t.social.label}
+       class="fixed right-3 bottom-28 z-40 flex flex-col gap-3 sm:right-6 sm:bottom-10">
+  {CHANNELS.map((c) => (
+    <button
+      type="button"
+      data-social
+      data-id={c.id}
+      data-name={c.name}
+      data-kind={c.kind}
+      data-href={c.href}
+      data-tint={c.tint}
+      aria-label={c.name}
+      title={c.name}
+      class="dock-btn group relative grid h-12 w-12 place-items-center rounded-full
+             bg-[linear-gradient(150deg,rgba(36,40,38,0.95),rgba(12,14,13,0.98))]
+             text-bone/75 backdrop-blur-md transition-[transform,color] duration-500
+             hover:scale-[1.08] hover:text-chalk active:scale-95 sm:h-[3.25rem] sm:w-[3.25rem]"
+      style={`--tint:${c.tint}`}
+    >
+      <span class="pointer-events-none absolute inset-0 rounded-full
+                   [box-shadow:inset_0_1px_0_0_rgba(255,244,224,0.16),inset_0_0_0_1px_rgba(120,104,80,0.28)]
+                   transition-shadow duration-500
+                   group-hover:[box-shadow:inset_0_1px_0_0_rgba(255,244,224,0.3),inset_0_0_0_1px_var(--tint),0_0_22px_-4px_var(--tint)]"></span>
+
+      <svg viewBox="0 0 24 24" class="relative h-[1.35rem] w-[1.35rem] transition-colors duration-500
+                                      group-hover:text-[var(--tint)]" aria-hidden="true">
+        {c.id === "instagram" && (
+          <g fill="none" stroke="currentColor" stroke-width="1.7">
+            <rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5.2"/>
+            <circle cx="12" cy="12" r="4.1"/>
+            <circle cx="17.1" cy="6.9" r="1.15" fill="currentColor" stroke="none"/>
+          </g>
+        )}
+        {c.id === "facebook" && (
+          <path fill="currentColor" d="M13.6 21v-8h2.68l.4-3.1H13.6V7.92c0-.9.25-1.5 1.54-1.5h1.65V3.65c-.29-.04-1.27-.12-2.42-.12-2.4 0-4.04 1.46-4.04 4.15V9.9H7.65V13h2.68v8h3.27z"/>
+        )}
+        {c.id === "whatsapp" && (
+          <g>
+            <path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"
+                  d="M12 3.4a8.6 8.6 0 0 0-7.35 13.05L3.4 20.6l4.25-1.2A8.6 8.6 0 1 0 12 3.4z"/>
+            <path fill="currentColor"
+                  d="M9.3 8.5c.17-.42.35-.43.52-.44h.44c.15 0 .35.03.53.44l.62 1.5c.09.2.02.38-.07.48l-.43.52c-.1.11-.19.25-.09.44.27.53 1.22 1.68 2.3 2.13.19.08.33.02.44-.09l.45-.5c.15-.17.32-.16.5-.08l1.4.72c.19.1.32.24.26.5-.1.53-.55 1.24-1.32 1.35-1.15.16-2.9-.55-4.15-1.78-1.24-1.24-1.95-3-1.78-4.15.06-.42.24-.78.38-1.04z"/>
+          </g>
+        )}
+      </svg>
+    </button>
+  ))}
+</aside>
+
+<!-- The held moment before leaving -->
+<div data-social-sheet hidden
+     class="fixed inset-0 z-[88] grid place-items-center bg-void/80 px-5 opacity-0
+            backdrop-blur-xl transition-opacity duration-400"
+     role="dialog" aria-modal="true" aria-labelledby="social-q">
+  <div data-social-panel
+       class="relative w-full max-w-sm translate-y-5 scale-[0.97] overflow-hidden rounded-[22px]
+              border border-ash bg-[linear-gradient(155deg,rgba(28,31,29,0.96),rgba(10,12,11,0.99))]
+              p-7 text-center transition-[transform,opacity] duration-500 ease-[var(--ease-material)]
+              [box-shadow:0_40px_90px_-30px_rgba(0,0,0,0.95)]">
+    <!-- bloom in the platform's own colour -->
+    <div data-social-bloom
+         class="pointer-events-none absolute left-1/2 top-0 h-40 w-40 -translate-x-1/2 -translate-y-1/2
+                rounded-full opacity-0 blur-3xl"></div>
+
+    <div data-social-mark
+         class="relative mx-auto grid h-16 w-16 place-items-center rounded-full
+                bg-void/70 text-bone
+                [box-shadow:inset_0_1px_0_0_rgba(255,244,224,0.18),inset_0_0_0_1px_rgba(120,104,80,0.3)]"></div>
+
+    <p id="social-q" data-social-text
+       class="font-display mt-6 text-[1.35rem] leading-[1.28] text-chalk"></p>
+
+    <div class="mt-7 flex flex-col gap-2.5">
+      <a data-social-go href="#" target="_blank" rel="noopener noreferrer"
+         class="sheen inline-flex items-center justify-center gap-2 rounded-full bg-bronze px-7 py-3.5
+                text-[0.64rem] font-semibold uppercase tracking-[0.2em] text-void
+                transition-transform duration-500 hover:scale-[1.02]"></a>
+      <button data-social-stay type="button"
+              class="label rounded-full border border-ash py-3 !text-[0.55rem]
+                     transition-colors duration-400 hover:!text-chalk"></button>
+    </div>
+  </div>
+</div>

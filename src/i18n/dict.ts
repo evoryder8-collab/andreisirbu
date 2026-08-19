@@ -47,6 +47,7 @@ export interface Dict {
   studio: { eyebrow: string; title: string; body: string; link: string };
   cta: { eyebrow: string; title: string; body: string; primary: string; secondary: string };
   footer: { tagline: string; practice: string; booking: string; legal: string; rights: string };
+  social: { label: string; visit: string; contact: string; proceed: string; stay: string };
 }
 
 const en: Dict = {
@@ -107,6 +108,13 @@ const en: Dict = {
     tagline: "Sessions are held privately,\none at a time.",
     practice: "Practice", booking: "Booking", legal: "Legal",
     rights: "Holistic & Massage Therapy, Zürich",
+  },
+  social: {
+    label: "Elsewhere",
+    visit: "You are about to visit me on %s. Proceed?",
+    contact: "You are about to reach me on %s. Proceed?",
+    proceed: "Continue",
+    stay: "Stay here",
   },
 };
 
@@ -169,6 +177,13 @@ const de: Dict = {
     practice: "Praxis", booking: "Buchung", legal: "Rechtliches",
     rights: "Ganzheitliche Massage- und Körpertherapie, Zürich",
   },
+  social: {
+    label: "Anderswo",
+    visit: "Sie sind dabei, mich auf %s zu besuchen. Fortfahren?",
+    contact: "Sie sind dabei, mich über %s zu erreichen. Fortfahren?",
+    proceed: "Fortfahren",
+    stay: "Hier bleiben",
+  },
 };
 
 const fr: Dict = {
@@ -229,6 +244,13 @@ const fr: Dict = {
     tagline: "Les séances se déroulent en privé,\nune à la fois.",
     practice: "Le cabinet", booking: "Réservation", legal: "Mentions légales",
     rights: "Massage et thérapie holistique, Zurich",
+  },
+  social: {
+    label: "Ailleurs",
+    visit: "Vous êtes sur le point de me retrouver sur %s. Continuer ?",
+    contact: "Vous êtes sur le point de m’écrire sur %s. Continuer ?",
+    proceed: "Continuer",
+    stay: "Rester ici",
   },
 };
 
@@ -291,6 +313,13 @@ const it: Dict = {
     practice: "Lo studio", booking: "Prenotazione", legal: "Note legali",
     rights: "Massaggio e terapia olistica, Zurigo",
   },
+  social: {
+    label: "Altrove",
+    visit: "Sta per raggiungermi su %s. Vuole continuare?",
+    contact: "Sta per scrivermi su %s. Vuole continuare?",
+    proceed: "Continua",
+    stay: "Resto qui",
+  },
 };
 
 const es: Dict = {
@@ -351,6 +380,13 @@ const es: Dict = {
     tagline: "Las sesiones se realizan en privado,\nuna a una.",
     practice: "La consulta", booking: "Reservas", legal: "Aviso legal",
     rights: "Masaje y terapia holística, Zúrich",
+  },
+  social: {
+    label: "En otro lugar",
+    visit: "Está a punto de visitarme en %s. ¿Continuamos?",
+    contact: "Está a punto de escribirme por %s. ¿Continuamos?",
+    proceed: "Continuar",
+    stay: "Quedarme aquí",
   },
 };
 
@@ -419,6 +455,13 @@ const ro: Dict = {
     tagline: "Ședințele se desfășoară în privat,\nuna după alta.",
     practice: "Cabinet", booking: "Rezervări", legal: "Termeni",
     rights: "Masaj și terapie holistică, Zürich",
+  },
+  social: {
+    label: "În altă parte",
+    visit: "Sunteți pe cale să mă vizitați pe %s. Continuați?",
+    contact: "Sunteți pe cale să îmi scrieți pe %s. Continuați?",
+    proceed: "Continuați",
+    stay: "Rămân aici",
   },
 };
 

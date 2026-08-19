@@ -4,6 +4,7 @@ import SEO from "../components/SEO.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import LanguageOverture from "../components/LanguageOverture.astro";
+import SocialDock from "../components/SocialDock.astro";
 import { ClientRouter } from "astro:transitions";
 
 import { DICTS, type Dict, type Locale } from "../i18n/dict";
@@ -50,10 +51,12 @@ const grainUrl = `url("data:image/svg+xml;base64,${Buffer.from(grain).toString("
       <slot />
     </main>
     <Footer locale={locale} t={t} />
+    <SocialDock locale={locale} t={t} />
 
     <script>
       import { initMotion, destroyMotion, gsap, prefersReducedMotion } from "../lib/motion";
       import { initOverture, openOverture } from "../lib/overture";
+      import { initSocial } from "../lib/social";
 
       const veilNav = () => {
         const nav = document.querySelector<HTMLElement>("[data-nav]");
@@ -141,6 +144,7 @@ const grainUrl = `url("data:image/svg+xml;base64,${Buffer.from(grain).toString("
         initMotion();
         veilNav();
         journey();
+        initSocial();
         magnetise();
       };
 
