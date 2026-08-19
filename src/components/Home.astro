@@ -258,12 +258,31 @@ const { min } = priceRange();
       if (prefersReducedMotion()) return;
 
       const ctx = gsap.context(() => {
+        /* Arrival. The plate breathes in from slightly too close while the
+           headline rises line by line, so the first second is a performance
+           rather than a paint. */
+        const arrival = gsap.timeline({ defaults: { ease: "power3.out" } })
+          .fromTo("[data-hero-img]", { scale: 1.14 }, { scale: 1, duration: 2.2, ease: "power2.out" }, 0)
+          .fromTo("[data-hero-copy] .label", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.9 }, 0.25)
+          .fromTo("[data-hero-line]",
+            { yPercent: 62, opacity: 0 },
+            { yPercent: 0, opacity: 1, duration: 1.25, stagger: 0.14 }, 0.4)
+          .fromTo("[data-hero-copy] p, [data-hero-copy] a",
+            { opacity: 0, y: 18 },
+            { opacity: 1, y: 0, duration: 0.9, stagger: 0.1 }, 1.0);
+
         /* Hero → the plate collapses into a horizontal seam of water-light,
            and the headline sinks through it. */
         const heroTl = gsap.timeline({
           scrollTrigger: {
             trigger: "[data-hero]",
             start: "top top",
+            // The arrival and this scrub write to the same elements. The
+            // moment the visitor scrolls, the arrival yields: finish its
+            // values instantly and hand the properties over.
+            onUpdate(self) {
+              if (self.progress > 0.001 && arrival.isActive()) arrival.progress(1).kill();
+            },
             // One viewport of pinned scroll for the collapse to play out.
             // pinSpacing must stay on: without the spacer the next section
             // occupies the hero's own coordinates and paints straight over it.

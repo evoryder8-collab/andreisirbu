@@ -1,48 +1,77 @@
 ---
 import { localeHref, DICTS, type Dict, type Locale } from "../i18n/dict";
+import { STUDIO } from "../lib/availability";
 interface Props { locale?: Locale; t?: Dict; }
 const { locale = "en" } = Astro.props;
 const t: Dict = Astro.props.t ?? DICTS[locale];
 const href = (p: string) => localeHref(locale, p);
 const year = new Date().getFullYear();
 ---
-<footer class="relative border-t border-ash/60 bg-basalt px-5 pb-28 pt-16 sm:px-8 sm:pb-10 sm:pt-20">
-  <div class="mx-auto max-w-6xl">
-    <p class="label mb-6">Zürich · By appointment</p>
-    <p class="font-display text-3xl leading-[1.08] tracking-tight text-chalk sm:text-5xl">
-      {t.footer.tagline.split("\n").map((line, i) => (<>{i > 0 && <br />}{line}</>))}
+<!-- The final scene: not a link list, a closing frame. -->
+<footer class="field relative overflow-hidden bg-void px-5 pt-20 sm:px-8 sm:pt-28">
+  <!-- Light seam along the top edge instead of a flat border. -->
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-px
+              bg-gradient-to-r from-transparent via-bronze/60 to-transparent"></div>
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-24
+              bg-[radial-gradient(60%_100%_at_50%_0%,rgba(192,131,67,0.07)_0%,transparent_100%)]"></div>
+
+  <div class="relative mx-auto max-w-6xl">
+    <!-- Tagline set as the closing statement, in the didone italic. -->
+    <p class="label mb-7" data-reveal>Zürich · {STUDIO.hours}</p>
+    <p class="font-display max-w-[20ch] text-[clamp(1.9rem,7vw,3.6rem)] italic leading-[1.12]
+              tracking-[-0.01em] text-bone/90" data-reveal>
+      {t.footer.tagline.split("\n").map((line, i) => (<>{i > 0 && " "}{line}</>))}
     </p>
 
-    <div class="mt-12 grid gap-10 border-t border-ash/50 pt-10 sm:grid-cols-3">
-      <div>
-        <p class="label mb-3">{t.footer.practice}</p>
-        <ul class="space-y-2 text-sm text-mist">
-          <li><a class="transition-colors hover:text-chalk" href={href("/la-terapia-method")}>La Terapia Method</a></li>
-          <li><a class="transition-colors hover:text-chalk" href={href("/sessions")}>{t.nav.sessions}</a></li>
-          <li><a class="transition-colors hover:text-chalk" href={href("/studio")}>{t.nav.studio}</a></li>
-          <li><a class="transition-colors hover:text-chalk" href={href("/about")}>{t.nav.about}</a></li>
-        </ul>
+    <!-- Hairline grid, mono capitals, generous air. -->
+    <div class="mt-14 grid gap-x-10 gap-y-12 border-t border-ash/40 pt-12
+                sm:grid-cols-2 lg:grid-cols-4">
+      <div class="flex flex-col gap-3.5">
+        <p class="label mb-1 !text-[0.55rem] !text-bronze/80">{t.footer.practice}</p>
+        <a class="w-fit text-[0.92rem] text-mist transition-colors duration-400 hover:text-chalk" href={href("/la-terapia-method")}>La Terapia Method</a>
+        <a class="w-fit text-[0.92rem] text-mist transition-colors duration-400 hover:text-chalk" href={href("/sessions")}>{t.nav.sessions}</a>
+        <a class="w-fit text-[0.92rem] text-mist transition-colors duration-400 hover:text-chalk" href={href("/studio")}>{t.nav.studio}</a>
+        <a class="w-fit text-[0.92rem] text-mist transition-colors duration-400 hover:text-chalk" href={href("/about")}>{t.nav.about}</a>
       </div>
-      <div>
-        <p class="label mb-3">{t.footer.booking}</p>
-        <ul class="space-y-2 text-sm text-mist">
-          <li><a class="transition-colors hover:text-chalk" href={href("/apply")}>Reserve a session</a></li>
-          <li><a class="transition-colors hover:text-chalk" href={href("/contact")}>{t.nav.contact}</a></li>
-          <li><a class="transition-colors hover:text-chalk" href="https://andreisirbu.com/balance/">Gift card balance</a></li>
-          <li><a class="transition-colors hover:text-chalk" href="https://andreisirbu.com/my-account/">My account</a></li>
-        </ul>
+
+      <div class="flex flex-col gap-3.5">
+        <p class="label mb-1 !text-[0.55rem] !text-bronze/80">{t.footer.booking}</p>
+        <a class="w-fit text-[0.92rem] text-mist transition-colors duration-400 hover:text-chalk" href={href("/apply")}>{t.cta.primary}</a>
+        <a class="w-fit text-[0.92rem] text-mist transition-colors duration-400 hover:text-chalk" href={href("/contact")}>{t.nav.contact}</a>
+        <a class="w-fit text-[0.92rem] text-mist transition-colors duration-400 hover:text-chalk" href="https://andreisirbu.com/balance/">Gift card balance</a>
       </div>
-      <div>
-        <p class="label mb-3">{t.footer.legal}</p>
-        <ul class="space-y-2 text-sm text-mist">
-          <li><a class="transition-colors hover:text-chalk" href={href("/privacy")}>Privacy</a></li>
-          <li><a class="transition-colors hover:text-chalk" href={href("/terms")}>Terms of use</a></li>
-        </ul>
+
+      <div class="flex flex-col gap-3.5">
+        <p class="label mb-1 !text-[0.55rem] !text-bronze/80">Studio</p>
+        <p class="text-[0.92rem] leading-relaxed text-mist">
+          {STUDIO.street}<br />{STUDIO.postcode} {STUDIO.city}
+        </p>
+        <a class="w-fit font-mono text-[0.8rem] tabular-nums text-mist transition-colors duration-400 hover:text-chalk"
+           href={`tel:${STUDIO.phoneHref}`}>{STUDIO.phone}</a>
+        <a class="w-fit font-mono text-[0.8rem] text-mist transition-colors duration-400 hover:text-chalk"
+           href={`mailto:${STUDIO.email}`}>{STUDIO.email}</a>
+      </div>
+
+      <div class="flex flex-col gap-3.5">
+        <p class="label mb-1 !text-[0.55rem] !text-bronze/80">{t.footer.legal}</p>
+        <a class="w-fit text-[0.92rem] text-mist transition-colors duration-400 hover:text-chalk" href={href("/privacy")}>Privacy</a>
+        <a class="w-fit text-[0.92rem] text-mist transition-colors duration-400 hover:text-chalk" href={href("/terms")}>Terms of use</a>
+        <p class="label mt-4 !text-[0.55rem] !tracking-[0.18em]">© {year} · {t.footer.rights}</p>
       </div>
     </div>
+  </div>
 
-    <p class="label mt-12 !text-[0.58rem] !tracking-[0.18em]">
-      © {year} Andrei Sirbu · {t.footer.rights}
+  <!-- The lockup: the name at architectural scale, cropped by the page edge
+       the way fashion houses close. Gold drawn through it, no animation, so
+       it stands like set type. -->
+  <div class="relative mx-auto mt-16 max-w-6xl select-none sm:mt-20" aria-hidden="true">
+    <p class="gilt whitespace-nowrap text-center font-display
+              text-[clamp(3.2rem,12.5vw,10.5rem)] leading-[0.8] tracking-[-0.03em]
+              translate-y-[0.18em]">
+      Andrei Sirbu
     </p>
   </div>
+
+  <!-- Clears the fixed mobile chapter bar. -->
+  <div class="h-24 sm:h-6"></div>
 </footer>

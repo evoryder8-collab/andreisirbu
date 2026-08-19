@@ -43,6 +43,7 @@ const grainUrl = `url("data:image/svg+xml;base64,${Buffer.from(grain).toString("
   </head>
 
   <body class="grain">
+    <div data-journey aria-hidden="true"></div>
     <LanguageOverture locale={locale} t={t} />
     <Nav locale={locale} t={t} />
     <main id="main">

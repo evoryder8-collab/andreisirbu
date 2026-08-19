@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 @import "@fontsource-variable/bodoni-moda";
-@import "@fontsource-variable/archivo";
+@import "@fontsource-variable/instrument-sans";
+@import "@fontsource-variable/fraunces";
 @import "@fontsource/ibm-plex-mono/400.css";
 @import "@fontsource/ibm-plex-mono/500.css";
 
@@ -24,7 +25,8 @@
   --color-water:   #6B7E79;
 
   --font-display: "Bodoni Moda Variable", "Didot", "Bodoni MT", Georgia, serif;
-  --font-body: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Instrument Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-text: "Fraunces Variable", "Iowan Old Style", Georgia, serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   --ease-material: cubic-bezier(0.16, 1, 0.3, 1);
@@ -56,7 +58,13 @@
     outline-offset: 3px;
   }
 
-  h1, h2, h3 { font-family: var(--font-display); font-weight: 500; text-wrap: balance; }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 460;
+    font-optical-sizing: auto;
+    font-feature-settings: "liga" 1, "dlig" 1;
+    text-wrap: balance;
+  }
 }
 
 @layer components {
@@ -326,6 +334,23 @@ button[data-armed="true"]::after {
 @keyframes armed-pulse { 0%,100% { opacity: 0.25; } 50% { opacity: 0.85; } }
 @media (prefers-reduced-motion: reduce) {
   button[data-armed="true"]::after { animation: none; opacity: 0.5; }
+}
+
+/* Journey line: scroll position as a filling seam of light at the top. */
+[data-journey] {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  z-index: 70;
+  pointer-events: none;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: linear-gradient(90deg,
+    rgba(192,131,67,0.0) 0%,
+    rgba(192,131,67,0.85) 12%,
+    rgba(232,196,137,1) 55%,
+    rgba(255,244,222,1) 100%);
+  box-shadow: 0 0 12px rgba(192,131,67,0.55);
 }
 
 /* Motion primitives, the JS sets data-state; CSS owns the look, so
