@@ -4,6 +4,7 @@ import Base from "../layouts/Base.astro";
 import { portrait, handsMono, gorgePortrait } from "../lib/media";
 import { STUDIO } from "../lib/availability";
 import { href } from "../lib/url";
+import { AWARDS, CLIENTELE, DISCIPLINES, hasAwards } from "../data/credentials";
 ---
 <Base title="Andrei Sirbu | Practitioner, Zürich"
       description="Eighteen years of somatic and therapeutic practice, held in a single private room in Zürich.">
@@ -32,9 +33,9 @@ import { href } from "../lib/url";
         <h1 class="gilt gilt-live font-display text-[clamp(3rem,17vw,8rem)] leading-[0.86] tracking-[-0.03em]">
           Andrei<br />Sirbu
         </h1>
-        <p class="lede-lux mt-7 max-w-[34ch] text-[1.1rem] md:text-xl" data-reveal>
-          Eighteen years of dedicated practice, combining therapeutic
-          structure with intuitive awareness.
+        <p class="lede-lux mt-7 max-w-[36ch] text-[1.1rem] md:text-xl" data-reveal>
+          Eighteen years of practice, third in the world, and one room in
+          Zürich where none of that is mentioned.
         </p>
       </div>
     </div>
@@ -61,10 +62,109 @@ import { href } from "../lib/url";
           <dd class="font-display text-4xl text-chalk tabular-nums md:text-5xl"><span data-count="1">1</span></dd>
         </div>
         <div data-reveal style="--reveal-delay:270ms">
-          <dt class="label mb-3 !text-bronze/80">Studio</dt>
-          <dd class="font-display text-4xl text-chalk md:text-5xl">{STUDIO.city}</dd>
+          <dt class="label mb-3 !text-bronze/80">World Championship</dt>
+          <dd class="font-display text-4xl text-chalk tabular-nums md:text-5xl">
+            <span data-count="3">3</span><span class="ml-0.5 align-super text-lg text-mist">rd</span>
+          </dd>
         </div>
       </dl>
+    </div>
+  </section>
+
+  <!-- Recognition. Laurels drawn rather than pasted, so the award sits in the
+       same material as everything else. -->
+  {hasAwards() && (
+    <section class="relative overflow-hidden bg-void px-5 py-20 sm:px-8 md:py-28">
+      <div class="pointer-events-none absolute inset-x-0 top-0 h-px
+                  bg-gradient-to-r from-transparent via-bronze/50 to-transparent"></div>
+      <div class="pointer-events-none absolute left-1/2 top-1/2 h-[26rem] w-[26rem]
+                  -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40 blur-3xl
+                  bg-[radial-gradient(circle,rgba(192,131,67,0.22)_0%,transparent_70%)]"></div>
+
+      {AWARDS.map((a) => (
+        <div class="relative mx-auto flex max-w-3xl flex-col items-center text-center" data-reveal>
+          <div class="relative flex items-center justify-center gap-5">
+            <svg viewBox="0 0 40 96" class="h-24 w-10 text-bronze sm:h-28" aria-hidden="true" fill="currentColor">
+              <path d="M34 92C22 82 14 68 12 52 10 36 14 20 24 6c-2 16-4 30-2 44 2 16 6 30 12 42z" opacity="0.9"/>
+              <g opacity="0.85">
+                <ellipse cx="12" cy="20" rx="9" ry="4.5" transform="rotate(-32 12 20)"/>
+                <ellipse cx="10" cy="34" rx="9.5" ry="4.7" transform="rotate(-22 10 34)"/>
+                <ellipse cx="10" cy="48" rx="10" ry="4.9" transform="rotate(-12 10 48)"/>
+                <ellipse cx="13" cy="62" rx="9.5" ry="4.7" transform="rotate(-4 13 62)"/>
+                <ellipse cx="18" cy="75" rx="8.5" ry="4.3" transform="rotate(8 18 75)"/>
+              </g>
+            </svg>
+
+            <div class="px-1">
+              <p class="gilt gilt-live font-display text-[clamp(2.4rem,10vw,4.2rem)] leading-[0.92] tracking-[-0.02em]">
+                {a.placing}
+              </p>
+              <p class="label mt-4 !text-[0.58rem] !tracking-[0.2em] !text-bronze">{a.year}</p>
+            </div>
+
+            <svg viewBox="0 0 40 96" class="h-24 w-10 -scale-x-100 text-bronze sm:h-28" aria-hidden="true" fill="currentColor">
+              <path d="M34 92C22 82 14 68 12 52 10 36 14 20 24 6c-2 16-4 30-2 44 2 16 6 30 12 42z" opacity="0.9"/>
+              <g opacity="0.85">
+                <ellipse cx="12" cy="20" rx="9" ry="4.5" transform="rotate(-32 12 20)"/>
+                <ellipse cx="10" cy="34" rx="9.5" ry="4.7" transform="rotate(-22 10 34)"/>
+                <ellipse cx="10" cy="48" rx="10" ry="4.9" transform="rotate(-12 10 48)"/>
+                <ellipse cx="13" cy="62" rx="9.5" ry="4.7" transform="rotate(-4 13 62)"/>
+                <ellipse cx="18" cy="75" rx="8.5" ry="4.3" transform="rotate(8 18 75)"/>
+              </g>
+            </svg>
+          </div>
+
+          <p class="font-display mt-6 text-[1.5rem] leading-tight text-chalk sm:text-[1.9rem]">
+            {a.event}
+          </p>
+          <p class="label mt-5 max-w-[44ch] !normal-case !tracking-normal !text-[0.8rem] leading-relaxed opacity-75">
+            Judged against practitioners from around the world, on technique
+            performed live rather than described.
+          </p>
+        </div>
+      ))}
+    </section>
+  )}
+
+  <!-- Discretion. The clientele stated without naming anyone, because the
+       practice's promise is that it does not talk. -->
+  {CLIENTELE && (
+    <section class="field relative bg-basalt px-5 py-20 sm:px-8 md:py-28">
+      <div class="mx-auto max-w-4xl text-center">
+        <p class="label mb-6 !text-bronze/80" data-reveal>Discretion</p>
+        <p class="font-display text-[clamp(1.6rem,5.5vw,2.8rem)] leading-[1.18] tracking-[-0.01em] text-chalk"
+           data-type-reveal>
+          {CLIENTELE.line}
+        </p>
+        {CLIENTELE.note && (
+          <p class="lede-lux mx-auto mt-7 max-w-[52ch] text-[1.02rem]" data-reveal>{CLIENTELE.note}</p>
+        )}
+      </div>
+    </section>
+  )}
+
+  <!-- What the hands actually know -->
+  <section class="relative bg-void px-5 py-20 sm:px-8 md:py-28">
+    <div class="mx-auto max-w-6xl">
+      <p class="label mb-10 !text-bronze/80" data-reveal>Trained in</p>
+      <ul class="grid gap-px bg-ash/40 sm:grid-cols-2 lg:grid-cols-3">
+        {DISCIPLINES.map((d, i) => (
+          <li data-reveal style={`--reveal-delay:${i * 70}ms`}
+              class="group flex items-baseline gap-4 bg-void px-6 py-7 transition-colors duration-500 hover:bg-stone/50">
+            <span class="font-mono text-[0.6rem] tabular-nums text-bronze/70">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <span class="font-display text-[1.3rem] text-bone transition-colors duration-500 group-hover:text-chalk">
+              {d}
+            </span>
+          </li>
+        ))}
+      </ul>
+      <p class="label mt-10 max-w-[56ch] !normal-case !tracking-normal !text-[0.8rem] leading-relaxed opacity-75"
+         data-reveal>
+        These are not offered separately. They are combined inside one session,
+        chosen in the moment according to what the body in front of him needs.
+      </p>
     </div>
   </section>
 
@@ -107,18 +207,26 @@ import { href } from "../lib/url";
         <div class="space-y-6 text-[0.98rem] leading-relaxed text-mist md:text-base">
           <p data-reveal>
             The work is held in one private room in Zürich, one person at a
-            time. Each session is guided in real time, responding to the body
-            present rather than to a fixed routine.
+            time. Nothing is decided before you arrive. The structure comes
+            from eighteen years of clinical technique; the direction comes
+            from what your body is doing while it is happening.
           </p>
           <p data-reveal style="--reveal-delay:90ms">
-            What that means in practice is that nothing is decided before you
-            arrive. The structure comes from eighteen years of clinical
-            technique; the direction comes from what your body is doing while
-            it is happening.
+            Much of it is built for people operating under sustained pressure,
+            who need a precise and discreet way to put down what they are
+            carrying. Not a course of talking, and not a treatment applied to
+            them, but a room where the nervous system is allowed to come back
+            down and clarity returns without effort.
           </p>
           <p data-reveal style="--reveal-delay:180ms">
-            Alongside private practice, the method is taught directly to
-            working practitioners through the Holistic Massage Masterclass.
+            La Terapia, the method behind the practice, is his own: a
+            structured protocol that combines manual therapy, breathwork and
+            somatic work into one continuous session rather than a sequence of
+            separate treatments.
+          </p>
+          <p data-reveal style="--reveal-delay:270ms">
+            Alongside private practice, it is taught directly to working
+            practitioners through the Holistic Massage Masterclass.
           </p>
         </div>
 
