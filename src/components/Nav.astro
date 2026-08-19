@@ -21,7 +21,12 @@ const isCurrent = (to: string) => path === href(to).replace(/\/$/, "");
           focus:bg-bone focus:text-void focus:px-4 focus:py-2 focus:text-sm"
    href="#main">Skip to content</a>
 
-<header data-nav class="fixed inset-x-0 top-0 z-50">
+<header data-nav class="nav-safe fixed inset-x-0 top-0 z-50">
+  <!-- A cap that lives above the bar, off screen at rest. iOS shifts fixed
+       elements while its toolbar collapses, and the strip that opens above
+       the header belonged to nobody: page content showed through it. -->
+  <div aria-hidden="true"
+       class="pointer-events-none absolute inset-x-0 bottom-full h-[60vh] bg-void"></div>
   <div data-nav-glass aria-hidden="true"
        class="pointer-events-none absolute inset-x-0 top-0 h-[190%]"></div>
   <nav aria-label="Primary" class="relative flex w-full max-w-full items-center justify-between gap-3 px-4 py-4 sm:gap-6 sm:px-8 sm:py-5">
@@ -65,7 +70,7 @@ const isCurrent = (to: string) => path === href(to).replace(/\/$/, "");
   class="fixed inset-x-0 bottom-0 z-50 md:hidden translate-y-full transition-transform
          duration-500 data-[shown=true]:translate-y-0"
 >
-  <div class="mx-3 mb-3 flex max-w-full items-center gap-1 overflow-x-auto overscroll-x-contain rounded-full border
+  <div class="mx-3 mb-[max(0.75rem,env(safe-area-inset-bottom))] flex max-w-full items-center gap-1 overflow-x-auto overscroll-x-contain rounded-full border
               border-ash/80 bg-void/85 px-1.5 py-1.5 backdrop-blur-xl
               [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
     {links.map((l) => (

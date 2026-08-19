@@ -68,6 +68,18 @@
 }
 
 @layer components {
+  /* The bar owns the notch region now that viewport-fit is cover, so its
+     content is pushed clear of it and the glass reaches the true top edge. */
+  .nav-safe > nav { padding-top: calc(1rem + env(safe-area-inset-top)); }
+  @media (min-width: 640px) {
+    .nav-safe > nav { padding-top: calc(1.25rem + env(safe-area-inset-top)); }
+  }
+  /* The dock sits above the chapter bar and its home indicator. */
+  [data-dock] { bottom: calc(7rem + env(safe-area-inset-bottom)); }
+  @media (min-width: 640px) {
+    [data-dock] { bottom: calc(2.5rem + env(safe-area-inset-bottom)); }
+  }
+
   /* The monogram sheen. A CSS transform on an SVG rect, because WebKit does
      not reliably animate gradient attributes through SMIL and the mark sat
      frozen on every browser on iOS. transform-box keeps the translation in
