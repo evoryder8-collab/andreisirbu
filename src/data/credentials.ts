@@ -46,12 +46,11 @@ export interface Clientele {
 }
 
 export const CLIENTELE: Clientele | null = {
-  // Named clients are deliberately absent. Several are public figures who
-  // came here precisely because the practice does not talk, and the site
-  // promises discretion elsewhere: naming them would contradict it. Saying
-  // it this way is also the stronger claim.
-  line: "Some of the people who come here are recognised elsewhere.",
-  note: "They are not named, and that is the point. What is offered is a room where nobody is watching and nothing is repeated.",
+  // Stated plainly, but never with names. Several are public figures who came
+  // here because the practice does not talk, so naming them would break the
+  // thing being offered.
+  line: "His clients have included public figures and celebrities.",
+  note: "None of them are named here. Several came precisely because the practice does not talk, and the room is the same whoever is lying in it.",
 };
 
 /** Trainings and modalities. Renders as a list when populated. */
