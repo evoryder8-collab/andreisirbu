@@ -52,7 +52,7 @@ export const SESSIONS: Session[] = [
     storeName: "La Terapia Method – Advanced Nervous System Reset",
     price: 295,
     currency: CURRENCY,
-    duration: "90 min",
+    duration: "75 min",
     modality: "Nervous system reset",
     description:
       "A profound journey into the release of repressed emotions and somatized trauma.",
@@ -73,6 +73,7 @@ export const SESSIONS: Session[] = [
     detail:
       "The Sacral Ritual is a sacred energetic ceremony designed to cleanse, rebalance, and awaken your inner power. It releases emotional tension and energetic blockages stored in the lower body, restoring the natural harmony between the feminine and the masculine within.\nThis deep process reconnects you to your sensuality, creative flow, and authentic vitality. Through breath, awareness, and sacred touch, stagnant energy transforms into freedom, light, and inner strength.\nAllow yourself to return to the temple of your body, open, radiant, and aligned with the essence of who you truly are.",
     rank: 2,
+    signature: true,
   },
   {
     slug: "relaxing-massage-ritual",
