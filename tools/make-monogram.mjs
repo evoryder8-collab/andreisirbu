@@ -17,48 +17,53 @@ const SWASH = `M66,-44 C44,-26 4,-14 -12,-22 C-26,-30 -20,-50 0,-48 C24,-45 50,-
 const VIEW = `-24 -84 134 94`;
 
 // ── Header mark ─────────────────────────────────────────────────────
-// Gradient in user space with spreadMethod="repeat", translated by exactly
-// one period. objectBoundingBox + pad parked the gradient off the shape for
-// most of the cycle, which is why the mark read as flat bronze and the
-// gleam looked stuck. One period of travel loops seamlessly.
-const PERIOD = 168;
+// WebKit does not reliably animate gradientTransform through SMIL, so the
+// mark sat static on every iOS browser while Chromium played it fine.
+// Instead: the letterforms become a mask, a solid bronze plate sits under
+// it, and a highlight band is translated across with a CSS animation.
+// CSS transforms on SVG elements are solid everywhere.
+const SPAN = 134;   // viewBox width
 const astro = `---
 /**
  * The AS monogram, set from the site's own Bodoni Moda outlines with the
  * connecting swash drawn by hand.
  *
- * The gold repeats in user space and travels exactly one period, so the
- * loop is seamless and a highlight is always somewhere on the mark. SMIL
- * keeps it off the main thread; Base pauses it under reduced motion.
+ * The letterforms are used as a mask over a bronze plate, and a highlight
+ * band sweeps across beneath that mask. This avoids animating gradient
+ * attributes through SMIL, which WebKit does not support reliably: the
+ * mark was frozen on every browser on iOS. A CSS transform on a plain
+ * rect works in every engine, and reduced motion parks the band mid-mark.
  *
  * Regenerate with: node tools/make-monogram.mjs
  */
 interface Props { class?: string; }
 const { class: cls = "" } = Astro.props;
 ---
-<svg data-gleam-svg viewBox="${VIEW}" class={cls} aria-hidden="true">
+<svg viewBox="${VIEW}" class={cls} aria-hidden="true">
   <defs>
-    <linearGradient id="as-gleam" gradientUnits="userSpaceOnUse"
-      x1="-24" y1="0" x2="${-24 + PERIOD}" y2="0" spreadMethod="repeat">
-      <stop offset="0"    stop-color="#8A5E2C"/>
-      <stop offset="0.30" stop-color="#C08343"/>
-      <stop offset="0.44" stop-color="#F3D9A6"/>
-      <stop offset="0.50" stop-color="#FFF8E8"/>
-      <stop offset="0.56" stop-color="#F3D9A6"/>
-      <stop offset="0.70" stop-color="#C08343"/>
-      <stop offset="1"    stop-color="#8A5E2C"/>
-      <animateTransform attributeName="gradientTransform" type="translate"
-        from="0 0" to="${PERIOD} 0" dur="3s" repeatCount="indefinite"/>
+    <mask id="as-mask" maskUnits="userSpaceOnUse" x="-24" y="-84" width="134" height="94">
+      <g fill="#fff" stroke="#fff" stroke-width="1.1" stroke-linejoin="round">
+        <path d="${A}"/>
+        <path transform="translate(48,0)" d="${S}"/>
+      </g>
+      <path fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" d="${SWASH}"/>
+    </mask>
+    <linearGradient id="as-band" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0"    stop-color="#FFF8E8" stop-opacity="0"/>
+      <stop offset="0.42" stop-color="#FFF3D9" stop-opacity="0.85"/>
+      <stop offset="0.5"  stop-color="#FFFDF7" stop-opacity="1"/>
+      <stop offset="0.58" stop-color="#FFF3D9" stop-opacity="0.85"/>
+      <stop offset="1"    stop-color="#FFF8E8" stop-opacity="0"/>
     </linearGradient>
   </defs>
-  <!-- Stroking the fills as well as filling them thickens the hairlines
-       optically, so the didone still holds together at header size. -->
-  <g fill="url(#as-gleam)" stroke="url(#as-gleam)" stroke-width="1.1" stroke-linejoin="round">
-    <path d="${A}"/>
-    <path transform="translate(48,0)" d="${S}"/>
+
+  <g mask="url(#as-mask)">
+    <!-- The metal itself, always present -->
+    <rect x="-24" y="-84" width="134" height="94" fill="#C08343"/>
+    <rect x="-24" y="-84" width="134" height="94" fill="#D19A5C" opacity="0.5"/>
+    <!-- The light crossing it -->
+    <rect class="as-sheen" x="-24" y="-84" width="72" height="94" fill="url(#as-band)"/>
   </g>
-  <path fill="none" stroke="url(#as-gleam)" stroke-width="3.4"
-        stroke-linecap="round" d="${SWASH}"/>
 </svg>
 `;
 writeFileSync("src/components/Monogram.astro", astro);

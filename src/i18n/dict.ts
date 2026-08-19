@@ -19,7 +19,7 @@
  *    as a job application, so each locale uses its own word for a request.
  */
 
-export const LOCALES = ["en", "de", "fr", "it", "es"] as const;
+export const LOCALES = ["en", "de", "fr", "it", "es", "ro"] as const;
 export type Locale = (typeof LOCALES)[number];
 
 export const LOCALE_NAMES: Record<Locale, { native: string; word: string }> = {
@@ -28,6 +28,7 @@ export const LOCALE_NAMES: Record<Locale, { native: string; word: string }> = {
   fr: { native: "Français", word: "Bienvenue"  },
   it: { native: "Italiano", word: "Benvenuto"  },
   es: { native: "Español",  word: "Bienvenido" },
+  ro: { native: "Română",   word: "Bun venit"  },
 };
 
 export interface Dict {
@@ -348,7 +349,74 @@ const es: Dict = {
   },
 };
 
-export const DICTS: Record<Locale, Dict> = { en, de, fr, it, es };
+
+const ro: Dict = {
+  htmlLang: "ro",
+  meta: {
+    title: "Andrei Sirbu | Eliberare emoțională și resetarea sistemului nervos, Zürich",
+    description: "Un cabinet privat în Zürich. Optsprezece ani de lucru cu corpul, ghidat în prezent. Ședințe de la CHF 195.",
+  },
+  nav: { method: "Metoda", sessions: "Ședințe", studio: "Cabinetul", evidence: "Mărturii", about: "Andrei", contact: "Contact", reserve: "Rezervare" },
+  overture: {
+    choose: "Alegeți limba",
+    note: "Ședințele se desfășoară în engleză și germană",
+    autoPrefix: "Româna se alege în",
+    cancelHint: "Alegeți alta pentru a rămâne",
+    entering: "Intrați",
+  },
+  hero: {
+    eyebrow: "Cabinet privat · Zürich · Din 2008",
+    l1: "Eliberare emoțională", l2: "și resetarea", l3: "sistemului nervos",
+    lede: "Optsprezece ani de practică. Fiecare ședință se naște în prezent și urmează corpul dumneavoastră, nu un tipar dinainte stabilit.",
+    cta: "Rezervați o ședință", scroll: "Derulați",
+  },
+  positioning: {
+    eyebrow: "Experiență", t1: "O practică întemeiată pe", t2: "precizie și experiență.",
+    lede: "Din peste 18 ani de practică neîntreruptă, această muncă îmbină structura terapeutică cu o ascultare intuitivă.",
+    body: "Fiecare ședință se naște în prezent și urmează corpul dumneavoastră, nu un tipar dinainte stabilit. Nu este o listă de tratamente. Sunt un terapeut, o încăpere și omul care intră pe ușă.",
+    practising: "De practică", sessionsHeld: "Ședințe", atATime: "Pe rând",
+  },
+  method: {
+    eyebrow: "Metodă proprie",
+    body: "O formă mai adâncă de lucru, gândită pentru cei care vor să treacă dincolo de relaxarea de suprafață. Structura și intuiția merg împreună: atingere precisă, atenție la respirație și o îndrumare care urmează corpul, nu o succesiune.",
+    more: "Metoda pe larg",
+  },
+  process: {
+    eyebrow: "Cum decurge", title: "Sunteți însoțit, nu tratat.",
+    steps: [
+      { k: "Sosirea", t: "Sunteți primit, nu expediat. Încăperea este pregătită înainte să ajungeți." },
+      { k: "Coborârea", t: "Sunteți condus cu blândețe într-o relaxare adâncă, în care corpul lasă de la sine tensiunea adunată." },
+      { k: "Lucrul", t: "Prin atingere precisă, atenție la respirație și îndrumare intuitivă, ceea ce se ține sub suprafață se poate înmuia și așeza altfel." },
+      { k: "După", t: "Nimic nu se grăbește. Plecați când sistemul nervos s-a liniștit, nu când se termină ora." },
+    ],
+    resultsLabel: "Ce lasă în urmă această muncă",
+    results: ["Eliberarea tensiunii fizice adânci", "Ușurință și limpezime emoțională", "Reglarea sistemului nervos", "Somn și refacere mai bune", "O legătură mai limpede cu propriul corp"],
+  },
+  sessions: { eyebrow: "Ce ofer", title: "Ședințe", from: "De la CHF", all: "Toate ședințele în detaliu", reserve: "Rezervare" },
+  evidence: {
+    eyebrow: "Mărturii",
+    q1: "Nu mai trăisem niciodată așa ceva. Am plecat cu senzația că mi s-a dat corpul înapoi.", a1: "Clientă privată · Zürich",
+    q2: "Precis, fără grabă și cu totul prezent. Lucrează cu o atenție pe care nu o credeam cu putință.", a2: "Client de ani buni",
+    verified: "Confirmat în magazinul cabinetului", delivered: "Peste 900 de ședințe", more: "Citiți mai departe",
+  },
+  studio: {
+    eyebrow: "Cabinetul", title: "O singură încăpere, în Zürich.",
+    body: "Privată, doar a dumneavoastră și pregătită pentru un singur om pe rând. Fără recepție, fără așteptare, fără cabinete alăturate.",
+    link: "Unde se află și cum ajungeți",
+  },
+  cta: {
+    eyebrow: "La cerere", title: "Dacă vă regăsiți în aceste cuvinte,\naștept cu drag un mesaj.",
+    body: "Numărul ședințelor este limitat și fiecare se desfășoară în privat. Rezervați direct sau scrieți mai întâi, dacă nu știți sigur ce vi se potrivește.",
+    primary: "Rezervați o ședință", secondary: "Vedeți toate ședințele",
+  },
+  footer: {
+    tagline: "Ședințele se desfășoară în privat,\nuna după alta.",
+    practice: "Cabinet", booking: "Rezervări", legal: "Termeni",
+    rights: "Masaj și terapie holistică, Zürich",
+  },
+};
+
+export const DICTS: Record<Locale, Dict> = { en, de, fr, it, es, ro };
 
 export const isLocale = (v: string): v is Locale => (LOCALES as readonly string[]).includes(v);
 

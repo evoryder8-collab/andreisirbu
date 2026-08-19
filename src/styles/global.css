@@ -68,6 +68,24 @@
 }
 
 @layer components {
+  /* The monogram sheen. A CSS transform on an SVG rect, because WebKit does
+     not reliably animate gradient attributes through SMIL and the mark sat
+     frozen on every browser on iOS. transform-box keeps the translation in
+     the viewBox coordinate system rather than the element's own box. */
+  .as-sheen {
+    transform-box: view-box;
+    transform-origin: 0 0;
+    animation: as-sheen-pass 3.2s linear infinite;
+    will-change: transform;
+  }
+  @keyframes as-sheen-pass {
+    from { transform: translateX(-96px); }
+    to   { transform: translateX(158px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .as-sheen { animation: none; transform: translateX(38px); }
+  }
+
   /* Liquid glass: blur and tint that fade out rather than stopping on an
      edge. The layer overhangs the bar and is masked to transparent at its
      foot, so there is no seam where the backdrop-filter ends. */
