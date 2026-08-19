@@ -103,7 +103,15 @@ const grainUrl = `url("data:image/svg+xml;base64,${Buffer.from(grain).toString("
         });
       };
 
+      const stillMarks = () => {
+        if (!prefersReducedMotion()) return;
+        document.querySelectorAll<SVGSVGElement>("[data-gleam-svg]").forEach((s) => {
+          try { s.pauseAnimations(); } catch { /* older engines */ }
+        });
+      };
+
       const boot = () => {
+        stillMarks();
         initOverture();
         portalToggle();
         initMotion();
