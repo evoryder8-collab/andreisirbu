@@ -382,7 +382,7 @@ const ro: Dict = {
     more: "Metoda pe larg",
   },
   process: {
-    eyebrow: "Cum decurge", title: "Sunteți însoțit, nu tratat.",
+    eyebrow: "Cum decurge", title: "Nu se lucrează asupra dumneavoastră, ci cu dumneavoastră.",
     steps: [
       { k: "Sosirea", t: "Sunteți primit, nu expediat. Încăperea este pregătită înainte să ajungeți." },
       { k: "Coborârea", t: "Sunteți condus cu blândețe într-o relaxare adâncă, în care corpul lasă de la sine tensiunea adunată." },

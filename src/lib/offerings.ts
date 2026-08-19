@@ -139,6 +139,51 @@ export function initOfferings(): void {
     });
   });
 
+  // Once a block is chosen the others recede, which is right while the
+  // visitor is looking at it and wrong once they have scrolled past. When the
+  // chosen block leaves the viewport entirely, the column returns to neutral
+  // so the remaining work is legible again.
+  const passed = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting && selected === e.target) deselect();
+      }
+    },
+    { threshold: 0 },
+  );
+  cards.forEach((c) => passed.observe(c));
+  onCleanup(() => passed.disconnect());
+
+  // A short demonstration on arrival: the first block is chosen, then the
+  // second, then back to the first. Nothing on the page says the blocks are
+  // tappable, and a single still selection reads as decoration rather than
+  // state. Any real input cancels it immediately, so it never fights a
+  // visitor who has already started choosing.
+  if (!reduced && cards.length > 1) {
+    let cancelled = false;
+    const cancel = () => { cancelled = true; };
+    const opts = { once: true, passive: true } as AddEventListenerOptions;
+    window.addEventListener("pointerdown", cancel, opts);
+    window.addEventListener("touchstart", cancel, opts);
+    window.addEventListener("wheel", cancel, opts);
+    window.addEventListener("keydown", cancel, opts);
+
+    const beat = (ms: number, fn: () => void) => {
+      const id = window.setTimeout(() => { if (!cancelled) fn(); }, ms);
+      onCleanup(() => window.clearTimeout(id));
+    };
+    beat(1000, () => select(cards[0]!));
+    beat(2500, () => select(cards[1]!));
+    beat(4000, () => select(cards[0]!));
+
+    onCleanup(() => {
+      window.removeEventListener("pointerdown", cancel);
+      window.removeEventListener("touchstart", cancel);
+      window.removeEventListener("wheel", cancel);
+      window.removeEventListener("keydown", cancel);
+    });
+  }
+
   const onOutside = (e: PointerEvent) => {
     if (!(e.target as HTMLElement).closest("[data-offering]")) deselect();
   };
