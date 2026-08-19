@@ -4,6 +4,7 @@ import OfferingCard from "../components/OfferingCard.astro";
 import { Picture } from "astro:assets";
 import { privateSessions, asideOfferings } from "../data/catalogue";
 import { candle } from "../lib/media";
+import { href } from "../lib/url";
 const sessions = privateSessions();
 const aside = asideOfferings();
 ---
@@ -66,7 +67,7 @@ const aside = asideOfferings();
           <span class="label">Email</span>
           <span class="font-mono text-sm text-chalk">contact@andreisirbu.com</span>
         </a>
-        <a href="https://andreisirbu.com/contact/"
+        <a href={href("/contact")}
            class="sheen flex items-center justify-between gap-4 rounded-[14px] border border-ash bg-stone/50 px-6 py-5
                   transition-colors duration-500 hover:border-bronze/50 hover:bg-ash/60">
           <span class="label">Contact form</span>

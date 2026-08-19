@@ -68,6 +68,26 @@
 }
 
 @layer components {
+  /* Liquid glass: blur and tint that fade out rather than stopping on an
+     edge. The layer overhangs the bar and is masked to transparent at its
+     foot, so there is no seam where the backdrop-filter ends. */
+  [data-nav-glass] {
+    opacity: 0;
+    transition: opacity 700ms var(--ease-material);
+    backdrop-filter: blur(20px) saturate(1.25);
+    -webkit-backdrop-filter: blur(20px) saturate(1.25);
+    background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-void) 88%, transparent) 0%,
+      color-mix(in srgb, var(--color-void) 62%, transparent) 42%,
+      color-mix(in srgb, var(--color-void) 22%, transparent) 74%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 46%, rgba(0,0,0,0.55) 72%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 46%, rgba(0,0,0,0.55) 72%, transparent 100%);
+  }
+  [data-nav][data-veiled="true"] [data-nav-glass] { opacity: 1; }
+
   /* Editorial fields: a hairline under the text, gold gathering on focus.
      Boxed inputs read as SaaS; a baseline reads as stationery. */
   .lux-field {
@@ -231,11 +251,16 @@ html[data-overture="on"] body { overflow: hidden; }
      text-shadow, so depth comes from filter:drop-shadow, which follows
      the glyph alpha instead of the box. */
   .gilt {
+    /* The floor used to fall to #9A6B33, which against the near-black ground
+       read as mud and lost contrast at the dark phase of the sweep. The
+       darkest stop is now a lit bronze, so the type stays legible through
+       the whole cycle and the sweep reads as light moving over metal rather
+       than metal going out. */
     background-image: linear-gradient(
       104deg,
-      #9A6B33 0%, #C08343 18%, #E8C489 34%,
-      #FFF2D8 46%, #FFFFFF 50%, #FFF2D8 54%,
-      #E8C489 66%, #C08343 82%, #9A6B33 100%
+      #C08343 0%, #D19A5C 16%, #E8C489 32%,
+      #FBEBCC 44%, #FFFDF7 50%, #FBEBCC 56%,
+      #E8C489 68%, #D19A5C 84%, #C08343 100%
     );
     background-size: 260% 100%;
     background-position: 130% 0%;

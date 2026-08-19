@@ -59,17 +59,23 @@ const grainUrl = `url("data:image/svg+xml;base64,${Buffer.from(grain).toString("
         const nav = document.querySelector<HTMLElement>("[data-nav]");
         const bar = document.querySelector<HTMLElement>("[data-mobilebar]");
         if (!nav) return;
+        // The glass opacity is set inline rather than through a class. Tailwind
+        // utilities sit in a later cascade layer than our component rules, so
+        // layer order beat selector specificity and the glass stayed at zero
+        // no matter how specific the rule was. An inline style is immune.
+        const glass = nav.querySelector<HTMLElement>("[data-nav-glass]");
         const io = new IntersectionObserver(
           ([e]) => {
             const past = !(e?.isIntersecting ?? true);
             nav.dataset.veiled = String(past);
+            if (glass) glass.style.opacity = past ? "1" : "0";
             if (bar) bar.dataset.shown = String(past);
           },
-          { rootMargin: "-72px 0px 0px 0px" },
+          { threshold: 0 },
         );
         const sentinel = document.createElement("div");
         sentinel.setAttribute("aria-hidden", "true");
-        sentinel.style.cssText = "position:absolute;top:0;height:1px;width:1px";
+        sentinel.style.cssText = "position:absolute;top:0;height:76px;width:1px;pointer-events:none";
         document.body.prepend(sentinel);
         io.observe(sentinel);
       };
@@ -110,12 +116,31 @@ const grainUrl = `url("data:image/svg+xml;base64,${Buffer.from(grain).toString("
         });
       };
 
+      // Scroll position as a filling seam of light along the top edge.
+      // rAF-throttled and driven by native scroll events, so it costs nothing.
+      const journey = () => {
+        const line = document.querySelector<HTMLElement>("[data-journey]");
+        if (!line) return;
+        let raf = 0;
+        const paint = () => {
+          raf = 0;
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          const p = max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0;
+          line.style.transform = `scaleX(${p})`;
+        };
+        const onScroll = () => { if (!raf) raf = requestAnimationFrame(paint); };
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll, { passive: true });
+        paint();
+      };
+
       const boot = () => {
         stillMarks();
         initOverture();
         portalToggle();
         initMotion();
         veilNav();
+        journey();
         magnetise();
       };
 

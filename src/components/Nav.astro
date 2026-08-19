@@ -21,12 +21,10 @@ const isCurrent = (to: string) => path === href(to).replace(/\/$/, "");
           focus:bg-bone focus:text-void focus:px-4 focus:py-2 focus:text-sm"
    href="#main">Skip to content</a>
 
-<header
-  data-nav
-  class="fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter] duration-500
-         data-[veiled=true]:bg-void/70 data-[veiled=true]:backdrop-blur-xl"
->
-  <nav aria-label="Primary" class="flex w-full max-w-full items-center justify-between gap-3 px-4 py-4 sm:gap-6 sm:px-8 sm:py-5">
+<header data-nav class="fixed inset-x-0 top-0 z-50">
+  <div data-nav-glass aria-hidden="true"
+       class="pointer-events-none absolute inset-x-0 top-0 h-[190%]"></div>
+  <nav aria-label="Primary" class="relative flex w-full max-w-full items-center justify-between gap-3 px-4 py-4 sm:gap-6 sm:px-8 sm:py-5">
     <!-- Home. Only home. -->
     <!-- The mark carries the identity alone. -->
     <a href={href("/")} aria-label="Andrei Sirbu, home"
