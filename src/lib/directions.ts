@@ -60,7 +60,10 @@ export function initDirections(): void {
 
   trigger.addEventListener("click", (e) => { e.preventDefault(); open(); });
   close?.addEventListener("click", shut);
-  sheet.addEventListener("click", (e) => { if (e.target === sheet) shut(); });
+  sheet.addEventListener("click", (e) => {
+    const panel = sheet.querySelector("[data-drive-panel]");
+    if (!panel?.contains(e.target as Node)) shut();
+  });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && !sheet.hidden) shut();
   });

@@ -49,6 +49,7 @@ export interface Dict {
   footer: { tagline: string; practice: string; booking: string; legal: string; rights: string };
   social: { label: string; visit: string; contact: string; proceed: string; stay: string };
   teaching: { ask: string; badge: string; note: string };
+  signature: string;
 }
 
 const en: Dict = {
@@ -93,7 +94,7 @@ const en: Dict = {
     eyebrow: "Evidence",
     q1: "I have never experienced anything close to this. I left feeling like my body had been given back to me.", a1: "Private client · Zürich",
     q2: "Precise, unhurried and completely present. He works with a level of attention I did not know was possible.", a2: "Returning client",
-    verified: "Verified on the practice store", delivered: "900+ sessions delivered", more: "Read more",
+    verified: "Verified bookings", delivered: "900+ sessions delivered", more: "Read more",
   },
   studio: {
     eyebrow: "The studio", title: "One room in Zürich.",
@@ -122,6 +123,7 @@ const en: Dict = {
     badge: "For therapists",
     note: "The work below is taught, not received.",
   },
+  signature: "Signature",
 };
 
 const de: Dict = {
@@ -166,7 +168,7 @@ const de: Dict = {
     eyebrow: "Stimmen",
     q1: "So etwas habe ich noch nie erlebt. Ich ging mit dem Gefühl, meinen Körper zurückbekommen zu haben.", a1: "Privatklientin · Zürich",
     q2: "Präzise, ohne Eile und ganz da. Er arbeitet mit einer Aufmerksamkeit, die ich für unmöglich gehalten hätte.", a2: "Langjähriger Klient",
-    verified: "Bestätigt über den Praxis-Shop", delivered: "Über 900 Sitzungen", more: "Mehr lesen",
+    verified: "Bestätigte Buchungen", delivered: "Über 900 Sitzungen", more: "Mehr lesen",
   },
   studio: {
     eyebrow: "Die Praxis", title: "Ein Raum in Zürich.",
@@ -195,6 +197,7 @@ const de: Dict = {
     badge: "Für Therapeuten",
     note: "Das Folgende wird gelehrt, nicht empfangen.",
   },
+  signature: "Signatur",
 };
 
 const fr: Dict = {
@@ -239,7 +242,7 @@ const fr: Dict = {
     eyebrow: "Témoignages",
     q1: "Je n'avais jamais rien vécu de tel. Je suis repartie avec le sentiment qu'on m'avait rendu mon corps.", a1: "Cliente privée · Zurich",
     q2: "Précis, sans hâte et pleinement présent. Il travaille avec une attention que je ne croyais pas possible.", a2: "Client fidèle",
-    verified: "Vérifié sur la boutique du cabinet", delivered: "Plus de 900 séances", more: "Lire la suite",
+    verified: "Réservations vérifiées", delivered: "Plus de 900 séances", more: "Lire la suite",
   },
   studio: {
     eyebrow: "Le cabinet", title: "Une seule pièce, à Zurich.",
@@ -268,6 +271,7 @@ const fr: Dict = {
     badge: "Pour thérapeutes",
     note: "Ce qui suit s’enseigne, ne se reçoit pas.",
   },
+  signature: "Signature",
 };
 
 const it: Dict = {
@@ -312,7 +316,7 @@ const it: Dict = {
     eyebrow: "Testimonianze",
     q1: "Non avevo mai provato nulla di simile. Sono uscita con la sensazione che mi fosse stato restituito il corpo.", a1: "Cliente privata · Zurigo",
     q2: "Preciso, senza fretta e del tutto presente. Lavora con un'attenzione che non credevo possibile.", a2: "Cliente di lunga data",
-    verified: "Verificato sullo shop dello studio", delivered: "Oltre 900 sessioni", more: "Continua a leggere",
+    verified: "Prenotazioni verificate", delivered: "Oltre 900 sessioni", more: "Continua a leggere",
   },
   studio: {
     eyebrow: "Lo studio", title: "Una sola stanza, a Zurigo.",
@@ -341,6 +345,7 @@ const it: Dict = {
     badge: "Per terapisti",
     note: "Quello che segue si insegna, non si riceve.",
   },
+  signature: "Firma",
 };
 
 const es: Dict = {
@@ -385,7 +390,7 @@ const es: Dict = {
     eyebrow: "Testimonios",
     q1: "Nunca había vivido nada parecido. Salí con la sensación de que me habían devuelto el cuerpo.", a1: "Clienta privada · Zúrich",
     q2: "Preciso, sin prisa y del todo presente. Trabaja con una atención que no creía posible.", a2: "Cliente habitual",
-    verified: "Verificado en la tienda de la consulta", delivered: "Más de 900 sesiones", more: "Seguir leyendo",
+    verified: "Reservas verificadas", delivered: "Más de 900 sesiones", more: "Seguir leyendo",
   },
   studio: {
     eyebrow: "La consulta", title: "Una sola sala, en Zúrich.",
@@ -414,6 +419,7 @@ const es: Dict = {
     badge: "Para terapeutas",
     note: "Lo que sigue se enseña, no se recibe.",
   },
+  signature: "Sello",
 };
 
 
@@ -465,7 +471,7 @@ const ro: Dict = {
     eyebrow: "Mărturii",
     q1: "Nu mai trăisem niciodată așa ceva. Am plecat cu senzația că mi s-a dat corpul înapoi.", a1: "Clientă privată · Zürich",
     q2: "Precis, fără grabă și cu totul prezent. Lucrează cu o atenție pe care nu o credeam cu putință.", a2: "Client de ani buni",
-    verified: "Confirmat în magazinul cabinetului", delivered: "Peste 900 de ședințe", more: "Citiți mai departe",
+    verified: "Rezervări verificate", delivered: "Peste 900 de ședințe", more: "Citiți mai departe",
   },
   studio: {
     eyebrow: "Cabinetul", title: "O singură încăpere, în Zürich.",
@@ -494,6 +500,7 @@ const ro: Dict = {
     badge: "Pentru terapeuți",
     note: "Ce urmează se predă, nu se primește.",
   },
+  signature: "Semnătură",
 };
 
 export const DICTS: Record<Locale, Dict> = { en, de, fr, it, es, ro };

@@ -52,14 +52,14 @@ const plate = plateFor(session.slug);
                 backdrop-blur-[2px]
                 [mask-image:linear-gradient(180deg,transparent_0%,#000_26%,#000_100%)]"></div>
 
-    {session.aside && (
+    {(session.signature || session.aside) && (
       <div class="pointer-events-none absolute right-0 top-0 z-30 h-32 w-32 overflow-hidden">
-        <span class="absolute right-[-3.4rem] top-[1.9rem] w-[13rem] rotate-45
-                     bg-[linear-gradient(100deg,#8A5E2C,#C08343_38%,#F3D9A6_52%,#C08343_66%,#8A5E2C)]
-                     py-1.5 text-center font-mono text-[0.55rem] font-semibold uppercase
-                     tracking-[0.16em] text-void
-                     [box-shadow:0_6px_16px_-6px_rgba(0,0,0,0.9),inset_0_1px_0_0_rgba(255,255,255,0.35)]">
-          {t.teaching.badge}
+        <span class={`absolute right-[-3.4rem] top-[1.9rem] w-[13rem] rotate-45 py-1.5 text-center
+                      font-mono text-[0.55rem] font-semibold uppercase tracking-[0.16em]
+                      ${session.signature
+                        ? "bg-[linear-gradient(100deg,#8A5E2C,#C08343_38%,#F3D9A6_52%,#C08343_66%,#8A5E2C)] text-void [box-shadow:0_6px_16px_-6px_rgba(0,0,0,0.9),inset_0_1px_0_0_rgba(255,255,255,0.35)]"
+                        : "bg-[linear-gradient(100deg,#141615,#232624_50%,#141615)] text-bronze [box-shadow:0_6px_16px_-6px_rgba(0,0,0,0.9),inset_0_1px_0_0_rgba(232,196,137,0.28)]"}`}>
+          {session.signature ? t.signature : t.teaching.badge}
         </span>
       </div>
     )}
@@ -79,10 +79,6 @@ const plate = plateFor(session.slug);
                      !text-[0.55rem] !text-bone/90 backdrop-blur-md">{session.duration}</span>
         <span class="label rounded-full border border-bone/15 bg-void/70 px-2.5 py-1
                      !text-[0.55rem] !tracking-[0.14em] !text-bone/90 backdrop-blur-md">{session.modality}</span>
-        {session.signature && (
-          <span class="label rounded-full border border-bronze/50 bg-void/70 px-2.5 py-1
-                       !text-[0.55rem] !text-bronze backdrop-blur-md">Signature</span>
-        )}
       </div>
 
       <h3 class="gilt gilt-live font-display text-[2.1rem] leading-[1.02] tracking-tight sm:text-[2.4rem]">

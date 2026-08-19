@@ -152,7 +152,9 @@ export function initSocial(): void {
 
   stay.addEventListener("click", shut);
   go.addEventListener("click", () => window.setTimeout(shut, 120));
-  sheet.addEventListener("click", (e) => { if (e.target === sheet) shut(); });
+  sheet.addEventListener("click", (e) => {
+    if (!panel.contains(e.target as Node)) shut();
+  });
 
   const onKey = (e: KeyboardEvent) => { if (e.key === "Escape" && !sheet.hidden) shut(); };
   document.addEventListener("keydown", onKey);

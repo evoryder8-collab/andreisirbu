@@ -66,11 +66,14 @@ const plate = plateFor(session.slug);
                   bg-gradient-to-t from-void via-void/35 to-transparent"></div>
 
       {session.signature && (
-        <span class="label absolute left-4 top-4 z-20 rounded-full border border-bronze/45
-                     bg-void/55 px-3 py-1.5 !text-[0.55rem] !text-bronze backdrop-blur-md
-                     [transform:translateZ(40px)]">
-          Signature
-        </span>
+        <div class="pointer-events-none absolute right-0 top-0 z-30 h-28 w-28 overflow-hidden">
+          <span class="absolute right-[-3rem] top-[1.6rem] w-[11rem] rotate-45 py-1.5 text-center
+                       font-mono text-[0.5rem] font-semibold uppercase tracking-[0.16em] text-void
+                       bg-[linear-gradient(100deg,#8A5E2C,#C08343_38%,#F3D9A6_52%,#C08343_66%,#8A5E2C)]
+                       [box-shadow:0_6px_16px_-6px_rgba(0,0,0,0.9),inset_0_1px_0_0_rgba(255,255,255,0.35)]">
+            Signature
+          </span>
+        </div>
       )}
     </div>
 
