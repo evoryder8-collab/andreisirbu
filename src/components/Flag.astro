@@ -1,0 +1,48 @@
+---
+/**
+ * National flags as inline SVG.
+ *
+ * Drawn rather than fetched: no external request, no CDN dependency, and
+ * they scale cleanly inside the glass blocks at any size.
+ */
+interface Props { code: string; class?: string; }
+const { code, class: cls = "" } = Astro.props;
+---
+{code === "en" && (
+  <svg viewBox="0 0 60 30" class={cls} aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+    <clipPath id="uj"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath>
+    <rect width="60" height="30" fill="#012169"/>
+    <path d="M0,0 L60,30 M60,0 L0,30" stroke="#F2EFE9" stroke-width="6"/>
+    <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#uj)" stroke="#C8102E" stroke-width="4"/>
+    <path d="M30,0 v30 M0,15 h60" stroke="#F2EFE9" stroke-width="10"/>
+    <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
+  </svg>
+)}
+{code === "de" && (
+  <svg viewBox="0 0 60 36" class={cls} aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+    <rect width="60" height="12" y="0"  fill="#101014"/>
+    <rect width="60" height="12" y="12" fill="#C8102E"/>
+    <rect width="60" height="12" y="24" fill="#E4B23C"/>
+  </svg>
+)}
+{code === "fr" && (
+  <svg viewBox="0 0 60 40" class={cls} aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+    <rect width="20" height="40" x="0"  fill="#12325E"/>
+    <rect width="20" height="40" x="20" fill="#F2EFE9"/>
+    <rect width="20" height="40" x="40" fill="#C8102E"/>
+  </svg>
+)}
+{code === "it" && (
+  <svg viewBox="0 0 60 40" class={cls} aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+    <rect width="20" height="40" x="0"  fill="#1B7A4B"/>
+    <rect width="20" height="40" x="20" fill="#F2EFE9"/>
+    <rect width="20" height="40" x="40" fill="#C8102E"/>
+  </svg>
+)}
+{code === "es" && (
+  <svg viewBox="0 0 60 40" class={cls} aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+    <rect width="60" height="10" y="0"  fill="#C8102E"/>
+    <rect width="60" height="20" y="10" fill="#E4B23C"/>
+    <rect width="60" height="10" y="30" fill="#C8102E"/>
+  </svg>
+)}
