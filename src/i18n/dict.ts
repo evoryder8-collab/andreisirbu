@@ -41,7 +41,7 @@ export interface Dict {
                  practising: string; sessionsHeld: string; atATime: string };
   method: { eyebrow: string; body: string; more: string };
   process: { eyebrow: string; title: string; steps: { k: string; t: string }[];
-             resultsLabel: string; results: string[] };
+             resultsLabel: string; outcomeTitle: string; results: string[] };
   sessions: { eyebrow: string; title: string; from: string; all: string; reserve: string };
   evidence: { eyebrow: string; q1: string; a1: string; q2: string; a2: string; verified: string; delivered: string; more: string };
   studio: { eyebrow: string; title: string; body: string; link: string };
@@ -83,6 +83,7 @@ const en: Dict = {
       { k: "After", t: "Nothing is rushed. You leave when the nervous system has settled, not when the hour ends." },
     ],
     resultsLabel: "Results of this work",
+    outcomeTitle: "What you leave with.",
     results: ["Release of deep physical tension", "Emotional lightness and clarity", "Nervous system regulation", "Improved sleep and recovery", "Greater connection with your body"],
   },
   sessions: { eyebrow: "The work offered", title: "Sessions", from: "From CHF", all: "All sessions and detail", reserve: "Reserve" },
@@ -143,6 +144,7 @@ const de: Dict = {
       { k: "Danach", t: "Nichts wird beschleunigt. Sie gehen, wenn das Nervensystem zur Ruhe gekommen ist, nicht wenn die Stunde vorbei ist." },
     ],
     resultsLabel: "Was diese Arbeit bewirkt",
+    outcomeTitle: "Womit Sie gehen.",
     results: ["Lösen tief sitzender körperlicher Spannung", "Emotionale Leichtigkeit und Klarheit", "Regulation des Nervensystems", "Besserer Schlaf und schnellere Erholung", "Ein deutlicheres Gefühl für den eigenen Körper"],
   },
   sessions: { eyebrow: "Das Angebot", title: "Sitzungen", from: "Ab CHF", all: "Alle Sitzungen im Detail", reserve: "Termin" },
@@ -203,6 +205,7 @@ const fr: Dict = {
       { k: "Après", t: "Rien n'est pressé. Vous partez lorsque le système nerveux s'est apaisé, non lorsque l'heure est écoulée." },
     ],
     resultsLabel: "Ce que ce travail apporte",
+    outcomeTitle: "Ce que vous emportez.",
     results: ["Relâchement des tensions physiques profondes", "Légèreté et clarté émotionnelles", "Régulation du système nerveux", "Un sommeil et une récupération meilleurs", "Un lien plus juste avec son corps"],
   },
   sessions: { eyebrow: "Les prestations", title: "Séances", from: "Dès CHF", all: "Toutes les séances en détail", reserve: "Réserver" },
@@ -263,6 +266,7 @@ const it: Dict = {
       { k: "Dopo", t: "Nulla viene affrettato. Se ne va quando il sistema nervoso si è posato, non quando finisce l'ora." },
     ],
     resultsLabel: "Che cosa porta questo lavoro",
+    outcomeTitle: "Che cosa si porta via.",
     results: ["Rilascio delle tensioni fisiche profonde", "Leggerezza e chiarezza emotiva", "Riequilibrio del sistema nervoso", "Sonno e recupero migliori", "Un legame più chiaro con il proprio corpo"],
   },
   sessions: { eyebrow: "Che cosa offro", title: "Sessioni", from: "Da CHF", all: "Tutte le sessioni in dettaglio", reserve: "Prenota" },
@@ -323,6 +327,7 @@ const es: Dict = {
       { k: "Después", t: "Nada se apresura. Usted se marcha cuando el sistema nervioso se ha asentado, no cuando termina la hora." },
     ],
     resultsLabel: "Lo que deja este trabajo",
+    outcomeTitle: "Lo que se lleva.",
     results: ["Liberación de la tensión física profunda", "Ligereza y claridad emocional", "Regulación del sistema nervioso", "Mejor sueño y recuperación", "Un vínculo más claro con el propio cuerpo"],
   },
   sessions: { eyebrow: "Lo que ofrezco", title: "Sesiones", from: "Desde CHF", all: "Todas las sesiones en detalle", reserve: "Reservar" },
@@ -390,6 +395,7 @@ const ro: Dict = {
       { k: "După", t: "Nimic nu se grăbește. Plecați când sistemul nervos s-a liniștit, nu când se termină ora." },
     ],
     resultsLabel: "Ce lasă în urmă această muncă",
+    outcomeTitle: "Cu ce plecați.",
     results: ["Eliberarea tensiunii fizice adânci", "Ușurință și limpezime emoțională", "Reglarea sistemului nervos", "Somn și refacere mai bune", "O legătură mai limpede cu propriul corp"],
   },
   sessions: { eyebrow: "Ce ofer", title: "Ședințe", from: "De la CHF", all: "Toate ședințele în detaliu", reserve: "Rezervare" },

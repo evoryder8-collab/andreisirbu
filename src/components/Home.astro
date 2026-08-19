@@ -99,17 +99,35 @@ const { min } = priceRange();
         ))}
       </ol>
 
-      <div class="mt-20 grid gap-10 border-t border-ash/60 pt-12 md:grid-cols-12">
-        <p class="label md:col-span-3">{t.process.resultsLabel}</p>
-        <ul class="grid gap-3 md:col-span-9 md:grid-cols-2">
+      <!-- The outcomes are what the client is actually buying, so they get a
+           chapter of their own rather than a list at the foot of another one:
+           full-bleed plates, one per result, each on its own engraved rule. -->
+      <div class="field relative -mx-5 mt-24 border-y border-ash/50 px-5 py-16 sm:mx-0 sm:rounded-[20px] sm:border sm:px-10 md:mt-32 md:py-20">
+        <div class="pointer-events-none absolute inset-x-0 top-0 h-px
+                    bg-gradient-to-r from-transparent via-bronze/50 to-transparent"></div>
+
+        <p class="label mb-3 !text-bronze/85" data-reveal>{t.process.resultsLabel}</p>
+        <h3 class="gilt gilt-live font-display max-w-[15ch] text-[clamp(2rem,7.5vw,3.2rem)]
+                   leading-[1.02] tracking-[-0.015em]" data-type-reveal>
+          {t.process.outcomeTitle}
+        </h3>
+
+        <ol class="mt-12 flex flex-col md:mt-16">
           {t.process.results.map((o, i) => (
-            <li data-reveal style={`--reveal-delay:${i * 60}ms`}
-                class="flex items-baseline gap-3 text-[0.95rem] text-bone/80">
-              <span class="h-1 w-1 shrink-0 translate-y-[-3px] rounded-full bg-bronze"></span>
-              {o}
+            <li data-reveal style={`--reveal-delay:${i * 90}ms`}
+                class="group grid grid-cols-[3rem_1fr] items-baseline gap-x-4 border-t border-ash/45
+                       py-6 transition-colors duration-500 hover:border-bronze/45 sm:grid-cols-[4.5rem_1fr] md:py-7">
+              <span class="font-mono text-[0.6rem] tabular-nums tracking-[0.18em] text-bronze/70
+                           transition-colors duration-500 group-hover:text-bronze">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span class="font-display text-[1.45rem] leading-[1.2] text-bone
+                           transition-colors duration-500 group-hover:text-chalk sm:text-[1.8rem] md:text-[2rem]">
+                {o}
+              </span>
             </li>
           ))}
-        </ul>
+        </ol>
       </div>
     </div>
   </section>
@@ -300,20 +318,30 @@ const { min } = priceRange();
         heroTl
           // The plate thins from the outside in, feathered the whole way, so
           // there is never a hard edge to notice.
-          .to("[data-hero-clip]", { "--m1": "47%", "--m2": "53%", ease: "power2.inOut" }, 0)
+          .fromTo("[data-hero-clip]",
+            { "--m1": "0%", "--m2": "100%" },
+            { "--m1": "47%", "--m2": "53%", ease: "power2.inOut", immediateRender: false }, 0)
           // Pushing in as it thins reads as the image being drawn through the
           // horizon rather than simply shrinking.
-          .to("[data-hero-img]", { scale: 1.26, ease: "none" }, 0)
+          .fromTo("[data-hero-img]",
+            { scale: 1 },
+            { scale: 1.26, ease: "none", immediateRender: false }, 0)
           // The headline leaves upward, each line a beat apart, before the
           // light arrives, so the two never compete.
-          .to("[data-hero-line]", { yPercent: -46, opacity: 0, stagger: 0.07, ease: "power2.in" }, 0)
-          .to("[data-hero-copy]", { opacity: 0, y: -18, ease: "power1.in" }, 0.04)
+          .fromTo("[data-hero-line]",
+            { yPercent: 0, opacity: 1 },
+            { yPercent: -46, opacity: 0, stagger: 0.07, ease: "power2.in", immediateRender: false }, 0)
+          .fromTo("[data-hero-copy]",
+            { opacity: 1, y: 0 },
+            { opacity: 0, y: -18, ease: "power1.in", immediateRender: false }, 0.04)
           // The horizon blooms open as the band narrows: wide first, then the
           // core lights inside it.
-          .to("[data-hero-horizon]",
-            { opacity: 1, scaleX: 1.08, ease: "power2.out", duration: 0.55 }, 0.3)
-          .to("[data-hero-core]",
-            { opacity: 1, scaleX: 1, ease: "power3.out", duration: 0.45 }, 0.46)
+          .fromTo("[data-hero-horizon]",
+            { opacity: 0, scaleX: 0.55 },
+            { opacity: 1, scaleX: 1.08, ease: "power2.out", duration: 0.55, immediateRender: false }, 0.3)
+          .fromTo("[data-hero-core]",
+            { opacity: 0, scaleX: 0.4 },
+            { opacity: 1, scaleX: 1, ease: "power3.out", duration: 0.45, immediateRender: false }, 0.46)
           // Then it burns down, so the chapter below arrives to darkness
           // rather than to a glow left hanging on screen.
           .to("[data-hero-core]", { opacity: 0, scaleX: 1.5, ease: "power2.in", duration: 0.3 }, 0.78)

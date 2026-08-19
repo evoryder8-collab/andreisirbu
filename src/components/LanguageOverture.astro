@@ -62,9 +62,23 @@ const LANGS = LOCALES.map((code) => ({
       <p class="label mt-3 !text-[0.5rem]">Zürich</p>
     </div>
 
-    <h2 id="overture-title" data-ov-label class="label mb-7 opacity-0 !text-[0.55rem] sm:mb-9">
+    <h2 id="overture-title" data-ov-label class="label mb-4 opacity-0 !text-[0.55rem] sm:mb-5">
       {t.overture.choose}
     </h2>
+
+    <!-- The prediction: what is about to be chosen, and a seam of light
+         draining to show how long is left. -->
+    <div data-ov-auto class="mb-7 flex w-full max-w-[19rem] flex-col items-center gap-2.5 opacity-0 sm:mb-9">
+      <p class="label !text-[0.55rem] !tracking-[0.16em] !text-bronze/90">
+        <span data-ov-auto-text></span>
+        <span data-ov-auto-n class="ml-1.5 inline-block w-3 tabular-nums text-chalk"></span>
+      </p>
+      <span class="relative h-px w-full overflow-hidden bg-ash/70">
+        <span data-ov-auto-bar
+              class="absolute inset-y-0 left-0 w-full origin-right scale-x-100
+                     bg-gradient-to-r from-bronze/30 via-bronze to-chalk"></span>
+      </span>
+    </div>
 
     <!-- The blocks. Hero first in the DOM; the script promotes whichever the
          browser language matches. -->

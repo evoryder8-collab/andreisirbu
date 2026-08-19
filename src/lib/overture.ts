@@ -55,16 +55,23 @@ function runOverture(ov: HTMLElement): void {
   const items = Array.from(ov.querySelectorAll<HTMLElement>("[data-lang-item]"));
   const buttons = Array.from(ov.querySelectorAll<HTMLButtonElement>("button[data-lang]"));
   const hint = ov.querySelector<HTMLElement>("[data-ov-hint]");
+  const auto = ov.querySelector<HTMLElement>("[data-ov-auto]");
+  const autoText = ov.querySelector<HTMLElement>("[data-ov-auto-text]");
+  const autoN = ov.querySelector<HTMLElement>("[data-ov-auto-n]");
+  const autoBar = ov.querySelector<HTMLElement>("[data-ov-auto-bar]");
   const reduced = prefersReducedMotion();
 
   let countdown: number | undefined;
   let ringTween: gsap.core.Tween | null = null;
+  let barTween: gsap.core.Tween | null = null;
   let settled = false;
   let heroItem: HTMLElement | null = null;
 
   const cancelAuto = () => {
     if (countdown) { window.clearInterval(countdown); countdown = undefined; }
     ringTween?.kill(); ringTween = null;
+    barTween?.kill(); barTween = null;
+    if (auto) gsap.to(auto, { opacity: 0, duration: 0.4 });
     const ring = heroItem?.querySelector<HTMLElement>("[data-ov-ring]");
     if (ring) gsap.to(ring, { opacity: 0, duration: 0.4, onComplete: () => (ring.style.display = "none") });
     if (hint) gsap.to(hint, { opacity: 0, duration: 0.35 });
@@ -241,6 +248,16 @@ function runOverture(ov: HTMLElement): void {
     if (ring) { ring.style.display = "block"; gsap.fromTo(ring, { opacity: 0 }, { opacity: 1, duration: 0.6 }); }
     if (num) num.textContent = String(AUTO_SECONDS);
 
+    // The same countdown stated plainly under the prompt, in the language
+    // about to be chosen, with a seam draining beneath it.
+    if (autoText) autoText.textContent = d.overture.autoPrefix;
+    if (autoN) autoN.textContent = String(AUTO_SECONDS);
+    if (auto) gsap.to(auto, { opacity: 1, duration: 0.6 });
+    if (autoBar) {
+      gsap.set(autoBar, { scaleX: 1 });
+      barTween = gsap.to(autoBar, { scaleX: 0, duration: AUTO_SECONDS, ease: "none" });
+    }
+
     // The ring drains as the countdown runs.
     if (arc) {
       gsap.set(arc, { strokeDashoffset: 0 });
@@ -250,6 +267,7 @@ function runOverture(ov: HTMLElement): void {
     let left = AUTO_SECONDS;
     countdown = window.setInterval(() => {
       left -= 1;
+      if (autoN) autoN.textContent = String(Math.max(left, 0));
       if (num) {
         num.textContent = String(Math.max(left, 0));
         gsap.fromTo(num, { opacity: 0.4, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" });
