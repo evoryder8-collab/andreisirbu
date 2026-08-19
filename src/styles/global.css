@@ -289,6 +289,11 @@ html[data-overture="on"] body { overflow: hidden; }
   padding-bottom: 0.12em;
   margin-bottom: -0.12em;
 }
+/* A gilded line is masked as a block, since it is lifted whole rather than
+   word by word. */
+.tr-mask-block { display: block; width: 100%; }
+.tr-mask-block > .tr-w { display: block; }
+
 .tr-w {
   display: inline-block;
   will-change: transform;

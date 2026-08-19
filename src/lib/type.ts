@@ -18,6 +18,22 @@ function splitWords(el: HTMLElement): HTMLElement[] {
     return Array.from(el.querySelectorAll<HTMLElement>(".tr-w"));
   }
 
+  // Gilded type cannot be split. .gilt paints through background-clip:text,
+  // and a transformed descendant gets its own compositing context, so the
+  // clipped gradient never reaches it: the words render transparent with
+  // nothing behind them and the whole line disappears. Wrap the element
+  // itself instead and lift that, so the transform sits on the same element
+  // that carries the gradient.
+  if (el.classList.contains("gilt")) {
+    const mask = document.createElement("span");
+    mask.className = "tr-mask tr-mask-block";
+    el.parentNode?.insertBefore(mask, el);
+    mask.appendChild(el);
+    el.classList.add("tr-w");
+    el.setAttribute(SPLIT_ATTR, "true");
+    return [el];
+  }
+
   const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
   const texts: Text[] = [];
   let n: Node | null;

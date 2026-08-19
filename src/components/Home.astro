@@ -279,15 +279,26 @@ const { min } = priceRange();
         });
 
         heroTl
-          // Feathered dissolve, not a clipped cut: the plate thins into a band
-          // of light with soft edges rather than being guillotined.
-          .to("[data-hero-clip]", { "--m1": "44%", "--m2": "56%", ease: "power2.inOut" }, 0)
-          .to("[data-hero-img]",  { scale: 1.22, ease: "none" }, 0)
-          .to("[data-hero-line]", { yPercent: -40, opacity: 0, stagger: 0.06, ease: "power2.in" }, 0)
-          .to("[data-hero-copy]", { opacity: 0, ease: "power1.in" }, 0.05)
-          .fromTo("[data-hero-seam]",
-            { scaleX: 0, opacity: 0 },
-            { scaleX: 1, opacity: 1, ease: "power2.out" }, 0.35);
+          // The plate thins from the outside in, feathered the whole way, so
+          // there is never a hard edge to notice.
+          .to("[data-hero-clip]", { "--m1": "47%", "--m2": "53%", ease: "power2.inOut" }, 0)
+          // Pushing in as it thins reads as the image being drawn through the
+          // horizon rather than simply shrinking.
+          .to("[data-hero-img]", { scale: 1.26, ease: "none" }, 0)
+          // The headline leaves upward, each line a beat apart, before the
+          // light arrives, so the two never compete.
+          .to("[data-hero-line]", { yPercent: -46, opacity: 0, stagger: 0.07, ease: "power2.in" }, 0)
+          .to("[data-hero-copy]", { opacity: 0, y: -18, ease: "power1.in" }, 0.04)
+          // The horizon blooms open as the band narrows: wide first, then the
+          // core lights inside it.
+          .to("[data-hero-horizon]",
+            { opacity: 1, scaleX: 1.08, ease: "power2.out", duration: 0.55 }, 0.3)
+          .to("[data-hero-core]",
+            { opacity: 1, scaleX: 1, ease: "power3.out", duration: 0.45 }, 0.46)
+          // Then it burns down, so the chapter below arrives to darkness
+          // rather than to a glow left hanging on screen.
+          .to("[data-hero-core]", { opacity: 0, scaleX: 1.5, ease: "power2.in", duration: 0.3 }, 0.78)
+          .to("[data-hero-horizon]", { opacity: 0, scaleX: 1.35, ease: "power2.in", duration: 0.32 }, 0.82);
 
         /* Positioning plate, slow counter-drift, the only parallax on the page. */
         gsap.to("[data-plate] img", {
