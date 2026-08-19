@@ -54,7 +54,7 @@ const en: Dict = {
     title: "Andrei Sirbu | Emotional Release & Nervous System Reset, Zürich",
     description: "A private practice in Zürich. Eighteen years of somatic work, guided in real time. Sessions from CHF 195.",
   },
-  nav: { method: "Method", sessions: "Sessions", studio: "Studio", evidence: "Evidence", about: "Andrei", contact: "Contact", reserve: "Reserve" },
+  nav: { method: "Method", sessions: "Sessions", studio: "Studio", evidence: "Evidence", about: "About", contact: "Contact", reserve: "Reserve" },
   overture: { choose: "Choose your language", note: "Sessions are held in English and German", autoPrefix: "English selected in", cancelHint: "Choose another to stay", entering: "Entering" },
   hero: {
     eyebrow: "Private practice · Zürich · Since 2008",
@@ -114,7 +114,7 @@ const de: Dict = {
     title: "Andrei Sirbu | Emotionales Lösen & Regulation des Nervensystems, Zürich",
     description: "Eine private Praxis in Zürich. Achtzehn Jahre Körperarbeit, im Moment geführt. Sitzungen ab CHF 195.",
   },
-  nav: { method: "Methode", sessions: "Sitzungen", studio: "Praxis", evidence: "Stimmen", about: "Andrei", contact: "Kontakt", reserve: "Termin" },
+  nav: { method: "Methode", sessions: "Sitzungen", studio: "Praxis", evidence: "Stimmen", about: "Über mich", contact: "Kontakt", reserve: "Termin" },
   overture: { choose: "Wählen Sie Ihre Sprache", note: "Sitzungen finden auf Deutsch und Englisch statt", autoPrefix: "Deutsch wird gewählt in", cancelHint: "Wählen Sie eine andere Sprache", entering: "Sie treten ein" },
   hero: {
     eyebrow: "Private Praxis · Zürich · Seit 2008",
@@ -174,7 +174,7 @@ const fr: Dict = {
     title: "Andrei Sirbu | Libération émotionnelle & régulation du système nerveux, Zurich",
     description: "Un cabinet privé à Zurich. Dix-huit ans de travail corporel, guidé dans l'instant. Séances à partir de CHF 195.",
   },
-  nav: { method: "Méthode", sessions: "Séances", studio: "Le cabinet", evidence: "Témoignages", about: "Andrei", contact: "Contact", reserve: "Réserver" },
+  nav: { method: "Méthode", sessions: "Séances", studio: "Le cabinet", evidence: "Témoignages", about: "À propos", contact: "Contact", reserve: "Réserver" },
   overture: { choose: "Choisissez votre langue", note: "Les séances se déroulent en anglais et en allemand", autoPrefix: "Français sélectionné dans", cancelHint: "Choisissez-en une autre pour rester", entering: "Entrée" },
   hero: {
     eyebrow: "Cabinet privé · Zurich · Depuis 2008",
@@ -234,7 +234,7 @@ const it: Dict = {
     title: "Andrei Sirbu | Rilascio emotivo & riequilibrio del sistema nervoso, Zurigo",
     description: "Uno studio privato a Zurigo. Diciotto anni di lavoro corporeo, guidato nel momento. Sessioni da CHF 195.",
   },
-  nav: { method: "Metodo", sessions: "Sessioni", studio: "Lo studio", evidence: "Testimonianze", about: "Andrei", contact: "Contatti", reserve: "Prenota" },
+  nav: { method: "Metodo", sessions: "Sessioni", studio: "Lo studio", evidence: "Testimonianze", about: "Chi sono", contact: "Contatti", reserve: "Prenota" },
   overture: { choose: "Scelga la sua lingua", note: "Le sessioni si tengono in inglese e tedesco", autoPrefix: "Italiano selezionato tra", cancelHint: "Ne scelga un’altra per restare", entering: "Ingresso" },
   hero: {
     eyebrow: "Studio privato · Zurigo · Dal 2008",
@@ -294,7 +294,7 @@ const es: Dict = {
     title: "Andrei Sirbu | Liberación emocional y regulación del sistema nervioso, Zúrich",
     description: "Una consulta privada en Zúrich. Dieciocho años de trabajo corporal, guiado en el momento. Sesiones desde CHF 195.",
   },
-  nav: { method: "Método", sessions: "Sesiones", studio: "La consulta", evidence: "Testimonios", about: "Andrei", contact: "Contacto", reserve: "Reservar" },
+  nav: { method: "Método", sessions: "Sesiones", studio: "La consulta", evidence: "Testimonios", about: "Sobre mí", contact: "Contacto", reserve: "Reservar" },
   overture: { choose: "Elija su idioma", note: "Las sesiones se imparten en inglés y alemán", autoPrefix: "Español seleccionado en", cancelHint: "Elija otro para quedarse", entering: "Entrando" },
   hero: {
     eyebrow: "Consulta privada · Zúrich · Desde 2008",
