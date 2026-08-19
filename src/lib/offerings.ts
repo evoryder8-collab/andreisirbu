@@ -62,10 +62,13 @@ export function initOfferings(): void {
       }
     });
 
-    // One sheen pass across the chosen block.
+    // One sheen pass across the chosen block, driven by CSS so it can never
+    // be left frozen part-way across.
     const sheen = card.querySelector<HTMLElement>("[data-offering-sheen]");
     if (sheen && !reduced) {
-      gsap.fromTo(sheen, { xPercent: -135 }, { xPercent: 135, duration: 1.1, ease: "power2.inOut" });
+      sheen.classList.remove("sweep-run");
+      void sheen.offsetWidth; // restart
+      sheen.classList.add("sweep-run");
     }
   };
 

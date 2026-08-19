@@ -69,15 +69,14 @@ const LANGS = LOCALES.map((code) => ({
     <!-- The blocks. Hero first in the DOM; the script promotes whichever the
          browser language matches. -->
     <ul data-ov-stage
-        class="flex w-full max-w-[26rem] flex-col items-center gap-3.5 px-2 [transform-style:preserve-3d]">
+        class="flex w-full max-w-[26rem] flex-col items-center gap-3.5 px-2">
       {LANGS.map((l) => (
-        <li data-ov-item data-lang-item={l.code} class="w-full opacity-0 [transform-style:preserve-3d]">
+        <li data-ov-item data-lang-item={l.code} class="w-full opacity-0">
           <button
             type="button"
             data-lang={l.code}
             data-to={l.to}
-            class="ov-block group relative block w-full overflow-hidden text-left
-                   [transform-style:preserve-3d] will-change-transform"
+            class="ov-block group relative block w-full overflow-hidden text-left"
           >
             <!-- Obsidian body -->
             <span class="absolute inset-0 rounded-[18px]
@@ -91,7 +90,7 @@ const LANGS = LOCALES.map((code) => ({
 
             <!-- Travelling specular -->
             <span data-ov-spec
-                  class="pointer-events-none absolute inset-0 rounded-[18px] -translate-x-[130%]
+                  class="sweep pointer-events-none absolute inset-0 rounded-[18px]
                          bg-[linear-gradient(104deg,transparent_38%,rgba(232,196,137,0.30)_48%,rgba(255,255,255,0.22)_51%,transparent_62%)]"></span>
 
             <span class="relative flex items-center gap-4 px-4 py-4 sm:px-5 sm:py-5">
@@ -102,7 +101,6 @@ const LANGS = LOCALES.map((code) => ({
                 <Flag code={l.code} class="absolute inset-0 h-full w-full" />
                 <!-- refraction over the inlay -->
                 <span class="absolute inset-0 bg-[linear-gradient(128deg,rgba(255,255,255,0.30)_0%,transparent_42%,rgba(0,0,0,0.34)_100%)]"></span>
-                <span class="absolute inset-0 backdrop-blur-[0.4px]"></span>
               </span>
 
               <span class="min-w-0 flex-1">

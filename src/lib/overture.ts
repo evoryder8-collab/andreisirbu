@@ -104,32 +104,39 @@ function runOverture(ov: HTMLElement): void {
 
     // Hard ceiling on the passage. Longer than the timeline, so the sequence
     // plays in full normally, but the portal always releases.
-    const failsafe = window.setTimeout(done, 4200);
+    const failsafe = window.setTimeout(done, 3400);
     onCleanup(() => window.clearTimeout(failsafe));
 
     if (reduced) { done(); return; }
 
     const chosen = items.find((i) => i.dataset.langItem === code) ?? null;
+    const chosenBlock = chosen?.querySelector<HTMLElement>(".ov-block") ?? null;
     const others = items.filter((i) => i !== chosen);
     const note = ov.querySelector<HTMLElement>("[data-ov-passage-note]");
     if (note) note.textContent = DICTS[code].overture.entering;
 
-    // Pulled through the chosen block: it comes at the camera and its light
-    // floods the frame as everything else falls away.
-    gsap.timeline({ onComplete: done })
-      .to(others, { opacity: 0, z: -180, scale: 0.9, duration: 0.6, stagger: 0.04, ease: "power2.in" }, 0)
+    // Pulled through the chosen block. Scale and opacity only: Z under
+    // perspective resampled the blocks into a soft, cheap-looking blur on the
+    // way out, which is what made this read as unfinished.
+    gsap.timeline({ onComplete: done, defaults: { ease: "power2.inOut" } })
+      // The rest of the world falls away first.
+      .to(others, { opacity: 0, scale: 0.9, y: 14, duration: 0.5, stagger: 0.05, ease: "power2.in" }, 0)
       .to("[data-ov-mark], [data-ov-label], [data-ov-note], [data-ov-hint]",
-          { opacity: 0, y: -12, duration: 0.45, ease: "power2.in" }, 0)
-      .to(chosen, { z: 420, scale: 1.35, duration: 1.15, ease: "power2.in" }, 0.15)
-      .to(chosen, { opacity: 0, duration: 0.5, ease: "power2.in" }, 0.95)
-      .to("[data-ov-passage]", { opacity: 1, duration: 0.5 }, 0.8)
-      .fromTo("[data-ov-passage-mark]", { scale: 0.95, opacity: 0 },
-              { scale: 1, opacity: 1, duration: 1.0, ease: "power3.out" }, 0.85)
-      .to("[data-ov-bloom]", { opacity: 1, scale: 1.25, duration: 1.4, ease: "power2.out" }, 0.9)
-      .to(note, { opacity: 1, duration: 0.5 }, 1.35)
-      .to("[data-ov-bloom]", { opacity: 0, scale: 1.7, duration: 0.8, ease: "power2.in" }, 2.0)
-      .to("[data-ov-passage]", { opacity: 0, duration: 0.55, ease: "power2.in" }, 2.2)
-      .to(ov, { duration: 1.0, ease: "power3.inOut", "--m1": "0%", "--m2": "100%" }, 2.0);
+          { opacity: 0, y: -14, duration: 0.45, ease: "power2.in" }, 0)
+      // The chosen block comes at the camera and its light takes the frame.
+      .to(chosenBlock, { scale: 1.9, duration: 1.05, ease: "power2.in" }, 0.28)
+      .to(chosen, { opacity: 0, duration: 0.5, ease: "power2.in" }, 0.85)
+      .to("[data-ov-plate]", { scale: 1.12, opacity: 0.25, duration: 1.2 }, 0.28)
+      // Bloom through, then the mark holds alone.
+      .to("[data-ov-passage]", { opacity: 1, duration: 0.4 }, 0.72)
+      .fromTo("[data-ov-bloom]", { opacity: 0, scale: 0.7 },
+              { opacity: 1, scale: 1.35, duration: 1.0, ease: "power2.out" }, 0.72)
+      .fromTo("[data-ov-passage-mark]", { opacity: 0, scale: 0.96 },
+              { opacity: 1, scale: 1, duration: 0.8, ease: "power3.out" }, 0.95)
+      .to(note, { opacity: 1, duration: 0.45 }, 1.25)
+      .to("[data-ov-bloom]", { opacity: 0, scale: 1.75, duration: 0.7, ease: "power2.in" }, 1.85)
+      .to("[data-ov-passage]", { opacity: 0, duration: 0.5, ease: "power2.in" }, 2.0)
+      .to(ov, { duration: 0.85, ease: "power3.inOut", "--m1": "0%", "--m2": "100%" }, 1.9);
   };
 
   buttons.forEach((b) => {
@@ -160,7 +167,6 @@ function runOverture(ov: HTMLElement): void {
     gsap.to(block, {
       y: i % 2 === 0 ? -8 : -12,
       rotateZ: i % 2 === 0 ? 0.35 : -0.35,
-      rotateX: 1.4,
       duration: 4.2 + (i % 3) * 0.8,
       ease: "sine.inOut", repeat: -1, yoyo: true, delay: i * 0.3,
     });
@@ -170,9 +176,9 @@ function runOverture(ov: HTMLElement): void {
       const r = block.getBoundingClientRect();
       const px = (e.clientX - r.left) / r.width - 0.5;
       const py = (e.clientY - r.top) / r.height - 0.5;
-      gsap.to(block, { rotateY: px * 12, rotateX: 1.4 - py * 8, duration: 0.6, ease: "power3.out", overwrite: "auto" });
+      gsap.to(block, { rotateY: px * 7, rotateX: 0.8 - py * 5, duration: 0.6, ease: "power3.out", overwrite: "auto" });
     };
-    const leave = () => gsap.to(block, { rotateY: 0, rotateX: 1.4, duration: 0.9, ease: "power3.out", overwrite: "auto" });
+    const leave = () => gsap.to(block, { rotateY: 0, rotateX: 0, duration: 0.9, ease: "power3.out", overwrite: "auto" });
     block.addEventListener("pointermove", move);
     block.addEventListener("pointerleave", leave);
     onCleanup(() => {
@@ -183,7 +189,11 @@ function runOverture(ov: HTMLElement): void {
     // One specular pass on approach.
     const spec = block.querySelector<HTMLElement>("[data-ov-spec]");
     if (spec) {
-      const pass = () => gsap.fromTo(spec, { xPercent: -130 }, { xPercent: 130, duration: 1.0, ease: "power2.inOut" });
+      const pass = () => {
+        spec.classList.remove("sweep-run");
+        void spec.offsetWidth;
+        spec.classList.add("sweep-run");
+      };
       block.addEventListener("pointerenter", pass);
       onCleanup(() => block.removeEventListener("pointerenter", pass));
     }
@@ -201,8 +211,8 @@ function runOverture(ov: HTMLElement): void {
     .to("[data-ov-beam]", { opacity: 1, duration: 2.6 }, 0.2)
     .to("[data-ov-mark]", { opacity: 1, y: 0, duration: 1.0 }, 0.45)
     .to("[data-ov-label]", { opacity: 1, duration: 0.8 }, 0.8)
-    .fromTo(items, { z: -220, y: 26, opacity: 0 },
-            { z: 0, y: 0, opacity: 1, duration: 1.15, stagger: 0.09 }, 0.9)
+    .fromTo(items, { y: 34, scale: 0.94, opacity: 0 },
+            { y: 0, scale: 1, opacity: 1, duration: 1.1, stagger: 0.09 }, 0.9)
     .to("[data-ov-note]", { opacity: 1, duration: 0.7 }, 1.9);
 
   const detected = detectLocale();
@@ -220,9 +230,9 @@ function runOverture(ov: HTMLElement): void {
     const d = DICTS[detected];
 
     // Promote: forward, larger, lit.
-    gsap.to(block, { z: 64, scale: 1.0, duration: 1.1, ease: "power3.out" });
+    gsap.to(block, { scale: 1.045, duration: 1.1, ease: "power3.out" });
     items.filter((i) => i !== item).forEach((other) => {
-      gsap.to(other.querySelector(".ov-block"), { z: -70, scale: 0.97, opacity: 0.8, duration: 1.0, ease: "power3.out" });
+      gsap.to(other.querySelector(".ov-block"), { scale: 0.975, opacity: 0.72, duration: 1.0, ease: "power3.out" });
     });
 
     if (hint) { hint.textContent = d.overture.cancelHint; gsap.to(hint, { opacity: 1, duration: 0.7 }); }
