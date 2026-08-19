@@ -48,6 +48,7 @@ export interface Dict {
   cta: { eyebrow: string; title: string; body: string; primary: string; secondary: string };
   footer: { tagline: string; practice: string; booking: string; legal: string; rights: string };
   social: { label: string; visit: string; contact: string; proceed: string; stay: string };
+  teaching: { ask: string; badge: string; note: string };
 }
 
 const en: Dict = {
@@ -115,6 +116,11 @@ const en: Dict = {
     contact: "You are about to reach me on %s. Proceed?",
     proceed: "Continue",
     stay: "Stay here",
+  },
+  teaching: {
+    ask: "Are you a therapist?",
+    badge: "For therapists",
+    note: "The work below is taught, not received.",
   },
 };
 
@@ -184,6 +190,11 @@ const de: Dict = {
     proceed: "Fortfahren",
     stay: "Hier bleiben",
   },
+  teaching: {
+    ask: "Sind Sie Therapeut?",
+    badge: "Für Therapeuten",
+    note: "Das Folgende wird gelehrt, nicht empfangen.",
+  },
 };
 
 const fr: Dict = {
@@ -251,6 +262,11 @@ const fr: Dict = {
     contact: "Vous êtes sur le point de m’écrire sur %s. Continuer ?",
     proceed: "Continuer",
     stay: "Rester ici",
+  },
+  teaching: {
+    ask: "Vous êtes thérapeute ?",
+    badge: "Pour thérapeutes",
+    note: "Ce qui suit s’enseigne, ne se reçoit pas.",
   },
 };
 
@@ -320,6 +336,11 @@ const it: Dict = {
     proceed: "Continua",
     stay: "Resto qui",
   },
+  teaching: {
+    ask: "È un terapista?",
+    badge: "Per terapisti",
+    note: "Quello che segue si insegna, non si riceve.",
+  },
 };
 
 const es: Dict = {
@@ -387,6 +408,11 @@ const es: Dict = {
     contact: "Está a punto de escribirme por %s. ¿Continuamos?",
     proceed: "Continuar",
     stay: "Quedarme aquí",
+  },
+  teaching: {
+    ask: "¿Es usted terapeuta?",
+    badge: "Para terapeutas",
+    note: "Lo que sigue se enseña, no se recibe.",
   },
 };
 
@@ -462,6 +488,11 @@ const ro: Dict = {
     contact: "Sunteți pe cale să îmi scrieți pe %s. Continuați?",
     proceed: "Continuați",
     stay: "Rămân aici",
+  },
+  teaching: {
+    ask: "Sunteți terapeut?",
+    badge: "Pentru terapeuți",
+    note: "Ce urmează se predă, nu se primește.",
   },
 };
 

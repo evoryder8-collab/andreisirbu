@@ -5,8 +5,11 @@ import { formatPrice } from "../data/catalogue";
 import { href } from "../lib/url";
 import { plateFor } from "../lib/media";
 
-interface Props { session: Session; index?: number; }
-const { session, index = 0 } = Astro.props;
+import { DICTS, type Dict, type Locale } from "../i18n/dict";
+
+interface Props { session: Session; index?: number; locale?: Locale; t?: Dict; }
+const { session, index = 0, locale = "en" } = Astro.props;
+const t: Dict = Astro.props.t ?? DICTS[locale];
 const plate = plateFor(session.slug);
 ---
 <article
@@ -48,6 +51,18 @@ const plate = plateFor(session.slug);
                 bg-[linear-gradient(180deg,transparent_0%,rgba(5,6,5,0.78)_26%,rgba(5,6,5,0.94)_52%,rgba(5,6,5,0.985)_100%)]
                 backdrop-blur-[2px]
                 [mask-image:linear-gradient(180deg,transparent_0%,#000_26%,#000_100%)]"></div>
+
+    {session.aside && (
+      <div class="pointer-events-none absolute right-0 top-0 z-30 h-32 w-32 overflow-hidden">
+        <span class="absolute right-[-3.4rem] top-[1.9rem] w-[13rem] rotate-45
+                     bg-[linear-gradient(100deg,#8A5E2C,#C08343_38%,#F3D9A6_52%,#C08343_66%,#8A5E2C)]
+                     py-1.5 text-center font-mono text-[0.55rem] font-semibold uppercase
+                     tracking-[0.16em] text-void
+                     [box-shadow:0_6px_16px_-6px_rgba(0,0,0,0.9),inset_0_1px_0_0_rgba(255,255,255,0.35)]">
+          {t.teaching.badge}
+        </span>
+      </div>
+    )}
 
     <!-- Gold rim, lit from the top edge like a cast object. -->
     <span class="pointer-events-none absolute inset-0 z-20 rounded-[20px]

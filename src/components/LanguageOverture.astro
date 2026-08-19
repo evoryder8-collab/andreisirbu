@@ -54,21 +54,25 @@ const LANGS = LOCALES.map((code) => ({
               bg-[linear-gradient(96deg,transparent_0%,rgba(232,196,137,0.13)_46%,rgba(255,255,255,0.06)_52%,transparent_100%)]
               blur-2xl"></div>
 
-  <div data-ov-camera class="relative flex h-full flex-col items-center justify-center px-5
+  <div class="relative h-full overflow-y-auto overscroll-contain
+              [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+  <div data-ov-camera class="relative m-auto flex min-h-full flex-col items-center justify-center
+                             px-5 py-[max(1.25rem,env(safe-area-inset-top))]
+                             pb-[max(1.25rem,env(safe-area-inset-bottom))]
                              [perspective:1500px] [perspective-origin:50%_44%]">
 
-    <div data-ov-mark class="mb-6 text-center opacity-0 sm:mb-8">
-      <p class="gilt font-display text-[1.6rem] leading-none tracking-tight sm:text-3xl">Andrei Sirbu</p>
-      <p class="label mt-3 !text-[0.5rem]">Zürich</p>
+    <div data-ov-mark class="mb-4 text-center opacity-0 sm:mb-6">
+      <p class="gilt font-display text-[1.3rem] leading-none tracking-tight sm:text-2xl">Andrei Sirbu</p>
+      <p class="label mt-2 !text-[0.45rem]">Zürich</p>
     </div>
 
-    <h2 id="overture-title" data-ov-label class="label mb-4 opacity-0 !text-[0.55rem] sm:mb-5">
+    <h2 id="overture-title" data-ov-label class="label mb-3 opacity-0 !text-[0.5rem] sm:mb-4">
       {t.overture.choose}
     </h2>
 
     <!-- The prediction: what is about to be chosen, and a seam of light
          draining to show how long is left. -->
-    <div data-ov-auto class="mb-7 flex w-full max-w-[19rem] flex-col items-center gap-2.5 opacity-0 sm:mb-9">
+    <div data-ov-auto class="mb-5 flex w-full max-w-[17rem] flex-col items-center gap-2 opacity-0 sm:mb-6">
       <p class="label !text-[0.55rem] !tracking-[0.16em] !text-bronze/90">
         <span data-ov-auto-text></span>
         <span data-ov-auto-n class="ml-1.5 inline-block w-3 tabular-nums text-chalk"></span>
@@ -83,7 +87,7 @@ const LANGS = LOCALES.map((code) => ({
     <!-- The blocks. Hero first in the DOM; the script promotes whichever the
          browser language matches. -->
     <ul data-ov-stage
-        class="flex w-full max-w-[26rem] flex-col items-center gap-3.5 px-2">
+        class="flex w-full max-w-[22rem] flex-col items-center gap-2.5 px-2">
       {LANGS.map((l) => (
         <li data-ov-item data-lang-item={l.code} class="w-full opacity-0">
           <button
@@ -93,38 +97,38 @@ const LANGS = LOCALES.map((code) => ({
             class="ov-block group relative block w-full overflow-hidden text-left"
           >
             <!-- Obsidian body -->
-            <span class="absolute inset-0 rounded-[18px]
+            <span class="absolute inset-0 rounded-[15px]
                          bg-[linear-gradient(148deg,rgba(38,42,40,0.92)_0%,rgba(16,18,17,0.96)_46%,rgba(9,10,9,0.98)_100%)]"></span>
 
             <!-- Glass: top-edge light, inner rim, and a soft internal sheen -->
-            <span class="pointer-events-none absolute inset-0 rounded-[18px]
+            <span class="pointer-events-none absolute inset-0 rounded-[15px]
                          [box-shadow:inset_0_1px_0_0_rgba(255,244,224,0.22),inset_0_-1px_0_0_rgba(0,0,0,0.6),inset_0_0_0_1px_rgba(120,104,80,0.20)]"></span>
             <span class="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-[18px]
                          bg-[linear-gradient(180deg,rgba(255,246,230,0.10)_0%,transparent_100%)]"></span>
 
             <!-- Travelling specular -->
             <span data-ov-spec
-                  class="sweep pointer-events-none absolute inset-0 rounded-[18px]
+                  class="sweep pointer-events-none absolute inset-0 rounded-[15px]
                          bg-[linear-gradient(104deg,transparent_38%,rgba(232,196,137,0.30)_48%,rgba(255,255,255,0.22)_51%,transparent_62%)]"></span>
 
-            <span class="relative flex items-center gap-4 px-4 py-4 sm:px-5 sm:py-5">
+            <span class="relative flex items-center gap-3.5 px-3.5 py-3 sm:px-4 sm:py-3.5">
               <!-- Inlaid flag panel, set beneath the glass -->
-              <span class="relative h-11 w-16 shrink-0 overflow-hidden rounded-[7px]
+              <span class="relative h-9 w-[3.4rem] shrink-0 overflow-hidden rounded-[6px]
                            [box-shadow:inset_0_0_0_1px_rgba(255,244,224,0.22),0_6px_14px_rgba(0,0,0,0.6)]
-                           sm:h-12 sm:w-[4.6rem]">
+                           sm:h-10 sm:w-[3.8rem]">
                 <Flag code={l.code} class="absolute inset-0 h-full w-full" />
                 <!-- refraction over the inlay -->
                 <span class="absolute inset-0 bg-[linear-gradient(128deg,rgba(255,255,255,0.30)_0%,transparent_42%,rgba(0,0,0,0.34)_100%)]"></span>
               </span>
 
               <span class="min-w-0 flex-1">
-                <span class="block font-display text-[1.55rem] leading-none tracking-tight text-bone
-                             transition-colors duration-500 group-hover:text-chalk sm:text-[1.75rem]">{l.native}</span>
-                <span class="label mt-2 block !text-[0.5rem] !tracking-[0.2em]">{l.word}</span>
+                <span class="block font-display text-[1.28rem] leading-none tracking-tight text-bone
+                             transition-colors duration-500 group-hover:text-chalk sm:text-[1.45rem]">{l.native}</span>
+                <span class="label mt-1.5 block !text-[0.45rem] !tracking-[0.2em]">{l.word}</span>
               </span>
 
               <!-- Countdown ring. Only the hero block shows it. -->
-              <span data-ov-ring class="relative hidden h-11 w-11 shrink-0">
+              <span data-ov-ring class="relative hidden h-9 w-9 shrink-0">
                 <svg viewBox="0 0 44 44" class="h-full w-full -rotate-90">
                   <circle cx="22" cy="22" r="19" fill="none" stroke="rgba(232,196,137,0.20)" stroke-width="2"/>
                   <circle data-ov-ring-arc cx="22" cy="22" r="19" fill="none" stroke="#E8C489"
@@ -142,6 +146,7 @@ const LANGS = LOCALES.map((code) => ({
 
     <p data-ov-hint class="label mt-7 !text-[0.48rem] !tracking-[0.16em] opacity-0"></p>
     <p data-ov-note class="label mt-3 !text-[0.48rem] !tracking-[0.16em] opacity-0">{t.overture.note}</p>
+  </div>
   </div>
 
   <!-- Passage: the chosen block's light floods the frame. -->
