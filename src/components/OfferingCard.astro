@@ -1,7 +1,8 @@
 ---
 import { Picture } from "astro:assets";
 import type { Session } from "../data/catalogue";
-import { bookingUrl, formatPrice } from "../data/catalogue";
+import { formatPrice } from "../data/catalogue";
+import { href } from "../lib/url";
 import { plateFor } from "../lib/media";
 
 interface Props { session: Session; index?: number; }
@@ -85,7 +86,7 @@ const plate = plateFor(session.slug);
 
         <a
           data-offering-cta
-          href={bookingUrl(session.slug)}
+          href={href(`/book/${session.slug}`)}
           class="relative inline-flex items-center gap-2 rounded-full border border-bronze/45
                  bg-void/55 px-5 py-2.5 text-[0.62rem] font-semibold uppercase
                  tracking-[0.2em] text-bone backdrop-blur-md transition-colors duration-500

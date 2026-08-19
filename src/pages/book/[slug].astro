@@ -1,0 +1,149 @@
+---
+import { Picture } from "astro:assets";
+import Base from "../../layouts/Base.astro";
+import { SESSIONS, getSession, formatPrice, bookingUrl } from "../../data/catalogue";
+import { plateFor } from "../../lib/media";
+import { STUDIO } from "../../lib/availability";
+import { href } from "../../lib/url";
+
+export function getStaticPaths() {
+  return SESSIONS.map((s) => ({ params: { slug: s.slug } }));
+}
+const { slug } = Astro.params;
+const session = getSession(slug!)!;
+const plate = plateFor(session.slug);
+---
+<Base title={`Book ${session.name} | Andrei Sirbu, Zürich`}
+      description={`Choose a date and time for ${session.name}. ${session.duration}, ${session.currency} ${formatPrice(session.price)}.`}>
+
+  <!-- The session being booked, held above the calendar throughout -->
+  <header class="relative overflow-hidden bg-void px-5 pb-10 pt-28 sm:px-8 md:pt-36">
+    <div class="absolute inset-0 opacity-35">
+      <Picture src={plate.src} alt="" aria-hidden="true"
+        widths={[700, 1400]} sizes="100vw" formats={["avif","webp"]}
+        style={`object-position:${plate.focus}`}
+        class="h-full w-full object-cover [filter:brightness(0.4)_saturate(0.7)]"
+        loading="eager" decoding="async" />
+      <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,6,5,0.72)_0%,rgba(5,6,5,0.9)_60%,rgba(5,6,5,1)_100%)]"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-3xl">
+      <a href={href(`/sessions/${session.slug}`)} class="label inline-block !text-[0.55rem]">← {session.name}</a>
+      <h1 class="gilt gilt-live font-display mt-5 text-[clamp(2.3rem,11vw,4rem)] leading-[0.98] tracking-[-0.02em]">
+        Choose your time
+      </h1>
+      <div class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2">
+        <span class="label rounded-full border border-bone/15 bg-void/70 px-2.5 py-1 !text-[0.55rem] !text-bone/90">{session.duration}</span>
+        <span class="label rounded-full border border-bone/15 bg-void/70 px-2.5 py-1 !text-[0.55rem] !text-bone/90">{session.modality}</span>
+        <span class="label rounded-full border border-bronze/45 bg-void/70 px-2.5 py-1 !text-[0.55rem] !text-bronze">
+          {session.currency} {formatPrice(session.price)}
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <section data-calendar data-slug={session.slug} class="bg-void px-5 pb-28 sm:px-8 md:pb-36">
+    <div class="mx-auto max-w-3xl">
+
+      <!-- 1 · Day -->
+      <div class="rounded-[18px] border border-ash bg-stone/40 p-5 sm:p-7">
+        <div class="mb-5 flex items-center justify-between gap-4">
+          <p class="label !text-[0.55rem]">Select a day</p>
+          <div class="flex items-center gap-2">
+            <button data-cal-prev type="button" aria-label="Previous month"
+              class="grid h-9 w-9 place-items-center rounded-full border border-ash text-bone
+                     transition-colors duration-400 hover:border-bronze/60 hover:text-chalk
+                     disabled:opacity-25 disabled:cursor-not-allowed">←</button>
+            <span data-cal-month class="font-display min-w-[9.5rem] text-center text-lg text-chalk"></span>
+            <button data-cal-next type="button" aria-label="Next month"
+              class="grid h-9 w-9 place-items-center rounded-full border border-ash text-bone
+                     transition-colors duration-400 hover:border-bronze/60 hover:text-chalk">→</button>
+          </div>
+        </div>
+        <div data-cal-grid class="grid grid-cols-7 gap-1.5"></div>
+        <p class="label mt-5 !normal-case !tracking-normal !text-[0.68rem] opacity-70">
+          Marked days have openings. Times shown in Zürich local time.
+        </p>
+      </div>
+
+      <!-- 2 · Time -->
+      <div data-slots hidden class="mt-5 rounded-[18px] border border-ash bg-stone/40 p-5 sm:p-7">
+        <p class="label !text-[0.55rem]">Select a time</p>
+        <p data-slot-date class="font-display mt-2 text-2xl text-chalk"></p>
+        <div data-slot-list class="mt-5 flex flex-wrap gap-2.5"></div>
+      </div>
+
+      <!-- 3 · Details -->
+      <div data-details hidden class="mt-5 rounded-[18px] border border-ash bg-stone/40 p-5 sm:p-7">
+        <p class="label !text-[0.55rem]">Your details</p>
+        <p data-summary class="font-display mt-2 text-2xl text-chalk"></p>
+
+        <form data-booking-form class="mt-6 flex flex-col gap-4" novalidate={false}>
+          <label class="flex flex-col gap-2">
+            <span class="label !text-[0.52rem]">Name</span>
+            <input name="name" type="text" required autocomplete="name"
+              class="rounded-[10px] border border-ash bg-void/70 px-4 py-3 text-[0.95rem] text-chalk
+                     outline-none transition-colors duration-300 focus:border-bronze/70" />
+          </label>
+          <label class="flex flex-col gap-2">
+            <span class="label !text-[0.52rem]">Email</span>
+            <input name="email" type="email" required autocomplete="email"
+              class="rounded-[10px] border border-ash bg-void/70 px-4 py-3 text-[0.95rem] text-chalk
+                     outline-none transition-colors duration-300 focus:border-bronze/70" />
+          </label>
+          <label class="flex flex-col gap-2">
+            <span class="label !text-[0.52rem]">Phone <span class="opacity-50">optional</span></span>
+            <input name="phone" type="tel" autocomplete="tel"
+              class="rounded-[10px] border border-ash bg-void/70 px-4 py-3 text-[0.95rem] text-chalk
+                     outline-none transition-colors duration-300 focus:border-bronze/70" />
+          </label>
+          <label class="flex flex-col gap-2">
+            <span class="label !text-[0.52rem]">What brings you <span class="opacity-50">optional</span></span>
+            <textarea name="notes" rows="3"
+              class="resize-none rounded-[10px] border border-ash bg-void/70 px-4 py-3 text-[0.95rem] text-chalk
+                     outline-none transition-colors duration-300 focus:border-bronze/70"></textarea>
+          </label>
+
+          <p data-error hidden class="text-[0.85rem] text-[#E0806D]"></p>
+
+          <button type="submit" data-magnetic
+            class="sheen mt-2 inline-flex items-center justify-center gap-3 rounded-full bg-bronze px-8 py-4
+                   text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-void
+                   transition-opacity duration-300 data-[busy=true]:opacity-60">
+            Request this time →
+          </button>
+          <p class="label !normal-case !tracking-normal !text-[0.68rem] leading-relaxed opacity-70">
+            You will receive confirmation by email. Payment is arranged before the session.
+          </p>
+        </form>
+
+        <!-- Confirmation -->
+        <div data-confirmed hidden class="text-center">
+          <p class="gilt font-display text-[2rem] leading-tight">Your time is held</p>
+          <p data-when class="mt-3 text-[1rem] text-bone/85"></p>
+          <p class="label mt-6 !text-[0.55rem]">Reference</p>
+          <p data-ref class="font-mono text-lg tabular-nums text-bronze"></p>
+          <p class="label mx-auto mt-7 max-w-[38ch] !normal-case !tracking-normal !text-[0.72rem] leading-relaxed opacity-75">
+            The studio will confirm by email within a day. If you need to reach
+            Andrei sooner, write to {STUDIO.email}.
+          </p>
+          <a href={href("/")} class="label mt-8 inline-block border-b border-bronze/40 pb-1 !text-bronze">
+            Return to the practice
+          </a>
+        </div>
+      </div>
+
+      <p class="label mt-8 !normal-case !tracking-normal !text-[0.68rem] leading-relaxed opacity-55">
+        Prefer the existing booking system?
+        <a href={bookingUrl(session.slug)} class="underline underline-offset-2 hover:text-chalk">Book on the practice store</a>.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    import { initCalendar } from "../../lib/calendar";
+    const boot = () => initCalendar();
+    boot();
+    document.addEventListener("astro:after-swap", boot);
+  </script>
+</Base>

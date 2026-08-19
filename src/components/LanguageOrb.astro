@@ -1,0 +1,74 @@
+---
+/**
+ * The language control.
+ *
+ * Five wedges, each carrying its flag's own bands, so the object reads as
+ * "languages" at 36px without becoming a globe cliché. Opens the portal.
+ * The wordmark is the way home; this is the way to change language.
+ */
+interface Props { label?: string; class?: string; }
+const { label = "Change language", class: cls = "" } = Astro.props;
+---
+<button
+  type="button"
+  data-open-portal
+  aria-label={label}
+  title={label}
+  class={`group relative grid h-10 w-10 shrink-0 place-items-center rounded-full
+          transition-transform duration-500 hover:scale-105 active:scale-95 ${cls}`}
+>
+  <span class="absolute inset-0 rounded-full
+               [box-shadow:0_0_0_1px_rgba(192,131,67,0.45),0_4px_14px_rgba(0,0,0,0.55)]
+               transition-shadow duration-500
+               group-hover:[box-shadow:0_0_0_1px_rgba(232,196,137,0.9),0_0_18px_rgba(192,131,67,0.5)]"></span>
+
+  <svg viewBox="0 0 40 40" class="h-[26px] w-[26px]" aria-hidden="true">
+    <defs>
+      <!-- Union: navy ground crossed white and red -->
+      <linearGradient id="lo-en" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#012169"/><stop offset="42%" stop-color="#012169"/>
+        <stop offset="42%" stop-color="#F2EFE9"/><stop offset="56%" stop-color="#F2EFE9"/>
+        <stop offset="56%" stop-color="#C8102E"/><stop offset="70%" stop-color="#C8102E"/>
+        <stop offset="70%" stop-color="#012169"/>
+      </linearGradient>
+      <linearGradient id="lo-de" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#101014"/><stop offset="33%" stop-color="#101014"/>
+        <stop offset="33%" stop-color="#C8102E"/><stop offset="66%" stop-color="#C8102E"/>
+        <stop offset="66%" stop-color="#E4B23C"/>
+      </linearGradient>
+      <linearGradient id="lo-fr" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#12325E"/><stop offset="33%" stop-color="#12325E"/>
+        <stop offset="33%" stop-color="#F2EFE9"/><stop offset="66%" stop-color="#F2EFE9"/>
+        <stop offset="66%" stop-color="#C8102E"/>
+      </linearGradient>
+      <linearGradient id="lo-it" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#1B7A4B"/><stop offset="33%" stop-color="#1B7A4B"/>
+        <stop offset="33%" stop-color="#F2EFE9"/><stop offset="66%" stop-color="#F2EFE9"/>
+        <stop offset="66%" stop-color="#C8102E"/>
+      </linearGradient>
+      <linearGradient id="lo-es" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#C8102E"/><stop offset="26%" stop-color="#C8102E"/>
+        <stop offset="26%" stop-color="#E4B23C"/><stop offset="74%" stop-color="#E4B23C"/>
+        <stop offset="74%" stop-color="#C8102E"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Five equal wedges, one per language -->
+    <path d="M20,20 L20,1   A19,19 0 0 1 38.07,14.13 Z" fill="url(#lo-en)"/>
+    <path d="M20,20 L38.07,14.13 A19,19 0 0 1 31.17,35.37 Z" fill="url(#lo-de)"/>
+    <path d="M20,20 L31.17,35.37 A19,19 0 0 1 8.83,35.37 Z"  fill="url(#lo-fr)"/>
+    <path d="M20,20 L8.83,35.37  A19,19 0 0 1 1.93,14.13 Z"  fill="url(#lo-it)"/>
+    <path d="M20,20 L1.93,14.13  A19,19 0 0 1 20,1 Z"        fill="url(#lo-es)"/>
+
+    <!-- Hairlines between the wedges, and a lit rim -->
+    <g stroke="rgba(5,6,5,0.55)" stroke-width="0.9">
+      <line x1="20" y1="20" x2="20" y2="1"/>
+      <line x1="20" y1="20" x2="38.07" y2="14.13"/>
+      <line x1="20" y1="20" x2="31.17" y2="35.37"/>
+      <line x1="20" y1="20" x2="8.83" y2="35.37"/>
+      <line x1="20" y1="20" x2="1.93" y2="14.13"/>
+    </g>
+    <circle cx="20" cy="20" r="19" fill="none" stroke="rgba(232,196,137,0.55)" stroke-width="1.4"/>
+    <circle cx="20" cy="20" r="19" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="0.5"/>
+  </svg>
+</button>

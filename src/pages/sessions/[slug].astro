@@ -47,7 +47,7 @@ const others = SESSIONS.filter((s) => s.slug !== session.slug && !s.aside).slice
           <span class="font-display text-3xl text-chalk tabular-nums">
             <span class="label mr-2 align-middle">{session.currency}</span><span data-count={String(session.price)} data-count-group="true">{formatPrice(session.price)}</span>
           </span>
-          <a href={bookingUrl(session.slug)} data-magnetic
+          <a href={href(`/book/${session.slug}`)} data-magnetic
              class="sheen bevel inline-flex items-center gap-3 rounded-full bg-bronze px-8 py-4
                     text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-void">
             Reserve →
@@ -55,7 +55,7 @@ const others = SESSIONS.filter((s) => s.slug !== session.slug && !s.aside).slice
         </div>
 
         <p class="label mt-6 !normal-case !tracking-normal !text-[0.72rem] leading-relaxed">
-          Booking, availability and payment are handled on the practice store.
+          Choose a date and time in the next step.
         </p>
       </div>
     </div>

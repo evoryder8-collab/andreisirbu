@@ -60,6 +60,19 @@
 }
 
 @layer components {
+  /* Calendar: the chosen day and time are lit, not merely filled. */
+  .cal-day.is-chosen {
+    background: linear-gradient(160deg, rgba(192,131,67,0.30), rgba(192,131,67,0.12));
+    color: var(--color-chalk);
+    box-shadow: 0 0 0 1px rgba(232,196,137,0.75), 0 0 18px rgba(192,131,67,0.35);
+  }
+  .slot.is-chosen {
+    border-color: rgba(232,196,137,0.9);
+    color: var(--color-chalk);
+    background: linear-gradient(160deg, rgba(192,131,67,0.26), rgba(192,131,67,0.10));
+    box-shadow: 0 0 16px rgba(192,131,67,0.32);
+  }
+
   /* Sheen as a one-shot animation. Driving this with a GSAP xPercent tween
      while a Tailwind -translate-x class sat on the same element meant two
      writers on one transform, and an interrupted tween parked the band across

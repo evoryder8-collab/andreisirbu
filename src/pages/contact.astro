@@ -1,0 +1,187 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHead from "../components/PageHead.astro";
+import { STUDIO } from "../lib/availability";
+import { room } from "../lib/media";
+
+const q = encodeURIComponent(`${STUDIO.street}, ${STUDIO.postcode} ${STUDIO.city}`);
+const embed = `https://www.google.com/maps?q=${q}&z=16&output=embed`;
+---
+<Base title="Contact | Andrei Sirbu, Zürich"
+      description={`Write to the studio, or find it at ${STUDIO.street}, ${STUDIO.postcode} ${STUDIO.city}.`}>
+
+  <PageHead eyebrow="Contact" title="Write to the studio."
+    lede="A sentence or two about what brings you is enough. Andrei replies personally."
+    plate={room} alt="The treatment room in low light." focus="58% 45%" />
+
+  <!-- Form -->
+  <section class="bg-void px-5 pb-20 sm:px-8 md:pb-28">
+    <div class="mx-auto grid max-w-6xl gap-10 md:grid-cols-12">
+      <form data-contact-form class="flex flex-col gap-4 md:col-span-7" data-reveal>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <label class="flex flex-col gap-2">
+            <span class="label !text-[0.52rem]">Name</span>
+            <input name="name" type="text" required autocomplete="name"
+              class="rounded-[10px] border border-ash bg-stone/40 px-4 py-3 text-[0.95rem] text-chalk
+                     outline-none transition-colors duration-300 focus:border-bronze/70" />
+          </label>
+          <label class="flex flex-col gap-2">
+            <span class="label !text-[0.52rem]">Email</span>
+            <input name="email" type="email" required autocomplete="email"
+              class="rounded-[10px] border border-ash bg-stone/40 px-4 py-3 text-[0.95rem] text-chalk
+                     outline-none transition-colors duration-300 focus:border-bronze/70" />
+          </label>
+        </div>
+        <label class="flex flex-col gap-2">
+          <span class="label !text-[0.52rem]">Phone <span class="opacity-50">optional</span></span>
+          <input name="phone" type="tel" autocomplete="tel"
+            class="rounded-[10px] border border-ash bg-stone/40 px-4 py-3 text-[0.95rem] text-chalk
+                   outline-none transition-colors duration-300 focus:border-bronze/70" />
+        </label>
+        <label class="flex flex-col gap-2">
+          <span class="label !text-[0.52rem]">Message</span>
+          <textarea name="message" rows="5" required
+            class="resize-none rounded-[10px] border border-ash bg-stone/40 px-4 py-3 text-[0.95rem] text-chalk
+                   outline-none transition-colors duration-300 focus:border-bronze/70"></textarea>
+        </label>
+
+        <button type="submit" data-magnetic
+          class="sheen mt-1 inline-flex w-fit items-center gap-3 rounded-full bg-bronze px-8 py-4
+                 text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-void">
+          Send message →
+        </button>
+        <p data-contact-note class="label !normal-case !tracking-normal !text-[0.7rem] leading-relaxed opacity-70">
+          Opens your mail app with the message ready to send.
+        </p>
+      </form>
+
+      <div class="flex flex-col gap-5 md:col-span-4 md:col-start-9" data-reveal>
+        <a href={`mailto:${STUDIO.email}`}
+           class="sheen flex items-center justify-between gap-4 rounded-[14px] border border-ash bg-stone/40 px-5 py-4
+                  transition-colors duration-500 hover:border-bronze/50">
+          <span class="label">Email</span>
+          <span class="font-mono text-[0.82rem] text-chalk">{STUDIO.email}</span>
+        </a>
+        <a href={`tel:${STUDIO.phoneHref}`}
+           class="sheen flex items-center justify-between gap-4 rounded-[14px] border border-ash bg-stone/40 px-5 py-4
+                  transition-colors duration-500 hover:border-bronze/50">
+          <span class="label">Phone</span>
+          <span class="font-mono text-[0.82rem] text-chalk">{STUDIO.phone}</span>
+        </a>
+        <div class="rounded-[14px] border border-ash bg-stone/40 px-5 py-4">
+          <p class="label mb-2">Hours</p>
+          <p class="font-mono text-[0.82rem] text-chalk">{STUDIO.hours}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map -->
+  <section class="relative px-5 pb-28 sm:px-8 md:pb-36" aria-label="Studio location">
+    <div class="relative mx-auto max-w-6xl overflow-hidden rounded-[20px] border border-ash">
+      <!-- Graded so the map belongs to the site rather than to Google. -->
+      <div class="relative h-[380px] sm:h-[460px]">
+        <iframe
+          src={embed}
+          title={`Map showing ${STUDIO.street}, ${STUDIO.city}`}
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          class="absolute inset-0 h-full w-full border-0
+                 [filter:invert(0.92)_hue-rotate(180deg)_saturate(0.35)_contrast(0.9)_brightness(0.85)]"></iframe>
+        <div class="pointer-events-none absolute inset-0
+                    bg-[linear-gradient(180deg,rgba(5,6,5,0.55)_0%,transparent_28%,transparent_58%,rgba(5,6,5,0.92)_100%)]"></div>
+        <div class="pointer-events-none absolute inset-0
+                    bg-[radial-gradient(ellipse_70%_60%_at_50%_45%,transparent_0%,rgba(5,6,5,0.55)_100%)]"></div>
+      </div>
+
+      <div class="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col gap-4 p-5 sm:flex-row sm:items-end sm:justify-between sm:p-7">
+        <div class="pointer-events-auto">
+          <p class="label !text-[0.5rem]">The studio</p>
+          <p class="gilt font-display mt-1.5 text-[1.7rem] leading-tight sm:text-[2rem]">{STUDIO.street}</p>
+          <p class="font-mono text-[0.78rem] text-bone/80">{STUDIO.postcode} {STUDIO.city}</p>
+        </div>
+
+        <button data-drive type="button"
+          class="sheen pointer-events-auto inline-flex items-center gap-3 rounded-full bg-bronze px-7 py-4
+                 text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-void
+                 transition-transform duration-500 hover:scale-[1.03]">
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 2 4 20l8-4 8 4z" stroke-linejoin="round"/>
+          </svg>
+          Drive Here
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map app chooser -->
+  <div data-drive-sheet hidden
+       class="fixed inset-0 z-[90] grid place-items-end bg-void/70 opacity-0 backdrop-blur-md
+              transition-opacity duration-300 data-[open=true]:opacity-100 sm:place-items-center"
+       role="dialog" aria-modal="true" aria-label="Choose a maps app">
+    <div class="m-3 w-full max-w-sm translate-y-4 rounded-[20px] border border-ash bg-stone/95 p-5
+                transition-transform duration-300 data-[open=true]:translate-y-0 sm:m-0"
+         data-drive-panel>
+      <p class="label mb-1 !text-[0.52rem]">Navigate to</p>
+      <p class="font-display text-xl text-chalk">{STUDIO.street}</p>
+      <p class="font-mono text-[0.75rem] text-bone/70">{STUDIO.postcode} {STUDIO.city}</p>
+
+      <div class="mt-5 flex flex-col gap-2.5">
+        <a data-map-google href="#" target="_blank" rel="noopener"
+           class="sheen flex items-center justify-between gap-4 rounded-[14px] border border-ash bg-void/70 px-5 py-4
+                  transition-colors duration-400 hover:border-bronze/60">
+          <span class="text-[0.95rem] text-chalk">Google Maps</span>
+          <span class="label !text-[0.55rem] !text-bronze">Drive →</span>
+        </a>
+        <a data-map-apple href="#" target="_blank" rel="noopener"
+           class="sheen flex items-center justify-between gap-4 rounded-[14px] border border-ash bg-void/70 px-5 py-4
+                  transition-colors duration-400 hover:border-bronze/60">
+          <span class="text-[0.95rem] text-chalk">Apple Maps</span>
+          <span class="label !text-[0.55rem] !text-bronze">Drive →</span>
+        </a>
+      </div>
+
+      <button data-drive-close type="button"
+        class="label mt-4 w-full rounded-full border border-ash py-3 !text-[0.55rem]
+               transition-colors duration-400 hover:!text-chalk">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    import { initDirections } from "../lib/directions";
+    import { STUDIO } from "../lib/availability";
+
+    const boot = () => {
+      initDirections();
+
+      // Mail handoff: the form works today without a backend, and the shape
+      // matches what a real endpoint would receive when one is connected.
+      const form = document.querySelector<HTMLFormElement>("[data-contact-form]");
+      form?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const fd = new FormData(form);
+        const body = [
+          `Name: ${fd.get("name")}`,
+          `Email: ${fd.get("email")}`,
+          fd.get("phone") ? `Phone: ${fd.get("phone")}` : "",
+          "",
+          String(fd.get("message") || ""),
+        ].filter(Boolean).join("\n");
+        window.location.href =
+          `mailto:${STUDIO.email}?subject=${encodeURIComponent("Session enquiry")}&body=${encodeURIComponent(body)}`;
+      });
+
+      // The panel needs the open state too, for its own transform.
+      const sheet = document.querySelector<HTMLElement>("[data-drive-sheet]");
+      const panel = document.querySelector<HTMLElement>("[data-drive-panel]");
+      if (sheet && panel) {
+        new MutationObserver(() => {
+          if (sheet.dataset.open) panel.dataset.open = "true";
+          else delete panel.dataset.open;
+        }).observe(sheet, { attributes: true, attributeFilter: ["data-open"] });
+      }
+    };
+
+    boot();
+    document.addEventListener("astro:after-swap", boot);
+  </script>
+</Base>

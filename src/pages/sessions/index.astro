@@ -2,7 +2,8 @@
 import Base from "../../layouts/Base.astro";
 import PageHead from "../../components/PageHead.astro";
 import SessionCard from "../../components/SessionCard.astro";
-import { privateSessions, asideOfferings, formatPrice, bookingUrl } from "../../data/catalogue";
+import { privateSessions, asideOfferings, formatPrice } from "../../data/catalogue";
+import { href } from "../../lib/url";
 import { handsMono } from "../../lib/media";
 const sessions = privateSessions();
 const aside = asideOfferings();
@@ -33,7 +34,7 @@ const aside = asideOfferings();
                   <span class="font-mono text-sm tabular-nums text-bone/90">
                     {s.currency} {formatPrice(s.price)}
                   </span>
-                  <a href={bookingUrl(s.slug)}
+                  <a href={href(`/book/${s.slug}`)}
                      class="label !text-bronze border-b border-bronze/40 pb-1
                             transition-colors duration-500 hover:!text-chalk">Apply →</a>
                 </div>

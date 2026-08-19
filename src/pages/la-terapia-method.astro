@@ -2,7 +2,8 @@
 import Base from "../layouts/Base.astro";
 import MethodScene from "../components/MethodScene.astro";
 import PageHead from "../components/PageHead.astro";
-import { getSession, bookingUrl, formatPrice } from "../data/catalogue";
+import { getSession, formatPrice } from "../data/catalogue";
+import { href } from "../lib/url";
 import { gorgePortrait } from "../lib/media";
 const s = getSession("la-terapia")!;
 const principles = [
@@ -37,7 +38,7 @@ const principles = [
           <p class="label mb-3">{s.duration} · {s.modality}</p>
           <p class="font-display text-3xl text-chalk">{s.currency} {formatPrice(s.price)}</p>
         </div>
-        <a href={bookingUrl(s.slug)} data-magnetic
+        <a href={href(`/book/${s.slug}`)} data-magnetic
            class="sheen bevel inline-flex items-center gap-3 rounded-full bg-bronze px-8 py-4
                   text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-void">
           Reserve the method →

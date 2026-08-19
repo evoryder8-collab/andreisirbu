@@ -1,5 +1,6 @@
 ---
 import { localeHref, DICTS, type Dict, type Locale } from "../i18n/dict";
+import LanguageOrb from "./LanguageOrb.astro";
 interface Props { locale?: Locale; t?: Dict; }
 const { locale = "en" } = Astro.props;
 const t: Dict = Astro.props.t ?? DICTS[locale];
@@ -24,11 +25,8 @@ const isCurrent = (to: string) => path === href(to).replace(/\/$/, "");
          data-[veiled=true]:bg-void/70 data-[veiled=true]:backdrop-blur-xl"
 >
   <nav aria-label="Primary" class="flex w-full max-w-full items-center justify-between gap-3 px-4 py-4 sm:gap-6 sm:px-8 sm:py-5">
-    <!-- The wordmark is home, and also the way back to the portal. Without
-         JS it stays an ordinary link to the homepage. -->
-    <a href={href("/")} data-open-portal
-       class="group flex min-w-0 items-baseline gap-2.5"
-       title="Change language">
+    <!-- Home. Only home. -->
+    <a href={href("/")} class="group flex min-w-0 items-baseline gap-2.5">
       <span class="font-display text-lg leading-none tracking-tight text-chalk sm:text-xl">
         Andrei Sirbu
       </span>
@@ -48,6 +46,8 @@ const isCurrent = (to: string) => path === href(to).replace(/\/$/, "");
       ))}
     </ul>
 
+    <div class="flex shrink-0 items-center gap-2.5 sm:gap-3">
+      <LanguageOrb />
     <a
       href={href("/apply")}
       data-magnetic
@@ -55,6 +55,7 @@ const isCurrent = (to: string) => path === href(to).replace(/\/$/, "");
              text-[0.66rem] font-medium uppercase tracking-[0.2em] text-chalk
              transition-colors duration-500 hover:bg-ash/80 sm:px-6 shrink-0"
     >{t.nav.reserve}</a>
+    </div>
   </nav>
 </header>
 

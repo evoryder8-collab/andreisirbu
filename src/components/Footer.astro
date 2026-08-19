@@ -10,7 +10,7 @@ const year = new Date().getFullYear();
   <div class="mx-auto max-w-6xl">
     <p class="label mb-6">Zürich · By appointment</p>
     <p class="font-display text-3xl leading-[1.08] tracking-tight text-chalk sm:text-5xl">
-      {t.footer.tagline.split("\n").map((line, i) => (<>{i > 0 && <br class="hidden sm:block" />}{line}</>))}
+      {t.footer.tagline.split("\n").map((line, i) => (<>{i > 0 && <br />}{line}</>))}
     </p>
 
     <div class="mt-12 grid gap-10 border-t border-ash/50 pt-10 sm:grid-cols-3">
@@ -27,6 +27,7 @@ const year = new Date().getFullYear();
         <p class="label mb-3">{t.footer.booking}</p>
         <ul class="space-y-2 text-sm text-mist">
           <li><a class="transition-colors hover:text-chalk" href={href("/apply")}>Reserve a session</a></li>
+          <li><a class="transition-colors hover:text-chalk" href={href("/contact")}>Contact</a></li>
           <li><a class="transition-colors hover:text-chalk" href="https://andreisirbu.com/balance/">Gift card balance</a></li>
           <li><a class="transition-colors hover:text-chalk" href="https://andreisirbu.com/my-account/">My account</a></li>
         </ul>
