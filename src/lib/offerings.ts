@@ -32,8 +32,8 @@ export function initOfferings(): void {
     cards.forEach((c) => {
       const cb = bodyOf(c);
       const ci = imgOf(c);
-      if (cb) gsap.to(cb, { scale: 1, opacity: 1, duration: 0.7, ease: "power3.out" });
-      if (ci) gsap.to(ci, { scale: 1, filter: "grayscale(0.22) contrast(1.06) brightness(0.52)", duration: 0.9, ease: "power3.out" });
+      if (cb) gsap.to(cb, { scale: 1, opacity: 1, duration: 0.7, ease: "power3.out", overwrite: "auto" });
+      if (ci) gsap.to(ci, { scale: 1, filter: "grayscale(0.22) contrast(1.06) brightness(0.52)", duration: 0.9, ease: "power3.out", overwrite: "auto" });
     });
   };
 
@@ -50,14 +50,14 @@ export function initOfferings(): void {
       const cb = bodyOf(c);
       const ci = imgOf(c);
       const isIt = c === card;
-      if (cb) gsap.to(cb, { scale: isIt ? 1.015 : 0.985, opacity: isIt ? 1 : 0.45, duration: 0.8, ease: "power3.out" });
+      if (cb) gsap.to(cb, { scale: isIt ? 1.015 : 0.985, opacity: isIt ? 1 : 0.45, duration: 0.8, ease: "power3.out", overwrite: "auto" });
       if (ci) {
         gsap.to(ci, {
           scale: isIt ? 1.06 : 1,
           filter: isIt
             ? "grayscale(0) contrast(1.1) brightness(0.68)"
             : "grayscale(0.4) contrast(1.04) brightness(0.42)",
-          duration: 1.1, ease: "power3.out",
+          duration: 1.1, ease: "power3.out", overwrite: "auto",
         });
       }
     });
@@ -155,32 +155,49 @@ export function initOfferings(): void {
   onCleanup(() => passed.disconnect());
 
   // A short demonstration on arrival: the first block is chosen, then the
-  // second, then back to the first. Nothing on the page says the blocks are
-  // tappable, and a single still selection reads as decoration rather than
-  // state. Any real input cancels it immediately, so it never fights a
-  // visitor who has already started choosing.
+  // second, then back to the first, and finally the column settles to
+  // neutral. Nothing on the page says the blocks are tappable, and a single
+  // still selection reads as decoration rather than state. It has to end
+  // neutral: leaving one block lit afterwards would look like a choice the
+  // visitor made, and would keep the rest recessed while they read.
   if (!reduced && cards.length > 1) {
-    let cancelled = false;
-    const cancel = () => { cancelled = true; };
-    const opts = { once: true, passive: true } as AddEventListenerOptions;
-    window.addEventListener("pointerdown", cancel, opts);
-    window.addEventListener("touchstart", cancel, opts);
-    window.addEventListener("wheel", cancel, opts);
-    window.addEventListener("keydown", cancel, opts);
+    let running = true;
+
+    const endDemo = (toNeutral: boolean) => {
+      if (!running) return;
+      running = false;
+      if (toNeutral) deselect();
+    };
+
+    // Any real input ends it. A tap on a block is the one input that must not
+    // return to neutral, because the click that follows is choosing that
+    // block and would fight the release.
+    const onInput = (e: Event) => {
+      const onCard = (e.target as HTMLElement | null)?.closest?.("[data-offering]");
+      endDemo(!onCard);
+    };
+    const opts = { passive: true } as AddEventListenerOptions;
+    // touchmove rather than touchstart: a tap should reach the block, only a
+    // drag counts as scrolling away.
+    window.addEventListener("touchmove", onInput, opts);
+    window.addEventListener("wheel", onInput, opts);
+    window.addEventListener("keydown", onInput, opts);
+    window.addEventListener("pointerdown", onInput, opts);
 
     const beat = (ms: number, fn: () => void) => {
-      const id = window.setTimeout(() => { if (!cancelled) fn(); }, ms);
+      const id = window.setTimeout(() => { if (running) fn(); }, ms);
       onCleanup(() => window.clearTimeout(id));
     };
     beat(1000, () => select(cards[0]!));
     beat(2500, () => select(cards[1]!));
     beat(4000, () => select(cards[0]!));
+    beat(5600, () => endDemo(true));
 
     onCleanup(() => {
-      window.removeEventListener("pointerdown", cancel);
-      window.removeEventListener("touchstart", cancel);
-      window.removeEventListener("wheel", cancel);
-      window.removeEventListener("keydown", cancel);
+      window.removeEventListener("touchmove", onInput);
+      window.removeEventListener("wheel", onInput);
+      window.removeEventListener("keydown", onInput);
+      window.removeEventListener("pointerdown", onInput);
     });
   }
 
