@@ -288,12 +288,12 @@ html[data-overture="on"] body { overflow: hidden; }
        than metal going out. */
     background-image: linear-gradient(
       104deg,
-      #C08343 0%, #D19A5C 16%, #E8C489 32%,
-      #FBEBCC 44%, #FFFDF7 50%, #FBEBCC 56%,
-      #E8C489 68%, #D19A5C 84%, #C08343 100%
+      #D9A867 0%, #E4BC85 14%, #F1D5A4 30%,
+      #FCEFD6 44%, #FFFDF7 50%, #FCEFD6 56%,
+      #F1D5A4 70%, #E4BC85 86%, #D9A867 100%
     );
-    background-size: 260% 100%;
-    background-position: 130% 0%;
+    background-size: 210% 100%;
+    background-position: 100% 0%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -303,10 +303,10 @@ html[data-overture="on"] body { overflow: hidden; }
       drop-shadow(0 0 26px rgba(192,131,67,0.28));
   }
   /* Slow travel of the highlight. Paused offscreen by the observer. */
-  .gilt-live { animation: gilt-travel 7.5s ease-in-out infinite alternate; }
+  .gilt-live { animation: gilt-travel 5.5s ease-in-out infinite alternate; }
   @keyframes gilt-travel {
-    0%   { background-position: 130% 0%; }
-    100% { background-position: -30% 0%; }
+    0%   { background-position: 100% 0%; }
+    100% { background-position: 0% 0%; }
   }
 
   /* Chalk type that still wants weight beneath it. */
