@@ -41,7 +41,12 @@ const others = SESSIONS.filter((s) => s.slug !== session.slug && !s.aside).slice
                    text-[clamp(2.2rem,6vw,4.4rem)] leading-[1]" data-reveal>{session.name}</h1>
 
         <p class="mt-7 text-lg leading-relaxed text-bone/85" data-reveal>{session.description}</p>
-        <p class="mt-5 text-[0.95rem] leading-relaxed text-mist" data-reveal>{session.detail}</p>
+        <div class="mt-5 flex flex-col gap-4">
+          {session.detail.split("\n").map((para, i) => (
+            <p class="text-[0.95rem] leading-relaxed text-mist" data-reveal
+               style={`--reveal-delay:${i * 70}ms`}>{para}</p>
+          ))}
+        </div>
 
         <div class="mt-10 flex flex-wrap items-center gap-6 border-t border-ash/70 pt-8" data-reveal>
           <span class="font-display text-3xl text-chalk tabular-nums">

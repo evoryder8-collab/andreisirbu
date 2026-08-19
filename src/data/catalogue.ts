@@ -55,9 +55,9 @@ export const SESSIONS: Session[] = [
     duration: "90 min",
     modality: "Nervous system reset",
     description:
-      "The proprietary work. Guided in real time, following the body rather than a routine.",
+      "A profound journey into the release of repressed emotions and somatized trauma.",
     detail:
-      "The method this practice is built on. Structure and intuition held together: precise touch, breath awareness, and guidance that responds to what your body is doing in the moment rather than to a fixed sequence.",
+      "La Terapia, the sacred vision of Andrei Sîrbu, is a profound journey into the release of repressed emotions and somatized trauma.\nBy merging spiritual principles with manual therapy, psychotherapy, and breathwork, this method restores harmony to body, mind, and soul.\nA sacred, embodied healing experience that awakens inner peace, emotional liberation, and deep remembrance of who you truly are.",
     rank: 1,
     signature: true,
   },
@@ -69,9 +69,9 @@ export const SESSIONS: Session[] = [
     currency: CURRENCY,
     duration: "90 min",
     modality: "Deep release",
-    description: "The longest and most complete of the private sessions.",
+    description: "A sacred energetic ceremony designed to cleanse, rebalance, and awaken your inner power.",
     detail:
-      "Ninety minutes of sustained, unhurried work for those who want depth rather than relief. Held tension is met slowly, and given room to reorganise.",
+      "The Sacral Ritual is a sacred energetic ceremony designed to cleanse, rebalance, and awaken your inner power. It releases emotional tension and energetic blockages stored in the lower body, restoring the natural harmony between the feminine and the masculine within.\nThis deep process reconnects you to your sensuality, creative flow, and authentic vitality. Through breath, awareness, and sacred touch, stagnant energy transforms into freedom, light, and inner strength.\nAllow yourself to return to the temple of your body, open, radiant, and aligned with the essence of who you truly are.",
     rank: 2,
   },
   {
@@ -82,9 +82,9 @@ export const SESSIONS: Session[] = [
     currency: CURRENCY,
     duration: "75 min",
     modality: "Restoration",
-    description: "Warmth, oil and pressure held long enough for the body to let go.",
+    description: "A sacred experience of touch and presence, created to release tension and restore inner balance.",
     detail:
-      "A slower session built around sustained contact and warmth. Less clinical than the therapeutic work, and intended to bring the nervous system down rather than to treat a specific complaint.",
+      "Relaxing Massage Ritual, a sacred experience of touch and presence, created to release tension, calm the nervous system, and restore inner balance.\nEach session unfolds like a ritual of renewal, refined, intuitive, and deeply therapeutic, guiding you back to a state of peace and clarity.",
     rank: 3,
   },
   {
@@ -95,9 +95,9 @@ export const SESSIONS: Session[] = [
     currency: CURRENCY,
     duration: "75 min",
     modality: "Hawaiian bodywork",
-    description: "Continuous flowing forearm work, rhythmic and enveloping.",
+    description: "A sacred and deeply transformative healing practice rooted in the traditions of ancient Hawaii.",
     detail:
-      "Traditional Hawaiian bodywork adapted to this practice. Long, uninterrupted strokes travel the length of the body, closer to rhythm than to technique.",
+      "Lomi Lomi massage is a sacred and deeply transformative healing practice rooted in the traditions of ancient Hawaii. With the gentle yet powerful touch of loving hands, this massage technique aims to harmonize the body, mind, and spirit, restoring balance and facilitating the release of physical and emotional blockages.\nDuring a Lomi Lomi massage, the practitioner moves with intention and fluidity, mimicking the ebb and flow of the ocean waves. Through rhythmic movements and long, continuous strokes, Lomi Lomi massage is believed to not only soothe the physical body but also to invoke a sense of spiritual connection and oneness with the universe.\nEvery touch in Lomi Lomi massage is thought to be infused with aloha, the spirit of love, compassion, and unity. As you surrender to the healing energy of the massage, you may experience a deep sense of relaxation, inner peace, and a profound reconnection with your inner self.",
     rank: 4,
   },
   {
@@ -108,9 +108,9 @@ export const SESSIONS: Session[] = [
     currency: CURRENCY,
     duration: "55 min",
     modality: "Clinical",
-    description: "Focused structural work where something specific needs attention.",
+    description: "Addresses trauma, poor posture, and injuries caused by repetitive movements.",
     detail:
-      "Direct, targeted treatment for a specific restriction or pattern. The most clinical session offered, and the usual starting point for a first visit.",
+      "The therapy addresses conditions such as trauma, poor posture, and injuries caused by repetitive movements.\nThis treatment brings together the most advanced therapeutic modalities to relieve and ultimately correct patterns in the body that lead to pain and discomfort.",
     rank: 5,
   },
   {
@@ -121,9 +121,9 @@ export const SESSIONS: Session[] = [
     currency: CURRENCY,
     duration: "40 min",
     modality: "Short form",
-    description: "A concentrated reset for a body that cannot spare the full hour.",
+    description: "A deeply restorative session designed to rebalance and realign your energetic centers.",
     detail:
-      "Forty minutes, condensed. Built for the middle of a working week rather than as an introduction to the deeper work.",
+      "A deeply restorative session designed to rebalance and realign your energetic centers. We are energetic beings with an energetic anatomy, the aura, just as real as our physical body.\nWhen this subtle energy field is disturbed, tension, fatigue, or emotional imbalance can manifest in the body. Through gentle energy work and focused intention, Energy Restart clears blockages and restores the natural free flow of life force.\nThis promotes vitality, emotional harmony, and an overall sense of inner peace and well-being.",
     rank: 6,
   },
   {
@@ -134,9 +134,9 @@ export const SESSIONS: Session[] = [
     currency: CURRENCY,
     duration: "Course",
     modality: "Teaching",
-    description: "Eighteen years of practice, taught directly to practitioners.",
+    description: "A two-day intensive for therapists who want to deepen their advanced bodywork techniques.",
     detail:
-      "Not a session. A course for working practitioners who want the method itself: how the work is structured, and how to read a body in real time.",
+      "The two-day intensive course is designed for therapists and massage practitioners who want to deepen their advanced bodywork techniques, focusing on releasing retained emotions and somatic trauma. The program integrates knowledge from psychosomatics, neurophysiology, and manual therapy, providing participants with practical tools to identify and transform energetic and emotional blockages through tactile therapy.\nDay 1: Theoretical foundation (psychosomatics, applied anatomy), palpation assessment of somatization areas, working with the diaphragm and solar plexus techniques.\nDay 2: Applying the integrated protocol (massage, trigger point therapy, approaches, somato-emotional assessment), case studies, and practical exercises in pairs.\nParticipants receive a diploma in applying the learned techniques, and access to a set of techniques for reducing symptoms of anxiety, chronic pain, and adrenal fatigue. Groups are kept to a maximum of four people so feedback stays individual.\nFor manual therapists, physiotherapists, experienced massage practitioners, or health students with basic knowledge of anatomy.",
     rank: 7,
     aside: true,
   },

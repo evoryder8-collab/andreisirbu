@@ -29,7 +29,11 @@ const aside = asideOfferings();
             {aside.map((s) => (
               <div class="md:col-span-8" data-reveal>
                 <h2 class="font-display text-3xl text-chalk md:text-4xl">{s.name}</h2>
-                <p class="mt-4 max-w-[52ch] text-[0.95rem] leading-relaxed text-mist">{s.detail}</p>
+                <div class="mt-4 flex max-w-[52ch] flex-col gap-3.5">
+                  {s.detail.split("\n").map((para) => (
+                    <p class="text-[0.95rem] leading-relaxed text-mist">{para}</p>
+                  ))}
+                </div>
                 <div class="mt-7 flex items-center gap-6">
                   <span class="font-mono text-sm tabular-nums text-bone/90">
                     {s.currency} {formatPrice(s.price)}
