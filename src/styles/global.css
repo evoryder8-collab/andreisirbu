@@ -35,6 +35,9 @@
 
 @layer base {
   html {
+    /* Says the page is already dark, so Android Chrome and Samsung Internet
+       skip their own darkening pass instead of rewriting the palette. */
+    color-scheme: dark;
     background: var(--color-void);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
