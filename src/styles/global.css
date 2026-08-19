@@ -60,6 +60,18 @@
 }
 
 @layer components {
+  /* Sheen as a one-shot animation. Driving this with a GSAP xPercent tween
+     while a Tailwind -translate-x class sat on the same element meant two
+     writers on one transform, and an interrupted tween parked the band across
+     the middle of the card. An animation cannot be left stranded: it runs or
+     it does not, and it always ends off-frame. */
+  .sweep { transform: translateX(-135%); will-change: transform; }
+  .sweep-run { animation: sweep-pass 1000ms cubic-bezier(0.16, 1, 0.3, 1) 1 both; }
+  @keyframes sweep-pass {
+    from { transform: translateX(-135%); }
+    to   { transform: translateX(135%); }
+  }
+
   /* Micro-label: the site's connective tissue. Used for chapter
      numbers, durations, modality, never for reading text. */
   .label {
