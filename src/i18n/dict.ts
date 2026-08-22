@@ -70,14 +70,14 @@ export interface Dict {
 const en: Dict = {
   htmlLang: "en",
   meta: {
-    title: "Andrei Sirbu | Emotional Release & Nervous System Reset, Zürich",
+    title: "Andrei Sirbu | Advanced Nervous System Reset, Zürich",
     description: "A private practice in Zürich. Eighteen years of somatic work, guided in real time. Sessions from CHF 195.",
   },
   nav: { method: "Method", sessions: "Sessions", studio: "Studio", evidence: "Evidence", about: "About", contact: "Contact", reserve: "Reserve" },
   overture: { choose: "Choose your language", note: "Sessions are held in English and German", autoPrefix: "English selected in", cancelHint: "Choose another to stay", entering: "Entering" },
   hero: {
     eyebrow: "Private practice · Zürich · Since 2008",
-    l1: "Nervous system", l2: "reset for", l3: "high performers",
+    l1: "Advanced", l2: "Nervous System", l3: "Reset",
     lede: "I work with high-performing people whose bodies no longer recover at the pace of their lives.",
     cta: "Reserve a session", scroll: "Scroll",
   },
@@ -159,14 +159,14 @@ const en: Dict = {
 const de: Dict = {
   htmlLang: "de",
   meta: {
-    title: "Andrei Sirbu | Emotionales Lösen & Regulation des Nervensystems, Zürich",
+    title: "Andrei Sirbu | Fortgeschrittener Nervensystem-Reset, Zürich",
     description: "Eine private Praxis in Zürich. Achtzehn Jahre Körperarbeit, im Moment geführt. Sitzungen ab CHF 195.",
   },
   nav: { method: "Methode", sessions: "Sitzungen", studio: "Praxis", evidence: "Stimmen", about: "Über mich", contact: "Kontakt", reserve: "Termin" },
   overture: { choose: "Wählen Sie Ihre Sprache", note: "Sitzungen finden auf Deutsch und Englisch statt", autoPrefix: "Deutsch wird gewählt in", cancelHint: "Wählen Sie eine andere Sprache", entering: "Sie treten ein" },
   hero: {
     eyebrow: "Private Praxis · Zürich · Seit 2008",
-    l1: "Nervensystem", l2: "Reset für", l3: "High Performer",
+    l1: "Fortgeschrittener", l2: "Nervensystem", l3: "Reset",
     lede: "Ich arbeite mit Menschen auf hohem Leistungsniveau, deren Körper dem Tempo ihres Lebens nicht mehr hinterherkommt.",
     cta: "Termin vereinbaren", scroll: "Scrollen",
   },
@@ -248,14 +248,14 @@ const de: Dict = {
 const fr: Dict = {
   htmlLang: "fr",
   meta: {
-    title: "Andrei Sirbu | Libération émotionnelle & régulation du système nerveux, Zurich",
+    title: "Andrei Sirbu | Reset avancé du système nerveux, Zurich",
     description: "Un cabinet privé à Zurich. Dix-huit ans de travail corporel, guidé dans l'instant. Séances à partir de CHF 195.",
   },
   nav: { method: "Méthode", sessions: "Séances", studio: "Le cabinet", evidence: "Témoignages", about: "À propos", contact: "Contact", reserve: "Réserver" },
   overture: { choose: "Choisissez votre langue", note: "Les séances se déroulent en anglais et en allemand", autoPrefix: "Français sélectionné dans", cancelHint: "Choisissez-en une autre pour rester", entering: "Entrée" },
   hero: {
     eyebrow: "Cabinet privé · Zurich · Depuis 2008",
-    l1: "Reset du", l2: "système nerveux", l3: "pour haut niveau",
+    l1: "Reset avancé", l2: "du système", l3: "nerveux",
     lede: "Je travaille avec des personnes de haut niveau dont le corps ne récupère plus au rythme de leur vie.",
     cta: "Réserver une séance", scroll: "Défiler",
   },
@@ -337,14 +337,14 @@ const fr: Dict = {
 const it: Dict = {
   htmlLang: "it",
   meta: {
-    title: "Andrei Sirbu | Rilascio emotivo & riequilibrio del sistema nervoso, Zurigo",
+    title: "Andrei Sirbu | Reset avanzato del sistema nervoso, Zurigo",
     description: "Uno studio privato a Zurigo. Diciotto anni di lavoro corporeo, guidato nel momento. Sessioni da CHF 195.",
   },
   nav: { method: "Metodo", sessions: "Sessioni", studio: "Lo studio", evidence: "Testimonianze", about: "Chi sono", contact: "Contatti", reserve: "Prenota" },
   overture: { choose: "Scelga la sua lingua", note: "Le sessioni si tengono in inglese e tedesco", autoPrefix: "Italiano selezionato tra", cancelHint: "Ne scelga un’altra per restare", entering: "Ingresso" },
   hero: {
     eyebrow: "Studio privato · Zurigo · Dal 2008",
-    l1: "Reset del", l2: "sistema nervoso", l3: "per alte prestazioni",
+    l1: "Reset avanzato", l2: "del sistema", l3: "nervoso",
     lede: "Lavoro con persone ad alte prestazioni il cui corpo non recupera più al ritmo della loro vita.",
     cta: "Prenoti una sessione", scroll: "Scorri",
   },
@@ -426,14 +426,14 @@ const it: Dict = {
 const es: Dict = {
   htmlLang: "es",
   meta: {
-    title: "Andrei Sirbu | Liberación emocional y regulación del sistema nervioso, Zúrich",
+    title: "Andrei Sirbu | Reset avanzado del sistema nervioso, Zúrich",
     description: "Una consulta privada en Zúrich. Dieciocho años de trabajo corporal, guiado en el momento. Sesiones desde CHF 195.",
   },
   nav: { method: "Método", sessions: "Sesiones", studio: "La consulta", evidence: "Testimonios", about: "Sobre mí", contact: "Contacto", reserve: "Reservar" },
   overture: { choose: "Elija su idioma", note: "Las sesiones se imparten en inglés y alemán", autoPrefix: "Español seleccionado en", cancelHint: "Elija otro para quedarse", entering: "Entrando" },
   hero: {
     eyebrow: "Consulta privada · Zúrich · Desde 2008",
-    l1: "Reset del", l2: "sistema nervioso", l3: "para alto rendimiento",
+    l1: "Reset avanzado", l2: "del sistema", l3: "nervioso",
     lede: "Trabajo con personas de alto rendimiento cuyo cuerpo ya no se recupera al ritmo de su vida.",
     cta: "Reservar una sesión", scroll: "Desplácese",
   },
@@ -516,7 +516,7 @@ const es: Dict = {
 const ro: Dict = {
   htmlLang: "ro",
   meta: {
-    title: "Andrei Sirbu | Eliberare emoțională și resetarea sistemului nervos, Zürich",
+    title: "Andrei Sirbu | Resetare avansată a sistemului nervos, Zürich",
     description: "Un cabinet privat în Zürich. Optsprezece ani de lucru cu corpul, ghidat în prezent. Ședințe de la CHF 195.",
   },
   nav: { method: "Metoda", sessions: "Ședințe", studio: "Cabinetul", evidence: "Mărturii", about: "Andrei", contact: "Contact", reserve: "Rezervare" },
@@ -529,7 +529,7 @@ const ro: Dict = {
   },
   hero: {
     eyebrow: "Cabinet privat · Zürich · Din 2008",
-    l1: "Resetarea", l2: "sistemului nervos", l3: "pentru performeri",
+    l1: "Resetare avansată", l2: "a sistemului", l3: "nervos",
     lede: "Lucrez cu oameni de mare performanță al căror corp nu mai ține pasul cu ritmul vieții lor.",
     cta: "Rezervați o ședință", scroll: "Derulați",
   },

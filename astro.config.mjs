@@ -2,11 +2,13 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
-// site/base are set for GitHub Pages project-page hosting.
-// At production cutover these change to the real domain and base becomes '/'.
+// Deploy target comes from the environment so one source tree can produce
+// both the GitHub Pages preview and a build for his own server:
+//   SITE_URL=https://andreisirbu.com SITE_BASE=/preview npm run build
+// CI sets neither, so the Pages preview keeps its existing paths.
 export default defineConfig({
-  site: 'https://evoryder8-collab.github.io',
-  base: '/andreisirbu',
+  site: process.env.SITE_URL || 'https://evoryder8-collab.github.io',
+  base: process.env.SITE_BASE ?? '/andreisirbu',
   integrations: [
     sitemap({
       // The locale homepages are the only translated routes, so they are the
