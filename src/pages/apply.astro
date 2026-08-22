@@ -2,12 +2,13 @@
 import Base from "../layouts/Base.astro";
 import OfferingCard from "../components/OfferingCard.astro";
 import { Picture } from "astro:assets";
-import { privateSessions, asideOfferings } from "../data/catalogue";
+import { resetFormats, ritualSessions, asideOfferings } from "../data/catalogue";
 import { DICTS } from "../i18n/dict";
 const t = DICTS.en;
 import { candle } from "../lib/media";
 import { href } from "../lib/url";
-const sessions = privateSessions();
+const reset = resetFormats();
+const rituals = ritualSessions();
 const aside = asideOfferings();
 ---
 <Base title="Reserve a Session | Andrei Sirbu, Zürich"
@@ -24,12 +25,12 @@ const aside = asideOfferings();
     </div>
 
     <div class="depth-near relative mx-auto max-w-6xl">
-      <p class="label mb-6" data-reveal>By application</p>
-      <h1 class="gilt gilt-live font-display max-w-[13ch] text-[clamp(2.6rem,13vw,5.4rem)] leading-[0.94] tracking-[-0.02em]">
-        Reserve a session
+      <p class="label mb-6" data-reveal>{t.reset.method} · {t.reset.subtitle}</p>
+      <h1 class="gilt gilt-live font-display max-w-[13ch] text-[clamp(2.4rem,12vw,5.4rem)] leading-[1.0] tracking-[-0.02em]">
+        {t.reset.onlyOne}
       </h1>
       <p class="lede-lux mt-7 max-w-[40ch] text-[1.08rem] md:text-xl" data-reveal>
-        Choose the work below. You will pick a date and time in the next step.
+        {t.reset.returnLine}
       </p>
     </div>
   </header>
@@ -37,7 +38,26 @@ const aside = asideOfferings();
   <!-- The blocks -->
   <section class="depth relative bg-void px-5 pb-24 sm:px-8 md:pb-32" aria-label="Bookable sessions">
     <div class="mx-auto grid max-w-6xl gap-6 md:grid-cols-2 md:gap-7">
-      {sessions.map((s, i) => <OfferingCard session={s} index={i} t={t} />)}
+      {reset.map((s, i) => <OfferingCard session={s} index={i} t={t} />)}
+    </div>
+
+    <p class="label mx-auto mt-6 max-w-6xl !normal-case !tracking-normal !text-[0.75rem] leading-relaxed opacity-70"
+       data-reveal>{t.reset.travelNote}</p>
+
+    <div class="mx-auto mt-20 max-w-6xl md:mt-24">
+      <div class="flex items-center gap-5" data-reveal>
+        <span class="h-px flex-1 bg-gradient-to-r from-transparent to-bronze/50"></span>
+        <span class="label !text-[0.55rem] !tracking-[0.2em] !text-bronze/90 whitespace-nowrap">
+          {t.reset.ritualsLabel}
+        </span>
+        <span class="h-px flex-1 bg-gradient-to-l from-transparent to-bronze/50"></span>
+      </div>
+      <p class="label mx-auto mt-4 max-w-[34ch] text-center !normal-case !tracking-normal
+                !text-[0.75rem] leading-relaxed opacity-70" data-reveal>{t.reset.ritualsNote}</p>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-2 md:gap-7">
+        {rituals.map((s, i) => <OfferingCard session={s} index={reset.length + i} t={t} />)}
+      </div>
     </div>
 
     {aside.length > 0 && (
@@ -55,7 +75,7 @@ const aside = asideOfferings();
         </p>
 
         <div class="mt-10 grid gap-6 md:grid-cols-2 md:gap-7">
-          {aside.map((s, i) => <OfferingCard session={s} index={sessions.length + i} t={t} />)}
+          {aside.map((s, i) => <OfferingCard session={s} index={reset.length + rituals.length + i} t={t} />)}
         </div>
       </div>
     )}

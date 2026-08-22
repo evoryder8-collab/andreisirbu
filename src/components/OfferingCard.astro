@@ -89,21 +89,26 @@ const plate = plateFor(session.slug);
         {session.description}
       </p>
 
-      <div class="mt-2 flex items-center justify-between gap-4 border-t border-bone/12 pt-4">
-        <span class="font-mono text-sm tabular-nums text-bone/90">
+      <div class={`mt-2 border-t border-bone/12 pt-4 ${session.booking === "apply"
+                    ? "flex flex-col gap-3.5"
+                    : "flex items-center justify-between gap-4"}`}>
+        <span class="whitespace-nowrap font-mono text-sm tabular-nums text-bone/90">
+          {session.priceFrom && <span class="label mr-1.5 !text-[0.5rem]">from</span>}
           {session.currency}
           <span data-count={String(session.price)} data-count-group="true">{formatPrice(session.price)}</span>
         </span>
 
         <a
           data-offering-cta
-          href={href(`/book/${session.slug}`)}
-          class="relative inline-flex items-center gap-2 rounded-full border border-bronze/45
-                 bg-void/55 px-5 py-2.5 text-[0.62rem] font-semibold uppercase
-                 tracking-[0.2em] text-bone backdrop-blur-md transition-colors duration-500
-                 hover:border-bronze hover:text-chalk"
+          href={session.booking === "apply" ? href("/enquire") : href(`/book/${session.slug}`)}
+          class={`relative inline-flex items-center gap-2 rounded-full border border-bronze/45
+                  bg-void/55 px-5 py-2.5 text-[0.62rem] font-semibold uppercase
+                  tracking-[0.2em] text-bone backdrop-blur-md transition-colors duration-500
+                  hover:border-bronze hover:text-chalk ${session.booking === "apply"
+                    ? "w-full justify-center text-center"
+                    : ""}`}
         >
-          Reserve
+          {session.booking === "apply" ? t.reset.applyCta : t.sessions.reserve}
           <span data-offering-arrow class="transition-transform duration-500">→</span>
         </a>
       </div>

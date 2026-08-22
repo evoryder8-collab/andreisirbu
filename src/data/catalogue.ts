@@ -34,6 +34,12 @@ export interface Session {
   signature?: boolean;
   /** Sits outside the private-session ladder (teaching, vouchers). */
   aside?: boolean;
+  /** Which part of the offer this belongs to. */
+  tier?: "reset" | "ritual" | "teaching";
+  /** Travel makes the price variable, so it is shown as a floor. */
+  priceFrom?: boolean;
+  /** Fixed price and a studio slot take the calendar; travel takes an application. */
+  booking?: "calendar" | "apply";
 }
 
 export const CURRENCY = "CHF";
@@ -48,18 +54,34 @@ export const formatPrice = (n: number): string =>
 export const SESSIONS: Session[] = [
   {
     slug: "la-terapia",
-    name: "La Terapia Method",
+    name: "The Session",
     storeName: "La Terapia Method – Advanced Nervous System Reset",
     price: 295,
     currency: CURRENCY,
     duration: "75 min",
     modality: "Nervous system reset",
-    description:
-      "A profound journey into the release of repressed emotions and somatized trauma.",
-    detail:
-      "La Terapia, the sacred vision of Andrei Sîrbu, is a profound journey into the release of repressed emotions and somatized trauma.\nBy merging spiritual principles with manual therapy, psychotherapy, and breathwork, this method restores harmony to body, mind, and soul.\nA sacred, embodied healing experience that awakens inner peace, emotional liberation, and deep remembrance of who you truly are.",
+    description: "A profound journey into the release of repressed emotions and somatized trauma.",
+    detail: "The Reset Method, the sacred vision of Andrei Sîrbu, is a profound journey into the release of repressed emotions and somatized trauma.\nBy merging spiritual principles with manual therapy, psychotherapy, and breathwork, this method restores harmony to body, mind, and soul.\nA sacred, embodied healing experience that awakens inner peace, emotional liberation, and deep remembrance of who you truly are.",
     rank: 1,
     signature: true,
+    tier: "reset",
+    booking: "calendar",
+  },
+  {
+    slug: "the-private-session",
+    name: "The Private Session",
+    storeName: "The Private Session",
+    price: 500,
+    priceFrom: true,
+    currency: CURRENCY,
+    duration: "75 min",
+    modality: "In your space",
+    description: "Villa, residence or hotel. The same work, brought to where you are.",
+    detail: "The Reset Method, delivered in your own space rather than the studio.\n",
+    rank: 2,
+    signature: true,
+    tier: "reset",
+    booking: "apply",
   },
   {
     slug: "sacral-ritual",
@@ -70,10 +92,11 @@ export const SESSIONS: Session[] = [
     duration: "90 min",
     modality: "Deep release",
     description: "A sacred energetic ceremony designed to cleanse, rebalance, and awaken your inner power.",
-    detail:
-      "The Sacral Ritual is a sacred energetic ceremony designed to cleanse, rebalance, and awaken your inner power. It releases emotional tension and energetic blockages stored in the lower body, restoring the natural harmony between the feminine and the masculine within.\nThis deep process reconnects you to your sensuality, creative flow, and authentic vitality. Through breath, awareness, and sacred touch, stagnant energy transforms into freedom, light, and inner strength.\nAllow yourself to return to the temple of your body, open, radiant, and aligned with the essence of who you truly are.",
-    rank: 2,
+    detail: "The Sacral Ritual is a sacred energetic ceremony designed to cleanse, rebalance, and awaken your inner power. It releases emotional tension and energetic blockages stored in the lower body, restoring the natural harmony between the feminine and the masculine within.\nThis deep process reconnects you to your sensuality, creative flow, and authentic vitality. Through breath, awareness, and sacred touch, stagnant energy transforms into freedom, light, and inner strength.\nAllow yourself to return to the temple of your body, open, radiant, and aligned with the essence of who you truly are.",
+    rank: 3,
     signature: true,
+    tier: "ritual",
+    booking: "calendar",
   },
   {
     slug: "relaxing-massage-ritual",
@@ -84,9 +107,10 @@ export const SESSIONS: Session[] = [
     duration: "75 min",
     modality: "Restoration",
     description: "A sacred experience of touch and presence, created to release tension and restore inner balance.",
-    detail:
-      "Relaxing Massage Ritual, a sacred experience of touch and presence, created to release tension, calm the nervous system, and restore inner balance.\nEach session unfolds like a ritual of renewal, refined, intuitive, and deeply therapeutic, guiding you back to a state of peace and clarity.",
-    rank: 3,
+    detail: "Relaxing Massage Ritual, a sacred experience of touch and presence, created to release tension, calm the nervous system, and restore inner balance.\nEach session unfolds like a ritual of renewal, refined, intuitive, and deeply therapeutic, guiding you back to a state of peace and clarity.",
+    rank: 4,
+    tier: "ritual",
+    booking: "calendar",
   },
   {
     slug: "lomi-lomi-therapy",
@@ -97,9 +121,10 @@ export const SESSIONS: Session[] = [
     duration: "75 min",
     modality: "Hawaiian bodywork",
     description: "A sacred and deeply transformative healing practice rooted in the traditions of ancient Hawaii.",
-    detail:
-      "Lomi Lomi massage is a sacred and deeply transformative healing practice rooted in the traditions of ancient Hawaii. With the gentle yet powerful touch of loving hands, this massage technique aims to harmonize the body, mind, and spirit, restoring balance and facilitating the release of physical and emotional blockages.\nDuring a Lomi Lomi massage, the practitioner moves with intention and fluidity, mimicking the ebb and flow of the ocean waves. Through rhythmic movements and long, continuous strokes, Lomi Lomi massage is believed to not only soothe the physical body but also to invoke a sense of spiritual connection and oneness with the universe.\nEvery touch in Lomi Lomi massage is thought to be infused with aloha, the spirit of love, compassion, and unity. As you surrender to the healing energy of the massage, you may experience a deep sense of relaxation, inner peace, and a profound reconnection with your inner self.",
-    rank: 4,
+    detail: "Lomi Lomi massage is a sacred and deeply transformative healing practice rooted in the traditions of ancient Hawaii. With the gentle yet powerful touch of loving hands, this massage technique aims to harmonize the body, mind, and spirit, restoring balance and facilitating the release of physical and emotional blockages.\nDuring a Lomi Lomi massage, the practitioner moves with intention and fluidity, mimicking the ebb and flow of the ocean waves. Through rhythmic movements and long, continuous strokes, Lomi Lomi massage is believed to not only soothe the physical body but also to invoke a sense of spiritual connection and oneness with the universe.\nEvery touch in Lomi Lomi massage is thought to be infused with aloha, the spirit of love, compassion, and unity. As you surrender to the healing energy of the massage, you may experience a deep sense of relaxation, inner peace, and a profound reconnection with your inner self.",
+    rank: 5,
+    tier: "ritual",
+    booking: "calendar",
   },
   {
     slug: "therapeutic-massage-55min",
@@ -110,9 +135,10 @@ export const SESSIONS: Session[] = [
     duration: "55 min",
     modality: "Clinical",
     description: "Addresses trauma, poor posture, and injuries caused by repetitive movements.",
-    detail:
-      "The therapy addresses conditions such as trauma, poor posture, and injuries caused by repetitive movements.\nThis treatment brings together the most advanced therapeutic modalities to relieve and ultimately correct patterns in the body that lead to pain and discomfort.",
-    rank: 5,
+    detail: "The therapy addresses conditions such as trauma, poor posture, and injuries caused by repetitive movements.\nThis treatment brings together the most advanced therapeutic modalities to relieve and ultimately correct patterns in the body that lead to pain and discomfort.",
+    rank: 6,
+    tier: "ritual",
+    booking: "calendar",
   },
   {
     slug: "revibe",
@@ -123,9 +149,10 @@ export const SESSIONS: Session[] = [
     duration: "40 min",
     modality: "Short form",
     description: "A deeply restorative session designed to rebalance and realign your energetic centers.",
-    detail:
-      "A deeply restorative session designed to rebalance and realign your energetic centers. We are energetic beings with an energetic anatomy, the aura, just as real as our physical body.\nWhen this subtle energy field is disturbed, tension, fatigue, or emotional imbalance can manifest in the body. Through gentle energy work and focused intention, Energy Restart clears blockages and restores the natural free flow of life force.\nThis promotes vitality, emotional harmony, and an overall sense of inner peace and well-being.",
-    rank: 6,
+    detail: "A deeply restorative session designed to rebalance and realign your energetic centers. We are energetic beings with an energetic anatomy, the aura, just as real as our physical body.\nWhen this subtle energy field is disturbed, tension, fatigue, or emotional imbalance can manifest in the body. Through gentle energy work and focused intention, Energy Restart clears blockages and restores the natural free flow of life force.\nThis promotes vitality, emotional harmony, and an overall sense of inner peace and well-being.",
+    rank: 7,
+    tier: "ritual",
+    booking: "calendar",
   },
   {
     slug: "holistic-massage-masterclass",
@@ -136,14 +163,23 @@ export const SESSIONS: Session[] = [
     duration: "Course",
     modality: "Teaching",
     description: "A two-day intensive for therapists who want to deepen their advanced bodywork techniques.",
-    detail:
-      "The two-day intensive course is designed for therapists and massage practitioners who want to deepen their advanced bodywork techniques, focusing on releasing retained emotions and somatic trauma. The program integrates knowledge from psychosomatics, neurophysiology, and manual therapy, providing participants with practical tools to identify and transform energetic and emotional blockages through tactile therapy.\nDay 1: Theoretical foundation (psychosomatics, applied anatomy), palpation assessment of somatization areas, working with the diaphragm and solar plexus techniques.\nDay 2: Applying the integrated protocol (massage, trigger point therapy, approaches, somato-emotional assessment), case studies, and practical exercises in pairs.\nParticipants receive a diploma in applying the learned techniques, and access to a set of techniques for reducing symptoms of anxiety, chronic pain, and adrenal fatigue. Groups are kept to a maximum of four people so feedback stays individual.\nFor manual therapists, physiotherapists, experienced massage practitioners, or health students with basic knowledge of anatomy.",
-    rank: 7,
+    detail: "The two-day intensive course is designed for therapists and massage practitioners who want to deepen their advanced bodywork techniques, focusing on releasing retained emotions and somatic trauma. The program integrates knowledge from psychosomatics, neurophysiology, and manual therapy, providing participants with practical tools to identify and transform energetic and emotional blockages through tactile therapy.\nDay 1: Theoretical foundation (psychosomatics, applied anatomy), palpation assessment of somatization areas, working with the diaphragm and solar plexus techniques.\nDay 2: Applying the integrated protocol (massage, trigger point therapy, approaches, somato-emotional assessment), case studies, and practical exercises in pairs.\nParticipants receive a diploma in applying the learned techniques, and access to a set of techniques for reducing symptoms of anxiety, chronic pain, and adrenal fatigue. Groups are kept to a maximum of four people so feedback stays individual.\nFor manual therapists, physiotherapists, experienced massage practitioners, or health students with basic knowledge of anatomy.",
+    rank: 8,
     aside: true,
+    tier: "teaching",
+    booking: "calendar",
   },
 ];
 
-/** The private-session ladder, what the sessions grid shows. */
+/** The two Reset formats: the studio session and the travelling one. */
+export const resetFormats = (): Session[] =>
+  SESSIONS.filter((s) => s.tier === "reset").sort((a, b) => a.rank - b.rank);
+
+/** The ritual menu, which continues to run alongside the Reset work. */
+export const ritualSessions = (): Session[] =>
+  SESSIONS.filter((s) => s.tier === "ritual").sort((a, b) => a.rank - b.rank);
+
+/** Everything bookable, Reset first. */
 export const privateSessions = (): Session[] =>
   SESSIONS.filter((s) => !s.aside).sort((a, b) => a.rank - b.rank);
 

@@ -1,0 +1,130 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHead from "../components/PageHead.astro";
+import { getSession, formatPrice } from "../data/catalogue";
+import { STUDIO } from "../lib/availability";
+import { DICTS } from "../i18n/dict";
+import { candle } from "../lib/media";
+const t = DICTS.en;
+const s = getSession("the-private-session")!;
+---
+<Base title="Apply for a Private Session | Andrei Sirbu"
+      description="The Reset Method, brought to your villa, residence or hotel. From CHF 500, depending on travel and location.">
+
+  <PageHead eyebrow={`${t.reset.method} · ${t.reset.inYourSpace}`}
+    title={t.reset.applyCta}
+    lede={t.reset.travelNote}
+    plate={candle} alt="Candlelight in the treatment room." focus="50% 50%" />
+
+  <section class="bg-void px-5 pb-28 sm:px-8 md:pb-36">
+    <div class="mx-auto max-w-3xl">
+
+      <!-- What is being applied for, stated once -->
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-2 border-y border-ash/50 py-6" data-reveal>
+        <span class="label rounded-full border border-bone/15 bg-void/70 px-2.5 py-1 !text-[0.55rem] !text-bone/90">{s.duration}</span>
+        <span class="label rounded-full border border-bone/15 bg-void/70 px-2.5 py-1 !text-[0.55rem] !text-bone/90">{s.modality}</span>
+        <span class="label rounded-full border border-bronze/45 bg-void/70 px-2.5 py-1 !text-[0.55rem] !text-bronze">
+          from {s.currency} {formatPrice(s.price)}
+        </span>
+      </div>
+
+      <p class="lede-lux mt-8 text-[1.05rem]" data-reveal>{t.reset.standsAlone}</p>
+
+      <form data-enquiry class="mt-10 flex flex-col gap-5">
+        <div class="grid gap-5 sm:grid-cols-2">
+          <label class="flex flex-col gap-2">
+            <span class="label !text-[0.52rem]">Name</span>
+            <input name="name" type="text" required autocomplete="name" class="lux-field" />
+          </label>
+          <label class="flex flex-col gap-2">
+            <span class="label !text-[0.52rem]">Email</span>
+            <input name="email" type="email" required autocomplete="email" class="lux-field" />
+          </label>
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2">
+          <label class="flex flex-col gap-2">
+            <span class="label !text-[0.52rem]">City</span>
+            <input name="city" type="text" required placeholder="Zürich, Marbella, elsewhere" class="lux-field" />
+          </label>
+          <label class="flex flex-col gap-2">
+            <span class="label !text-[0.52rem]">Where</span>
+            <select name="venue" class="lux-field">
+              <option value="Villa">Villa</option>
+              <option value="Residence">Residence</option>
+              <option value="Hotel">Hotel</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2">
+          <label class="flex flex-col gap-2">
+            <span class="label !text-[0.52rem]">Dates</span>
+            <input name="dates" type="text" placeholder="Which days suit you" class="lux-field" />
+          </label>
+          <label class="flex flex-col gap-2">
+            <span class="label !text-[0.52rem]">Phone <span class="opacity-50">optional</span></span>
+            <input name="phone" type="tel" autocomplete="tel" class="lux-field" />
+          </label>
+        </div>
+
+        <label class="flex flex-col gap-2">
+          <span class="label !text-[0.52rem]">What brings you</span>
+          <textarea name="notes" rows="4" class="lux-field resize-none"></textarea>
+        </label>
+
+        <button type="submit" data-magnetic
+          class="sheen mt-2 inline-flex w-fit items-center gap-3 rounded-full bg-bronze px-8 py-4
+                 text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-void">
+          {t.reset.applyCta} →
+        </button>
+
+        <p class="label !normal-case !tracking-normal !text-[0.72rem] leading-relaxed opacity-70">
+          Andrei replies personally. The fee is confirmed once travel and location are known.
+        </p>
+      </form>
+
+      <div data-enquiry-done hidden class="mt-10 text-center">
+        <p class="gilt font-display text-[2rem] leading-tight">Your request is with Andrei</p>
+        <p class="lede-lux mx-auto mt-4 max-w-[40ch] text-[1rem]">
+          He will come back to you personally, usually within a day.
+        </p>
+        <a href={`mailto:${STUDIO.email}`} class="label mt-7 inline-block border-b border-bronze/40 pb-1 !text-bronze">
+          {STUDIO.email}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import { STUDIO } from "../lib/availability";
+    const boot = () => {
+      const form = document.querySelector<HTMLFormElement>("[data-enquiry]");
+      const done = document.querySelector<HTMLElement>("[data-enquiry-done]");
+      if (!form || !done) return;
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const f = new FormData(form);
+        // Hands off to mail today. The shape matches what a real endpoint
+        // would receive when one is connected.
+        const body = [
+          `Name: ${f.get("name")}`,
+          `Email: ${f.get("email")}`,
+          `City: ${f.get("city")}`,
+          `Venue: ${f.get("venue")}`,
+          f.get("dates") ? `Dates: ${f.get("dates")}` : "",
+          f.get("phone") ? `Phone: ${f.get("phone")}` : "",
+          "",
+          String(f.get("notes") || ""),
+        ].filter(Boolean).join("\n");
+        window.location.href =
+          `mailto:${STUDIO.email}?subject=${encodeURIComponent("Private Session request")}&body=${encodeURIComponent(body)}`;
+        form.hidden = true;
+        done.hidden = false;
+      });
+    };
+    boot();
+    document.addEventListener("astro:after-swap", boot);
+  </script>
+</Base>

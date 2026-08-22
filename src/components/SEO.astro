@@ -28,7 +28,7 @@ const schema = business
       address: { "@type": "PostalAddress", addressLocality: "Zürich", addressCountry: "CH" },
       makesOffer: SESSIONS.filter((s) => !s.aside).map((s) => ({
         "@type": "Offer",
-        name: s.storeName,
+        name: s.name,
         price: s.price,
         priceCurrency: s.currency,
         url: bookingUrl(s.slug),

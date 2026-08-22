@@ -50,6 +50,20 @@ export interface Dict {
   social: { label: string; visit: string; contact: string; proceed: string; stay: string };
   teaching: { ask: string; badge: string; note: string };
   signature: string;
+  reset: {
+    method: string;
+    subtitle: string;
+    opening: string;
+    onlyOne: string;
+    returnLine: string;
+    standsAlone: string;
+    applyCta: string;
+    atStudio: string;
+    inYourSpace: string;
+    ritualsLabel: string;
+    ritualsNote: string;
+    travelNote: string;
+  };
 }
 
 const en: Dict = {
@@ -62,8 +76,8 @@ const en: Dict = {
   overture: { choose: "Choose your language", note: "Sessions are held in English and German", autoPrefix: "English selected in", cancelHint: "Choose another to stay", entering: "Entering" },
   hero: {
     eyebrow: "Private practice · Zürich · Since 2008",
-    l1: "Emotional release", l2: "& nervous", l3: "system reset",
-    lede: "Eighteen years of practice. Each session guided in real time, responding to your body rather than following a fixed routine.",
+    l1: "Nervous system", l2: "reset for", l3: "high performers",
+    lede: "I work with high-performing people whose bodies no longer recover at the pace of their lives.",
     cta: "Reserve a session", scroll: "Scroll",
   },
   positioning: {
@@ -124,6 +138,20 @@ const en: Dict = {
     note: "The work below is taught, not received.",
   },
   signature: "Signature",
+  reset: {
+    method: "The Reset Method",
+    subtitle: "Nervous System Reset for High Performers",
+    opening: "I work with high-performing people whose bodies no longer recover at the pace of their lives.",
+    onlyOne: "One session. Complete in itself.",
+    returnLine: "If your body asks you to return, you return.",
+    standsAlone: "Every session stands on its own.",
+    applyCta: "Apply for a Private Session",
+    atStudio: "At the studio",
+    inYourSpace: "In your space",
+    ritualsLabel: "The ritual menu",
+    ritualsNote: "The Zurich practice, unchanged.",
+    travelNote: "Villa, residence or hotel. The fee varies with travel and location.",
+  },
 };
 
 const de: Dict = {
@@ -136,8 +164,8 @@ const de: Dict = {
   overture: { choose: "Wählen Sie Ihre Sprache", note: "Sitzungen finden auf Deutsch und Englisch statt", autoPrefix: "Deutsch wird gewählt in", cancelHint: "Wählen Sie eine andere Sprache", entering: "Sie treten ein" },
   hero: {
     eyebrow: "Private Praxis · Zürich · Seit 2008",
-    l1: "Emotionales Lösen", l2: "& Regulation", l3: "des Nervensystems",
-    lede: "Achtzehn Jahre Praxis. Jede Sitzung entsteht im Moment und folgt Ihrem Körper, nicht einem festen Ablauf.",
+    l1: "Nervensystem", l2: "Reset für", l3: "High Performer",
+    lede: "Ich arbeite mit Menschen auf hohem Leistungsniveau, deren Körper dem Tempo ihres Lebens nicht mehr hinterherkommt.",
     cta: "Termin vereinbaren", scroll: "Scrollen",
   },
   positioning: {
@@ -198,6 +226,20 @@ const de: Dict = {
     note: "Das Folgende wird gelehrt, nicht empfangen.",
   },
   signature: "Signatur",
+  reset: {
+    method: "The Reset Method",
+    subtitle: "Nervensystem-Reset für High Performer",
+    opening: "Ich arbeite mit Menschen auf hohem Leistungsniveau, deren Körper dem Tempo ihres Lebens nicht mehr hinterherkommt.",
+    onlyOne: "Eine Sitzung. In sich abgeschlossen.",
+    returnLine: "Wenn Ihr Körper Sie zurückruft, kommen Sie wieder.",
+    standsAlone: "Jede Sitzung steht für sich.",
+    applyCta: "Private Sitzung anfragen",
+    atStudio: "In der Praxis",
+    inYourSpace: "Bei Ihnen",
+    ritualsLabel: "Die Ritual-Karte",
+    ritualsNote: "Die Zürcher Praxis, unverändert.",
+    travelNote: "Villa, Residenz oder Hotel. Das Honorar richtet sich nach Anfahrt und Ort.",
+  },
 };
 
 const fr: Dict = {
@@ -210,8 +252,8 @@ const fr: Dict = {
   overture: { choose: "Choisissez votre langue", note: "Les séances se déroulent en anglais et en allemand", autoPrefix: "Français sélectionné dans", cancelHint: "Choisissez-en une autre pour rester", entering: "Entrée" },
   hero: {
     eyebrow: "Cabinet privé · Zurich · Depuis 2008",
-    l1: "Libération émotionnelle", l2: "& régulation", l3: "du système nerveux",
-    lede: "Dix-huit ans de pratique. Chaque séance se construit dans l'instant et suit votre corps, non un protocole établi.",
+    l1: "Reset du", l2: "système nerveux", l3: "pour haut niveau",
+    lede: "Je travaille avec des personnes de haut niveau dont le corps ne récupère plus au rythme de leur vie.",
     cta: "Réserver une séance", scroll: "Défiler",
   },
   positioning: {
@@ -272,6 +314,20 @@ const fr: Dict = {
     note: "Ce qui suit s’enseigne, ne se reçoit pas.",
   },
   signature: "Signature",
+  reset: {
+    method: "The Reset Method",
+    subtitle: "Reset du système nerveux pour haut niveau",
+    opening: "Je travaille avec des personnes de haut niveau dont le corps ne récupère plus au rythme de leur vie.",
+    onlyOne: "Une séance. Complète en elle-même.",
+    returnLine: "Si votre corps vous rappelle, vous revenez.",
+    standsAlone: "Chaque séance se suffit à elle-même.",
+    applyCta: "Demander une séance privée",
+    atStudio: "Au cabinet",
+    inYourSpace: "Chez vous",
+    ritualsLabel: "La carte des rituels",
+    ritualsNote: "Le cabinet zurichois, inchangé.",
+    travelNote: "Villa, résidence ou hôtel. Les honoraires dépendent du déplacement et du lieu.",
+  },
 };
 
 const it: Dict = {
@@ -284,8 +340,8 @@ const it: Dict = {
   overture: { choose: "Scelga la sua lingua", note: "Le sessioni si tengono in inglese e tedesco", autoPrefix: "Italiano selezionato tra", cancelHint: "Ne scelga un’altra per restare", entering: "Ingresso" },
   hero: {
     eyebrow: "Studio privato · Zurigo · Dal 2008",
-    l1: "Rilascio emotivo", l2: "& riequilibrio", l3: "del sistema nervoso",
-    lede: "Diciotto anni di pratica. Ogni sessione nasce nel momento e segue il suo corpo, non una sequenza prestabilita.",
+    l1: "Reset del", l2: "sistema nervoso", l3: "per alte prestazioni",
+    lede: "Lavoro con persone ad alte prestazioni il cui corpo non recupera più al ritmo della loro vita.",
     cta: "Prenoti una sessione", scroll: "Scorri",
   },
   positioning: {
@@ -346,6 +402,20 @@ const it: Dict = {
     note: "Quello che segue si insegna, non si riceve.",
   },
   signature: "Firma",
+  reset: {
+    method: "The Reset Method",
+    subtitle: "Reset del sistema nervoso per alte prestazioni",
+    opening: "Lavoro con persone ad alte prestazioni il cui corpo non recupera più al ritmo della loro vita.",
+    onlyOne: "Una sessione. Completa in sé.",
+    returnLine: "Se il suo corpo la richiama, torna.",
+    standsAlone: "Ogni sessione vale da sola.",
+    applyCta: "Richiedere una sessione privata",
+    atStudio: "In studio",
+    inYourSpace: "Da lei",
+    ritualsLabel: "La carta dei rituali",
+    ritualsNote: "Lo studio di Zurigo, invariato.",
+    travelNote: "Villa, residenza o hotel. Il compenso dipende dallo spostamento e dal luogo.",
+  },
 };
 
 const es: Dict = {
@@ -358,8 +428,8 @@ const es: Dict = {
   overture: { choose: "Elija su idioma", note: "Las sesiones se imparten en inglés y alemán", autoPrefix: "Español seleccionado en", cancelHint: "Elija otro para quedarse", entering: "Entrando" },
   hero: {
     eyebrow: "Consulta privada · Zúrich · Desde 2008",
-    l1: "Liberación emocional", l2: "y regulación", l3: "del sistema nervioso",
-    lede: "Dieciocho años de práctica. Cada sesión se construye en el momento y sigue a su cuerpo, no una rutina fija.",
+    l1: "Reset del", l2: "sistema nervioso", l3: "para alto rendimiento",
+    lede: "Trabajo con personas de alto rendimiento cuyo cuerpo ya no se recupera al ritmo de su vida.",
     cta: "Reservar una sesión", scroll: "Desplácese",
   },
   positioning: {
@@ -420,6 +490,20 @@ const es: Dict = {
     note: "Lo que sigue se enseña, no se recibe.",
   },
   signature: "Sello",
+  reset: {
+    method: "The Reset Method",
+    subtitle: "Reset del sistema nervioso para alto rendimiento",
+    opening: "Trabajo con personas de alto rendimiento cuyo cuerpo ya no se recupera al ritmo de su vida.",
+    onlyOne: "Una sesión. Completa en sí misma.",
+    returnLine: "Si su cuerpo le pide volver, vuelve.",
+    standsAlone: "Cada sesión se sostiene sola.",
+    applyCta: "Solicitar una sesión privada",
+    atStudio: "En la consulta",
+    inYourSpace: "Donde usted esté",
+    ritualsLabel: "La carta de rituales",
+    ritualsNote: "La consulta de Zúrich, sin cambios.",
+    travelNote: "Villa, residencia u hotel. Los honorarios dependen del desplazamiento y del lugar.",
+  },
 };
 
 
@@ -439,8 +523,8 @@ const ro: Dict = {
   },
   hero: {
     eyebrow: "Cabinet privat · Zürich · Din 2008",
-    l1: "Eliberare emoțională", l2: "și resetarea", l3: "sistemului nervos",
-    lede: "Optsprezece ani de practică. Fiecare ședință se naște în prezent și urmează corpul dumneavoastră, nu un tipar dinainte stabilit.",
+    l1: "Resetarea", l2: "sistemului nervos", l3: "pentru performeri",
+    lede: "Lucrez cu oameni de mare performanță al căror corp nu mai ține pasul cu ritmul vieții lor.",
     cta: "Rezervați o ședință", scroll: "Derulați",
   },
   positioning: {
@@ -501,6 +585,20 @@ const ro: Dict = {
     note: "Ce urmează se predă, nu se primește.",
   },
   signature: "Semnătură",
+  reset: {
+    method: "The Reset Method",
+    subtitle: "Resetarea sistemului nervos pentru performeri",
+    opening: "Lucrez cu oameni de mare performanță al căror corp nu mai ține pasul cu ritmul vieții lor.",
+    onlyOne: "O singură ședință. Completă în sine.",
+    returnLine: "Dacă vă cheamă corpul înapoi, reveniți.",
+    standsAlone: "Fiecare ședință stă în picioare singură.",
+    applyCta: "Solicitați o ședință privată",
+    atStudio: "În cabinet",
+    inYourSpace: "La dumneavoastră",
+    ritualsLabel: "Carta ritualurilor",
+    ritualsNote: "Cabinetul din Zürich, neschimbat.",
+    travelNote: "Vilă, reședință sau hotel. Onorariul depinde de deplasare și de locație.",
+  },
 };
 
 export const DICTS: Record<Locale, Dict> = { en, de, fr, it, es, ro };
