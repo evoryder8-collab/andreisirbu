@@ -1,7 +1,8 @@
 ---
 import { Picture } from "astro:assets";
 import type { Session } from "../data/catalogue";
-import { formatPrice } from "../data/catalogue";
+import { formatPrice, whatsappUrl } from "../data/catalogue";
+import { STUDIO } from "../lib/availability";
 import { href } from "../lib/url";
 import { plateFor } from "../lib/media";
 
@@ -89,7 +90,7 @@ const plate = plateFor(session.slug);
         {session.description}
       </p>
 
-      <div class={`mt-2 border-t border-bone/12 pt-4 ${session.booking === "apply"
+      <div class={`mt-2 border-t border-bone/12 pt-4 ${session.booking === "whatsapp"
                     ? "flex flex-col gap-3.5"
                     : "flex items-center justify-between gap-4"}`}>
         <span class="whitespace-nowrap font-mono text-sm tabular-nums text-bone/90">
@@ -100,15 +101,17 @@ const plate = plateFor(session.slug);
 
         <a
           data-offering-cta
-          href={session.booking === "apply" ? href("/enquire") : href(`/book/${session.slug}`)}
+          target={session.booking === "whatsapp" ? "_blank" : undefined}
+          rel={session.booking === "whatsapp" ? "noopener noreferrer" : undefined}
+          href={session.booking === "whatsapp" ? whatsappUrl(STUDIO.phoneHref) : href(`/book/${session.slug}`)}
           class={`relative inline-flex items-center gap-2 rounded-full border border-bronze/45
                   bg-void/55 px-5 py-2.5 text-[0.62rem] font-semibold uppercase
                   tracking-[0.2em] text-bone backdrop-blur-md transition-colors duration-500
-                  hover:border-bronze hover:text-chalk ${session.booking === "apply"
+                  hover:border-bronze hover:text-chalk ${session.booking === "whatsapp"
                     ? "w-full justify-center text-center"
                     : ""}`}
         >
-          {session.booking === "apply" ? t.reset.applyCta : t.sessions.reserve}
+          {session.booking === "whatsapp" ? t.reset.applyCta : t.sessions.reserve}
           <span data-offering-arrow class="transition-transform duration-500">→</span>
         </a>
       </div>

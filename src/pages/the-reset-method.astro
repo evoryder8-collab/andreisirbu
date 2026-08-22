@@ -1,0 +1,93 @@
+---
+import Base from "../layouts/Base.astro";
+import MethodScene from "../components/MethodScene.astro";
+import PageHead from "../components/PageHead.astro";
+import { getSession, formatPrice } from "../data/catalogue";
+import { METHOD_LEDE, METHOD_PILLARS, METHOD_PURPOSE } from "../data/method";
+import { gorgePortrait } from "../lib/media";
+import { href } from "../lib/url";
+import { DICTS } from "../i18n/dict";
+const t = DICTS.en;
+const s = getSession("la-terapia")!;
+---
+<Base title="The Reset Method | Andrei Sirbu"
+      description="A high-level method for individuals who operate under constant pressure and require clarity, stability, and control over their internal state.">
+
+  <PageHead eyebrow="Proprietary method" title={t.reset.method}
+    lede={METHOD_LEDE[0]}
+    plate={gorgePortrait} alt="Andrei Sirbu at the edge of an alpine gorge." focus="50% 35%" />
+
+  <MethodScene />
+
+  <!-- His own framing, set as the opening statement -->
+  <section class="field relative bg-void px-5 py-20 sm:px-8 md:py-28">
+    <div class="mx-auto max-w-3xl space-y-6">
+      {METHOD_LEDE.slice(1).map((p, i) => (
+        <p class="lede-lux text-[1.05rem] md:text-[1.15rem]" data-reveal
+           style={`--reveal-delay:${i * 90}ms`}>{p}</p>
+      ))}
+    </div>
+  </section>
+
+  <!-- The six parts of the method, numbered as he numbered them -->
+  <section class="bg-basalt px-5 py-20 sm:px-8 md:py-28">
+    <div class="mx-auto max-w-6xl">
+      <ol class="grid gap-px bg-ash/40 md:grid-cols-2">
+        {METHOD_PILLARS.map((p, i) => (
+          <li class="group bg-basalt p-8 transition-colors duration-500 hover:bg-stone/40 md:p-12"
+              data-reveal style={`--reveal-delay:${i * 70}ms`}>
+            <span class="label !text-bronze/80">{p.n}</span>
+            <h2 class="font-display mt-5 text-[1.7rem] leading-tight text-chalk md:text-[2rem]">{p.title}</h2>
+            <div class="mt-4 space-y-3.5">
+              {p.body.map((b) => (
+                <p class="text-[0.95rem] leading-relaxed text-mist">{b}</p>
+              ))}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Purpose, closing in his voice -->
+  <section class="field relative bg-void px-5 py-20 sm:px-8 md:py-28">
+    <div class="mx-auto max-w-3xl">
+      <p class="label mb-6 !text-bronze/80" data-reveal>Purpose</p>
+      <div class="space-y-5">
+        {METHOD_PURPOSE.map((p, i) => (
+          <p class={i === 0
+              ? "font-display text-[1.55rem] leading-[1.22] text-chalk md:text-[1.9rem]"
+              : "text-[0.98rem] leading-relaxed text-mist md:text-base"}
+             data-reveal style={`--reveal-delay:${i * 90}ms`}>{p}</p>
+        ))}
+      </div>
+
+      <div class="mt-12 flex flex-wrap items-center justify-between gap-8 border-t border-ash/60 pt-10" data-reveal>
+        <div>
+          <p class="label mb-3">{s.duration} · {s.modality}</p>
+          <p class="font-display text-3xl text-chalk">{s.currency} {formatPrice(s.price)}</p>
+        </div>
+        <a href={href(`/book/${s.slug}`)} data-magnetic
+           class="sheen bevel inline-flex items-center gap-3 rounded-full bg-bronze px-8 py-4
+                  text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-void">
+          {t.hero.cta} →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import { createRefraction } from "../lib/webgl/refraction";
+    import { initTypeReveals } from "../lib/type";
+    const boot = () => {
+      initTypeReveals();
+      const canvas = document.querySelector<HTMLCanvasElement>("[data-refraction]");
+      const poster = document.querySelector<HTMLImageElement>('[data-scene="method"] img');
+      if (!canvas || !poster) return;
+      const start = () => createRefraction(canvas, poster.currentSrc || poster.src);
+      poster.complete ? start() : poster.addEventListener("load", start, { once: true });
+    };
+    boot();
+    document.addEventListener("astro:after-swap", boot);
+  </script>
+</Base>

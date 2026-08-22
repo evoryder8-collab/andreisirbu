@@ -42,7 +42,12 @@ const aside = asideOfferings();
     </div>
 
     <p class="label mx-auto mt-6 max-w-6xl !normal-case !tracking-normal !text-[0.75rem] leading-relaxed opacity-70"
-       data-reveal>{t.reset.travelNote}</p>
+       data-reveal>
+      {t.reset.travelNote}{" "}
+      <a href={href("/enquire")} class="underline underline-offset-2 transition-colors duration-400 hover:text-chalk">
+        Or write by email
+      </a>.
+    </p>
 
     <div class="mx-auto mt-20 max-w-6xl md:mt-24">
       <div class="flex items-center gap-5" data-reveal>

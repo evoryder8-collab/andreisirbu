@@ -62,13 +62,6 @@ export const SESSION_COPY: Table = {
         "Die Therapie behandelt Beschwerden wie Traumata, Fehlhaltungen und Verletzungen durch wiederholte Bewegungen.\n" +
         "Diese Behandlung vereint die fortschrittlichsten therapeutischen Methoden, um Muster im Körper zu lindern und letztlich zu korrigieren, die zu Schmerz und Beschwerden führen.",
     },
-    revibe: {
-      description: "Eine zutiefst erholsame Sitzung, die Ihre energetischen Zentren wieder ins Gleichgewicht bringt.",
-      detail:
-        "Eine zutiefst erholsame Sitzung, die Ihre energetischen Zentren wieder ins Gleichgewicht und in Ausrichtung bringt. Wir sind energetische Wesen mit einer energetischen Anatomie, der Aura, so real wie unser physischer Körper.\n" +
-        "Ist dieses feine Energiefeld gestört, können sich Spannung, Erschöpfung oder emotionales Ungleichgewicht im Körper zeigen. Durch sanfte Energiearbeit und gerichtete Absicht löst Energy Restart Blockaden und stellt den natürlichen freien Fluss der Lebenskraft wieder her.\n" +
-        "Das fördert Vitalität, emotionale Harmonie und ein umfassendes Gefühl von innerem Frieden und Wohlbefinden.",
-    },
     "holistic-massage-masterclass": {
       description: "Ein zweitägiger Intensivkurs für Therapeuten, die ihre Körperarbeit vertiefen wollen.",
       detail:
@@ -86,7 +79,6 @@ export const SESSION_COPY: Table = {
     "relaxing-massage-ritual": { description: "Une expérience sacrée de toucher et de présence, pour relâcher les tensions et retrouver l'équilibre." },
     "lomi-lomi-therapy": { description: "Une pratique de soin sacrée et profondément transformatrice, née des traditions de l'ancienne Hawaï." },
     "therapeutic-massage-55min": { description: "Traite les traumatismes, les mauvaises postures et les blessures dues aux gestes répétés." },
-    revibe: { description: "Une séance profondément réparatrice qui rééquilibre et réaligne vos centres énergétiques." },
     "holistic-massage-masterclass": { description: "Un intensif de deux jours pour les thérapeutes qui veulent approfondir leur travail corporel." },
   },
   it: {
@@ -96,7 +88,6 @@ export const SESSION_COPY: Table = {
     "relaxing-massage-ritual": { description: "Un'esperienza sacra di tocco e presenza, per sciogliere la tensione e ritrovare l'equilibrio." },
     "lomi-lomi-therapy": { description: "Una pratica di guarigione sacra e profondamente trasformativa, radicata nelle tradizioni dell'antica Hawaii." },
     "therapeutic-massage-55min": { description: "Tratta traumi, posture scorrette e lesioni causate da movimenti ripetuti." },
-    revibe: { description: "Una sessione profondamente rigenerante che riequilibra e riallinea i suoi centri energetici." },
     "holistic-massage-masterclass": { description: "Un intensivo di due giorni per terapisti che vogliono approfondire il lavoro corporeo." },
   },
   es: {
@@ -106,7 +97,6 @@ export const SESSION_COPY: Table = {
     "relaxing-massage-ritual": { description: "Una experiencia sagrada de tacto y presencia, para soltar la tensión y recuperar el equilibrio." },
     "lomi-lomi-therapy": { description: "Una práctica de sanación sagrada y profundamente transformadora, nacida en las tradiciones de la antigua Hawái." },
     "therapeutic-massage-55min": { description: "Trata traumas, malas posturas y lesiones causadas por movimientos repetidos." },
-    revibe: { description: "Una sesión profundamente restauradora que reequilibra y realinea sus centros energéticos." },
     "holistic-massage-masterclass": { description: "Un intensivo de dos días para terapeutas que quieren profundizar su trabajo corporal." },
   },
   ro: {
@@ -116,7 +106,6 @@ export const SESSION_COPY: Table = {
     "relaxing-massage-ritual": { description: "O experiență sacră a atingerii și a prezenței, care destinde și readuce echilibrul interior." },
     "lomi-lomi-therapy": { description: "O practică de vindecare sacră și profund transformatoare, din tradițiile vechii Hawaii." },
     "therapeutic-massage-55min": { description: "Tratează traume, postură deficitară și accidentări cauzate de mișcări repetitive." },
-    revibe: { description: "O ședință profund restauratoare care reechilibrează și realiniază centrii dumneavoastră energetici." },
     "holistic-massage-masterclass": { description: "Un intensiv de două zile pentru terapeuții care vor să aprofundeze lucrul corporal." },
   },
 };

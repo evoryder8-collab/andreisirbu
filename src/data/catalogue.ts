@@ -38,11 +38,24 @@ export interface Session {
   tier?: "reset" | "ritual" | "teaching";
   /** Travel makes the price variable, so it is shown as a floor. */
   priceFrom?: boolean;
-  /** Fixed price and a studio slot take the calendar; travel takes an application. */
-  booking?: "calendar" | "apply";
+  /** Fixed price and a studio slot take the calendar. Travel is arranged in
+   *  conversation instead, so it opens WhatsApp rather than a booking flow. */
+  booking?: "calendar" | "whatsapp";
 }
 
 export const CURRENCY = "CHF";
+
+/**
+ * The Private Session is arranged in conversation, not through the booking
+ * system: the fee depends on travel, so a slot picker would be answering a
+ * question it cannot know. The message is written for the visitor to send as
+ * is, in English, since the enquiries come from outside Switzerland.
+ */
+export const whatsappUrl = (phone: string): string =>
+  `https://wa.me/${phone.replace(/[^0-9]/g, "")}?text=` +
+  encodeURIComponent(
+    "Hello Andrei, I would like to enquire about a Private Session.",
+  );
 
 /** Where a Reserve action sends the visitor. */
 export const bookingUrl = (slug: string): string =>
@@ -81,7 +94,7 @@ export const SESSIONS: Session[] = [
     rank: 2,
     signature: true,
     tier: "reset",
-    booking: "apply",
+    booking: "whatsapp",
   },
   {
     slug: "sacral-ritual",
@@ -137,20 +150,6 @@ export const SESSIONS: Session[] = [
     description: "Addresses trauma, poor posture, and injuries caused by repetitive movements.",
     detail: "The therapy addresses conditions such as trauma, poor posture, and injuries caused by repetitive movements.\nThis treatment brings together the most advanced therapeutic modalities to relieve and ultimately correct patterns in the body that lead to pain and discomfort.",
     rank: 6,
-    tier: "ritual",
-    booking: "calendar",
-  },
-  {
-    slug: "revibe",
-    name: "ReVibe Energy Restart",
-    storeName: "ReVibe Energy Restart – 40 min",
-    price: 145,
-    currency: CURRENCY,
-    duration: "40 min",
-    modality: "Short form",
-    description: "A deeply restorative session designed to rebalance and realign your energetic centers.",
-    detail: "A deeply restorative session designed to rebalance and realign your energetic centers. We are energetic beings with an energetic anatomy, the aura, just as real as our physical body.\nWhen this subtle energy field is disturbed, tension, fatigue, or emotional imbalance can manifest in the body. Through gentle energy work and focused intention, Energy Restart clears blockages and restores the natural free flow of life force.\nThis promotes vitality, emotional harmony, and an overall sense of inner peace and well-being.",
-    rank: 7,
     tier: "ritual",
     booking: "calendar",
   },

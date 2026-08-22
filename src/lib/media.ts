@@ -38,12 +38,19 @@ export const sessionPlate: Record<string, Plate> = {
   // Ninety minutes, the deepest of the private work: a session already under
   // way in a warm, low-lit room.
   "sacral-ritual": {
+    src: gorgeWide,
+    alt: "Moving water over wet basalt in an alpine gorge.",
+    focus: "38% 56%",
+  },
+  // Warmth, oil and pressure, held long enough to let go.
+  "relaxing-massage-ritual": {
     src: treatment,
     alt: "A session under way in a warm, candlelit treatment room.",
-    focus: "50% 46%",
+    focus: "34% 58%",
   },
-  // Warmth, oil and pressure: candlelight on skin.
-  "relaxing-massage-ritual": {
+  // Delivered somewhere other than the studio, so an intimate interior
+  // rather than the practice room.
+  "the-private-session": {
     src: candle,
     alt: "Candlelight across warmed oil and folded linen.",
     focus: "50% 50%",
@@ -51,9 +58,9 @@ export const sessionPlate: Record<string, Plate> = {
   // Continuous flowing forearm work, so the frame is the enveloping room
   // rather than a technique held still.
   "lomi-lomi-therapy": {
-    src: treatment,
-    alt: "Long, continuous strokes travelling the length of the back.",
-    focus: "34% 58%",
+    src: candleDetail,
+    alt: "Warm candle oil poured in long, continuous strokes.",
+    focus: "52% 46%",
   },
   // The clinical session: hands working structure, in monochrome.
   "therapeutic-massage-55min": {
@@ -61,17 +68,11 @@ export const sessionPlate: Record<string, Plate> = {
     alt: "Focused structural work through the shoulder, in monochrome.",
     focus: "44% 44%",
   },
-  // Forty minutes, a reset: moving water over mineral rock.
-  revibe: {
-    src: gorgeWide,
-    alt: "Moving water over wet basalt in an alpine gorge.",
-    focus: "38% 56%",
-  },
   // Teaching: the hands themselves, which are what is being passed on.
   "holistic-massage-masterclass": {
-    src: handsMono,
-    alt: "A practitioner's hands at work, in monochrome.",
-    focus: "58% 62%",
+    src: portrait,
+    alt: "Andrei Sirbu, who teaches the method.",
+    focus: "50% 30%",
   },
 };
 

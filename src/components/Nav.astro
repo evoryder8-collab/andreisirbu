@@ -8,7 +8,7 @@ const t: Dict = Astro.props.t ?? DICTS[locale];
 const href = (p: string) => localeHref(locale, p);
 const path = Astro.url.pathname.replace(/\/$/, "");
 const links = [
-  { label: t.nav.method, to: "/la-terapia-method" },
+  { label: t.nav.method, to: "/the-reset-method" },
   { label: t.nav.sessions, to: "/sessions" },
   { label: t.nav.studio, to: "/studio" },
   { label: t.nav.evidence, to: "/evidence" },
