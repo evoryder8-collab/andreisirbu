@@ -18,9 +18,6 @@ const copy = sessionCopy(locale, session.slug, {
 const plate = plateFor(session.slug);
 const reserve = reserveTarget(session);
 const enquiry = isEnquiryOnly(session);
-// Shared treatment, overridden per frame where a photograph needs it.
-const grade = plate.grade ?? "grayscale(0.3) contrast(1.06) brightness(0.9)";
-const gradeHover = plate.gradeHover ?? "grayscale(0) contrast(1.1) brightness(1)";
 ---
 <article
   data-card
@@ -66,10 +63,10 @@ const gradeHover = plate.gradeHover ?? "grayscale(0) contrast(1.1) brightness(1)
           widths={[400, 640, 900]}
           sizes="(min-width:1024px) 30vw, (min-width:640px) 45vw, 88vw"
           formats={["avif", "webp"]}
-          style={`object-position:${plate.focus};--grade:${grade};--grade-hover:${gradeHover}`}
+          style={`object-position:${plate.focus}`}
           class="h-full w-full object-cover opacity-85 transition-[opacity,filter] duration-[1200ms]
-                 [filter:var(--grade)]
-                 group-hover:opacity-100 group-hover:[filter:var(--grade-hover)]"
+                 [filter:grayscale(0.3)_contrast(1.06)_brightness(0.9)]
+                 group-hover:opacity-100 group-hover:[filter:grayscale(0)_contrast(1.1)_brightness(1)]"
           loading={index < 3 ? "eager" : "lazy"}
           decoding="async"
         />

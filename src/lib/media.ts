@@ -28,13 +28,6 @@ export interface Plate {
   alt: string;
   /** object-position, so each reuse lands on a different part of the frame. */
   focus: string;
-  /**
-   * Optional grade. Most frames were shot dark and take the shared treatment,
-   * but a daylight frame needs pulling down or it reads as a different site.
-   * Given as a bare CSS filter list; the card supplies the default.
-   */
-  grade?: string;
-  gradeHover?: string;
 }
 
 export const sessionPlate: Record<string, Plate> = {
@@ -42,11 +35,7 @@ export const sessionPlate: Record<string, Plate> = {
   "la-terapia": {
     src: resetSession,
     alt: "Andrei Sirbu working with both hands along a client's back during a session.",
-    focus: "48% 34%",
-    // Shot in daylight against a bright room, so it carries a deeper grade to
-    // sit level with the candlelit frames beside it.
-    grade: "grayscale(0.42) contrast(1.14) brightness(0.74) saturate(0.82)",
-    gradeHover: "grayscale(0.08) contrast(1.12) brightness(0.9) saturate(0.95)",
+    focus: "50% 38%",
   },
   // Ninety minutes, the deepest of the private work: a session already under
   // way in a warm, low-lit room.
