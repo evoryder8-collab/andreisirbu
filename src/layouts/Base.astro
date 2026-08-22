@@ -13,10 +13,11 @@ interface Props {
   description: string;
   image?: string;
   business?: boolean;
+  localized?: boolean;
   locale?: Locale;
   t?: Dict;
 }
-const { title, description, image, business, locale = "en" } = Astro.props;
+const { title, description, image, business, localized, locale = "en" } = Astro.props;
 const t: Dict = Astro.props.t ?? DICTS[locale];
 
 // Inline SVG grain, base64'd into a CSS var, no extra request for a
@@ -33,7 +34,7 @@ const grainUrl = `url("data:image/svg+xml;base64,${Buffer.from(grain).toString("
     <meta name="theme-color" content="#050605" />
     <meta name="color-scheme" content="dark" />
     <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.svg`} />
-    <SEO title={title} description={description} image={image} business={business} />
+    <SEO title={title} description={description} image={image} business={business} localized={localized} />
     <!-- Cross-document transitions. destroyMotion() runs on astro:before-swap so
          ScrollTriggers, the Lenis instance and the WebGL context are disposed
          before each swap rather than leaking across navigations. -->

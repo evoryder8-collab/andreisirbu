@@ -1,5 +1,6 @@
 ---
 import { SESSIONS, bookingUrl } from "../data/catalogue";
+import { LOCALES, localeHref } from "../i18n/dict";
 
 interface Props {
   title: string;
@@ -8,9 +9,11 @@ interface Props {
   image?: string;
   /** Emit LocalBusiness + offer catalogue. Home only. */
   business?: boolean;
+  /** This route exists in every locale, so alternates are honest. */
+  localized?: boolean;
 }
 
-const { title, description, image, business = false } = Astro.props;
+const { title, description, image, business = false, localized = false } = Astro.props;
 
 const site = Astro.site ?? new URL("https://andreisirbu.com");
 const canonical = new URL(Astro.url.pathname, site).toString();
@@ -40,6 +43,16 @@ const schema = business
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
+
+{/* Only the homepage is translated, so only it advertises alternates.
+    Pointing hreflang at routes that do not exist per locale is worse than
+    omitting it. */}
+{localized && LOCALES.map((l) => (
+  <link rel="alternate" hreflang={l} href={new URL(localeHref(l, "/"), site).toString()} />
+))}
+{localized && (
+  <link rel="alternate" hreflang="x-default" href={new URL(localeHref("en", "/"), site).toString()} />
+)}
 
 <meta property="og:type" content="website" />
 <meta property="og:title" content={title} />

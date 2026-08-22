@@ -17,7 +17,7 @@ const { min } = priceRange();
 
 
 ---
-<Base title={t.meta.title} description={t.meta.description} business={true} locale={locale} t={t}>
+<Base title={t.meta.title} description={t.meta.description} business={true} localized={true} locale={locale} t={t}>
   <Hero locale={locale} t={t} />
 
   <!-- ── 2. Positioning ──────────────────────────────────────────────── -->
@@ -148,7 +148,7 @@ const { min } = priceRange();
       </div>
 
       <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
-        {sessions.map((s, i) => <SessionCard session={s} index={i} />)}
+        {sessions.map((s, i) => <SessionCard session={s} index={i} locale={locale} />)}
       </div>
 
       <div class="mt-12 flex justify-center">

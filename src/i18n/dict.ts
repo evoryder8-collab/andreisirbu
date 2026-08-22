@@ -63,6 +63,7 @@ export interface Dict {
     ritualsLabel: string;
     ritualsNote: string;
     travelNote: string;
+    basedIn: string;
   };
 }
 
@@ -151,6 +152,7 @@ const en: Dict = {
     ritualsLabel: "The ritual menu",
     ritualsNote: "The Zurich practice, unchanged.",
     travelNote: "Villa, residence or hotel. The fee varies with travel and location.",
+    basedIn: "Zurich. Travelling on request.",
   },
 };
 
@@ -239,6 +241,7 @@ const de: Dict = {
     ritualsLabel: "Die Ritual-Karte",
     ritualsNote: "Die Zürcher Praxis, unverändert.",
     travelNote: "Villa, Residenz oder Hotel. Das Honorar richtet sich nach Anfahrt und Ort.",
+    basedIn: "Zürich. Anreise auf Anfrage.",
   },
 };
 
@@ -327,6 +330,7 @@ const fr: Dict = {
     ritualsLabel: "La carte des rituels",
     ritualsNote: "Le cabinet zurichois, inchangé.",
     travelNote: "Villa, résidence ou hôtel. Les honoraires dépendent du déplacement et du lieu.",
+    basedIn: "Zurich. Déplacements sur demande.",
   },
 };
 
@@ -415,6 +419,7 @@ const it: Dict = {
     ritualsLabel: "La carta dei rituali",
     ritualsNote: "Lo studio di Zurigo, invariato.",
     travelNote: "Villa, residenza o hotel. Il compenso dipende dallo spostamento e dal luogo.",
+    basedIn: "Zurigo. Trasferte su richiesta.",
   },
 };
 
@@ -503,6 +508,7 @@ const es: Dict = {
     ritualsLabel: "La carta de rituales",
     ritualsNote: "La consulta de Zúrich, sin cambios.",
     travelNote: "Villa, residencia u hotel. Los honorarios dependen del desplazamiento y del lugar.",
+    basedIn: "Zúrich. Desplazamientos a petición.",
   },
 };
 
@@ -598,6 +604,7 @@ const ro: Dict = {
     ritualsLabel: "Carta ritualurilor",
     ritualsNote: "Cabinetul din Zürich, neschimbat.",
     travelNote: "Vilă, reședință sau hotel. Onorariul depinde de deplasare și de locație.",
+    basedIn: "Zürich. Deplasări la cerere.",
   },
 };
 

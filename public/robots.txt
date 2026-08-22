@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://evoryder8-collab.github.io/andreisirbu/sitemap-index.xml

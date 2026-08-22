@@ -4,9 +4,16 @@ import type { Session } from "../data/catalogue";
 import { bookingUrl, formatPrice } from "../data/catalogue";
 import { plateFor } from "../lib/media";
 import { href } from "../lib/url";
+import { sessionCopy } from "../i18n/sessions";
+import type { Locale } from "../i18n/dict";
 
-interface Props { session: Session; index?: number; }
-const { session, index = 0 } = Astro.props;
+interface Props { session: Session; index?: number; locale?: Locale; }
+const { session, index = 0, locale = "en" } = Astro.props;
+// His English is the source; a locale entry renders instead when one exists.
+const copy = sessionCopy(locale, session.slug, {
+  description: session.description,
+  detail: session.detail,
+});
 const plate = plateFor(session.slug);
 ---
 <article
@@ -90,7 +97,7 @@ const plate = plateFor(session.slug);
         {session.name}
       </h3>
 
-      <p class="text-[0.9rem] leading-relaxed text-mist">{session.description}</p>
+      <p class="text-[0.9rem] leading-relaxed text-mist">{copy.description}</p>
 
       <div class="mt-2 flex items-center justify-between gap-4 border-t border-ash/70 pt-4">
         <span class="font-mono text-sm tabular-nums text-bone/90">
