@@ -125,4 +125,93 @@ export function destroyMotion(): void {
   lenis = null;
 }
 
+/**
+ * In-page anchors, eased rather than jumped.
+ *
+ * A native hash jump lands instantly, which reads as the page reloading in
+ * place rather than travelling somewhere. The tween is driven here rather
+ * than handed to Lenis: Lenis drops out of smooth mode on touch, so its own
+ * scrollTo would jump on exactly the devices this matters most on. Writing
+ * each frame back through Lenis keeps its internal position in sync, so the
+ * scroll does not snap back when the visitor takes over again.
+ */
+const HEADER_CLEARANCE = 88;
+
+const easeOutExpo = (t: number): number => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t));
+
+function glideTo(top: number): void {
+  const limit = document.documentElement.scrollHeight - window.innerHeight;
+  const to = Math.max(0, Math.min(top, limit));
+  const from = window.scrollY;
+  const dist = to - from;
+  if (Math.abs(dist) < 2) return;
+
+  const lenisInstance = getLenis();
+  if (prefersReducedMotion()) {
+    window.scrollTo(0, to);
+    return;
+  }
+
+  // Long journeys take longer, but never so long that the visitor waits.
+  const duration = Math.min(1500, Math.max(560, Math.abs(dist) * 0.6));
+  const t0 = performance.now();
+  let cancelled = false;
+
+  // The visitor is always allowed to take the wheel back mid-flight.
+  const abort = () => {
+    cancelled = true;
+  };
+  window.addEventListener("wheel", abort, { passive: true, once: true });
+  window.addEventListener("touchstart", abort, { passive: true, once: true });
+  window.addEventListener("keydown", abort, { once: true });
+
+  // Read the clock directly rather than trusting the frame timestamp: the two
+  // do not share an origin in every engine, and a mismatch makes the tween
+  // resolve on its first frame, which is the jump this exists to avoid.
+  const step = () => {
+    if (cancelled) return;
+    const p = Math.min(1, (performance.now() - t0) / duration);
+    const y = from + dist * easeOutExpo(p);
+    if (lenisInstance) lenisInstance.scrollTo(y, { immediate: true });
+    else window.scrollTo(0, y);
+    if (p < 1) requestAnimationFrame(step);
+    else {
+      window.removeEventListener("wheel", abort);
+      window.removeEventListener("touchstart", abort);
+      window.removeEventListener("keydown", abort);
+    }
+  };
+  requestAnimationFrame(step);
+}
+
+const onAnchorClick = (e: MouseEvent): void => {
+  if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+  const el = e.target as HTMLElement | null;
+  const link = el?.closest?.<HTMLAnchorElement>('a[href*="#"]');
+  if (!link || link.target === "_blank") return;
+
+  const url = new URL(link.href, location.href);
+  if (url.origin !== location.origin || url.pathname !== location.pathname) return;
+  if (!url.hash || url.hash === "#") return;
+
+  const target = document.querySelector<HTMLElement>(url.hash);
+  if (!target) return;
+
+  e.preventDefault();
+  glideTo(target.getBoundingClientRect().top + window.scrollY - HEADER_CLEARANCE);
+  history.replaceState(null, "", url.hash);
+};
+
+let anchorsBound = false;
+
+export function initAnchors(): void {
+  if (anchorsBound) return;
+  anchorsBound = true;
+  // Capture phase on purpose. Astro's client router also listens for link
+  // clicks on the document and, for a same-page hash, scrolls the target into
+  // view itself. In the bubble phase it gets there first and the jump has
+  // already happened by the time this could prevent it.
+  document.addEventListener("click", onAnchorClick, { capture: true });
+}
+
 export { gsap, ScrollTrigger };

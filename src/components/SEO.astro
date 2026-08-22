@@ -34,7 +34,11 @@ const schema = business
         name: s.name,
         price: s.price,
         priceCurrency: s.currency,
-        url: bookingUrl(s.slug),
+        // The enquiry-only offer must not advertise a calendar it does not use.
+        url:
+          s.booking === "whatsapp"
+            ? new URL(`${import.meta.env.BASE_URL}sessions/${s.slug}/`.replace(/\/{2,}/g, "/"), site).toString()
+            : bookingUrl(s.slug),
         availability: "https://schema.org/InStock",
       })),
     }

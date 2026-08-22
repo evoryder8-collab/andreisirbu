@@ -7,7 +7,11 @@ import { STUDIO } from "../../lib/availability";
 import { href } from "../../lib/url";
 
 export function getStaticPaths() {
-  return SESSIONS.map((s) => ({ params: { slug: s.slug } }));
+  // The Private Session is arranged by conversation, not by calendar, so it
+  // gets no booking page at all. Every Reserve control routes it to WhatsApp.
+  return SESSIONS.filter((s) => s.booking !== "whatsapp").map((s) => ({
+    params: { slug: s.slug },
+  }));
 }
 const { slug } = Astro.params;
 const session = getSession(slug!)!;

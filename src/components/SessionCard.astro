@@ -1,7 +1,8 @@
 ---
 import { Picture } from "astro:assets";
 import type { Session } from "../data/catalogue";
-import { bookingUrl, formatPrice } from "../data/catalogue";
+import { formatPrice } from "../data/catalogue";
+import { reserveTarget, isEnquiryOnly } from "../lib/reserve";
 import { plateFor } from "../lib/media";
 import { href } from "../lib/url";
 import { sessionCopy } from "../i18n/sessions";
@@ -15,6 +16,11 @@ const copy = sessionCopy(locale, session.slug, {
   detail: session.detail,
 });
 const plate = plateFor(session.slug);
+const reserve = reserveTarget(session);
+const enquiry = isEnquiryOnly(session);
+// Shared treatment, overridden per frame where a photograph needs it.
+const grade = plate.grade ?? "grayscale(0.3) contrast(1.06) brightness(0.9)";
+const gradeHover = plate.gradeHover ?? "grayscale(0) contrast(1.1) brightness(1)";
 ---
 <article
   data-card
@@ -60,10 +66,10 @@ const plate = plateFor(session.slug);
           widths={[400, 640, 900]}
           sizes="(min-width:1024px) 30vw, (min-width:640px) 45vw, 88vw"
           formats={["avif", "webp"]}
-          style={`object-position:${plate.focus}`}
+          style={`object-position:${plate.focus};--grade:${grade};--grade-hover:${gradeHover}`}
           class="h-full w-full object-cover opacity-85 transition-[opacity,filter] duration-[1200ms]
-                 [filter:grayscale(0.3)_contrast(1.06)_brightness(0.9)]
-                 group-hover:opacity-100 group-hover:[filter:grayscale(0)_contrast(1.1)_brightness(1)]"
+                 [filter:var(--grade)]
+                 group-hover:opacity-100 group-hover:[filter:var(--grade-hover)]"
           loading={index < 3 ? "eager" : "lazy"}
           decoding="async"
         />
@@ -101,16 +107,18 @@ const plate = plateFor(session.slug);
 
       <div class="mt-2 flex items-center justify-between gap-4 border-t border-ash/70 pt-4">
         <span class="font-mono text-sm tabular-nums text-bone/90">
+          {session.priceFrom && <span class="label mr-1 !text-[0.5rem] !tracking-[0.14em]">from</span>}
           {session.currency}
           <span data-count={String(session.price)} data-count-group="true">{formatPrice(session.price)}</span>
         </span>
         <span class="label !text-[0.6rem] !text-bronze transition-transform duration-500
-                     group-hover:translate-x-1">Reserve →</span>
+                     group-hover:translate-x-1">{enquiry ? "Enquire" : "Reserve"} →</span>
       </div>
     </div>
   </a>
 
-  <a href={bookingUrl(session.slug)}
+  <a href={reserve.to} {...reserve.attrs}
      class="label absolute inset-x-5 bottom-5 z-40 h-0 overflow-hidden opacity-0
-            focus-visible:h-auto focus-visible:opacity-100">Book {session.name} directly</a>
+            focus-visible:h-auto focus-visible:opacity-100">
+    {enquiry ? `Enquire about ${session.name}` : `Book ${session.name} directly`}</a>
 </article>

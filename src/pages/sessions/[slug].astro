@@ -1,7 +1,8 @@
 ---
 import { Picture } from "astro:assets";
 import Base from "../../layouts/Base.astro";
-import { SESSIONS, bookingUrl, formatPrice, getSession } from "../../data/catalogue";
+import { SESSIONS, formatPrice, getSession } from "../../data/catalogue";
+import { reserveTarget, isEnquiryOnly } from "../../lib/reserve";
 import { plateFor } from "../../lib/media";
 import { href } from "../../lib/url";
 
@@ -12,6 +13,8 @@ export function getStaticPaths() {
 const { slug } = Astro.params;
 const session = getSession(slug!);
 if (!session) return Astro.redirect(href("/sessions"));
+const reserve = reserveTarget(session);
+const enquiry = isEnquiryOnly(session);
 const plate = plateFor(session.slug);
 
 const others = SESSIONS.filter((s) => s.slug !== session.slug && !s.aside).slice(0, 3);
@@ -50,17 +53,26 @@ const others = SESSIONS.filter((s) => s.slug !== session.slug && !s.aside).slice
 
         <div class="mt-10 flex flex-wrap items-center gap-6 border-t border-ash/70 pt-8" data-reveal>
           <span class="font-display text-3xl text-chalk tabular-nums">
+            {session.priceFrom && <span class="label mr-2 align-middle !text-[0.55rem]">from</span>}
             <span class="label mr-2 align-middle">{session.currency}</span><span data-count={String(session.price)} data-count-group="true">{formatPrice(session.price)}</span>
           </span>
-          <a href={href(`/book/${session.slug}`)} data-magnetic
+          <a href={reserve.to} {...reserve.attrs} data-magnetic
              class="sheen bevel inline-flex items-center gap-3 rounded-full bg-bronze px-8 py-4
                     text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-void">
-            Reserve →
+            {enquiry ? "Enquire on WhatsApp" : "Reserve"} →
           </a>
+          {enquiry && (
+            <a href={href("/enquire")}
+               class="label border-b border-ash pb-1 transition-colors duration-500 hover:!text-chalk">
+              Or write by email
+            </a>
+          )}
         </div>
 
         <p class="label mt-6 !normal-case !tracking-normal !text-[0.72rem] leading-relaxed">
-          Choose a date and time in the next step.
+          {enquiry
+            ? "This one is arranged directly with Andrei. Tell him where you are and when, and he will come back to you with an offer."
+            : "Choose a date and time in the next step."}
         </p>
       </div>
     </div>

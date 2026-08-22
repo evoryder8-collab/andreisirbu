@@ -1,7 +1,7 @@
 ---
 import { Picture } from "astro:assets";
 import Base from "../layouts/Base.astro";
-import { portrait, handsMono, gorgePortrait } from "../lib/media";
+import { portrait, handsMono, practice } from "../lib/media";
 import { STUDIO } from "../lib/availability";
 import { href } from "../lib/url";
 import { AWARDS, CLIENTELE, DISCIPLINES, hasAwards } from "../data/credentials";
@@ -191,13 +191,17 @@ import { AWARDS, CLIENTELE, DISCIPLINES, hasAwards } from "../data/credentials";
   <section class="field relative bg-void px-5 py-24 sm:px-8 md:py-32">
     <div class="mx-auto grid max-w-6xl gap-12 md:grid-cols-12 md:gap-14">
       <div class="md:col-span-5" data-reveal>
-        <div data-about-side class="relative aspect-4/5 overflow-hidden rounded-[18px] bg-stone">
-          <Picture src={gorgePortrait} alt="Andrei Sirbu at the edge of an alpine gorge."
-            widths={[500, 900]} sizes="(min-width:768px) 40vw, 88vw" formats={["avif","webp"]}
-            class="h-full w-full scale-105 object-cover object-[50%_38%]
-                   [filter:contrast(1.06)_brightness(0.8)] will-change-transform"
+        <!-- The frame is shown whole here. His hand meets the body at the very
+             bottom edge of the photograph, so any overscan crop cuts the part
+             the picture is actually about. The box takes the file's own ratio
+             and the drift moves the card, not the image inside it. -->
+        <div data-about-side class="relative aspect-1066/1600 overflow-hidden rounded-[18px] bg-stone">
+          <Picture src={practice} alt="Andrei Sirbu working, one hand reading along a client's back."
+            widths={[500, 900, 1066]} sizes="(min-width:768px) 40vw, 88vw" formats={["avif","webp"]}
+            class="h-full w-full object-cover object-center
+                   [filter:contrast(1.05)_brightness(0.9)]"
             loading="lazy" decoding="async" />
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-void/70 to-transparent"></div>
+          <div class="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-void/45 to-transparent"></div>
           <span class="pointer-events-none absolute inset-0 rounded-[18px]
                        [box-shadow:inset_0_1px_0_0_rgba(232,196,137,0.2),inset_0_0_0_1px_rgba(35,38,36,0.9)]"></span>
         </div>
@@ -269,9 +273,11 @@ import { AWARDS, CLIENTELE, DISCIPLINES, hasAwards } from "../data/credentials";
           { yPercent: 6, scale: 1, ease: "none",
             scrollTrigger: { trigger: "[data-about-plate]", start: "top top", end: "bottom top", scrub: 1.1 } });
 
-        gsap.fromTo("[data-about-side] img",
-          { yPercent: -5 },
-          { yPercent: 5, ease: "none",
+        // Drift the card, not the photograph inside it: a yPercent on the
+        // image would crop back the bottom edge this frame needs.
+        gsap.fromTo("[data-about-side]",
+          { y: 22 },
+          { y: -22, ease: "none",
             scrollTrigger: { trigger: "[data-about-side]", start: "top bottom", end: "bottom top", scrub: 1.2 } });
       });
       onCleanup(() => ctx.revert());

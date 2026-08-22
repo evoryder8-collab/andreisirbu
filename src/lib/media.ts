@@ -12,13 +12,15 @@ import portrait from "../assets/img/portrait.jpg";
 import treatment from "../assets/img/treatment.jpg";
 import candleDetail from "../assets/img/candle-detail.jpg";
 import candle from "../assets/img/candle.jpg";
+import resetSession from "../assets/img/reset-session.jpg";
+import practice from "../assets/img/practice.jpg";
 
 // `room` used to point at a photograph of Andrei meditating cross-legged in
 // patterned dress, while every alt text described a treatment room. Wrong
 // image, and the description did not match it. It is now an actual session in
 // a warm, candlelit room, and `room` is kept as an alias so the studio and
 // contact pages keep working.
-export { gorgeWide, gorgePortrait, handsMono, portrait, treatment, candle, candleDetail };
+export { gorgeWide, gorgePortrait, handsMono, portrait, treatment, candle, candleDetail, resetSession, practice };
 export const room = treatment;
 
 export interface Plate {
@@ -26,14 +28,25 @@ export interface Plate {
   alt: string;
   /** object-position, so each reuse lands on a different part of the frame. */
   focus: string;
+  /**
+   * Optional grade. Most frames were shot dark and take the shared treatment,
+   * but a daylight frame needs pulling down or it reads as a different site.
+   * Given as a bare CSS filter list; the card supplies the default.
+   */
+  grade?: string;
+  gradeHover?: string;
 }
 
 export const sessionPlate: Record<string, Plate> = {
   // His own photograph stays on the signature method and nowhere else.
   "la-terapia": {
-    src: gorgePortrait,
-    alt: "Andrei Sirbu seated at the edge of an alpine gorge, mist rising behind him.",
-    focus: "50% 42%",
+    src: resetSession,
+    alt: "Andrei Sirbu working with both hands along a client's back during a session.",
+    focus: "48% 34%",
+    // Shot in daylight against a bright room, so it carries a deeper grade to
+    // sit level with the candlelit frames beside it.
+    grade: "grayscale(0.42) contrast(1.14) brightness(0.74) saturate(0.82)",
+    gradeHover: "grayscale(0.08) contrast(1.12) brightness(0.9) saturate(0.95)",
   },
   // Ninety minutes, the deepest of the private work: a session already under
   // way in a warm, low-lit room.

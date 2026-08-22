@@ -4,7 +4,7 @@ import MethodScene from "../components/MethodScene.astro";
 import PageHead from "../components/PageHead.astro";
 import { getSession, formatPrice } from "../data/catalogue";
 import { METHOD_LEDE, METHOD_PILLARS, METHOD_PURPOSE } from "../data/method";
-import { gorgePortrait } from "../lib/media";
+import { resetSession } from "../lib/media";
 import { href } from "../lib/url";
 import { DICTS } from "../i18n/dict";
 const t = DICTS.en;
@@ -15,12 +15,12 @@ const s = getSession("la-terapia")!;
 
   <PageHead eyebrow="Proprietary method" title={t.reset.method}
     lede={METHOD_LEDE[0]}
-    plate={gorgePortrait} alt="Andrei Sirbu at the edge of an alpine gorge." focus="50% 35%" />
+    plate={resetSession} alt="Andrei Sirbu working with both hands along a client's back." focus="48% 88%" />
 
-  <MethodScene />
+  <MethodScene to="#in-full" />
 
   <!-- His own framing, set as the opening statement -->
-  <section class="field relative bg-void px-5 py-20 sm:px-8 md:py-28">
+  <section id="in-full" class="field relative scroll-mt-24 bg-void px-5 py-20 sm:px-8 md:py-28">
     <div class="mx-auto max-w-3xl space-y-6">
       {METHOD_LEDE.slice(1).map((p, i) => (
         <p class="lede-lux text-[1.05rem] md:text-[1.15rem]" data-reveal

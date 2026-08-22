@@ -621,5 +621,11 @@ export const localeHref = (locale: Locale, path = "/"): string => {
   if (!p.endsWith("/") && !p.includes("#") && !p.includes("?") && !/\.[a-z0-9]+$/i.test(p)) {
     p = `${p}/`;
   }
-  return locale === "en" ? `${base}${p}` : `${base}/${locale}${p}`;
+  // Only the homepage exists per locale. Prefixing an inner path produces a
+  // link like /de/sessions/ that was never built, so every non-English
+  // visitor hit a 404 on their first click. Inner routes fall back to the
+  // English page they actually have. Drop this condition once those routes
+  // are translated.
+  const localised = p === "/";
+  return locale === "en" || !localised ? `${base}${p}` : `${base}/${locale}${p}`;
 };
